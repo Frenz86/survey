@@ -44,10 +44,11 @@ def get_pages():
     
     # Mapping icon 
     icon_mapping = {
-                    'analisi descrittiva': 'bi-house',
-                    'analisi dimensione': 'bi-hourglass-split',
-                    'analisi correlazione': 'bi-card-image',
-                    'self analysis': 'bi-map',
+                    #https://icons.getbootstrap.com/
+                    'analisi descrittiva': 'bi-bullseye',
+                    'analisi dimensione': 'bi-fire',
+                    'analisi correlazione': 'bi-feather',
+                    'self analysis': 'bi-graph-up',
                     }
     
     for file in files:
@@ -85,7 +86,7 @@ class MultiApp:
                                         "container": {"padding": "5!important", "background-color": "white"},
                                         "icon": {"color": "black", "font-size": "21px"},
                                         "nav-link": {"color": "black", "font-size": "17px", "text-align": "left", "margin": "0px"},
-                                        "nav-link-selected": {"color": "black", "background-color": "#9ac280"}
+                                        "nav-link-selected": {"color": "black", "background-color": "#eb5e67"}
                                         }
                                         )        
         selected_index = pages.index(app)
