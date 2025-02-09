@@ -2,8 +2,8 @@ import streamlit as st
 from PIL import Image
 from streamlit_option_menu import option_menu
 import importlib
-import os
 import pandas as pd
+import os
 
 st.set_page_config(
                     page_title="Template Project",

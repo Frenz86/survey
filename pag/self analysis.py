@@ -75,7 +75,7 @@ def main():
 #####################################################################################
 
 
-    st.title("Analisi Comparativa Aziende")
+    st.title("Self Analysis Comparativa")
 
     categories = ['conoscenze', 'hardware', 'ecologia', 'resp_dipendenti', 'processi_digit', 'criticità']
     st.sidebar.header("Seleziona Azienda e Confronto")
