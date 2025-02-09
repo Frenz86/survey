@@ -16,6 +16,7 @@ def load_dataset():
     data = {}    
     data_config = {
                     'survey': 'data/cleaned_data.xlsx',
+                    #'test': 'data/test.xlsx',
                     }
     for dataset, datatset_path in data_config.items():
         if os.path.exists(datatset_path):
@@ -27,8 +28,7 @@ def load_dataset():
 
 
 def get_pages():
-    if 'data' not in st.session_state:
-        st.session_state['data'] = load_dataset()
+ 
 
     PAGES = 'pag' # cartella con le pagine, non usare pages!!!
     pages = []
@@ -72,8 +72,9 @@ class MultiApp:
                         })
 
     def main():
-        # Carica i modelli all'avvio
+        # Carica i modelli/dati all'avvio
         #st.session_state['models'] = load_models()
+        st.session_state['data'] = load_dataset()
 
         with st.sidebar:
             app = option_menu(

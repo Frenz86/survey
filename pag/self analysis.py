@@ -9,11 +9,9 @@ def get_top_performers(df, categories, n=1):
     top_performers = df.nlargest(n, 'score')
     return top_performers.drop('score', axis=1)
 
-
 # Funzione per creare il radar chart con Plotly
 def create_radar_chart(categories, values, labels, title):
     fig = go.Figure()
-    
     # Lista di colori per differenziare le linee
     colors = ['rgb(31, 119, 180)', 'rgb(255, 99, 71)', 'rgb(60, 179, 113)', 'rgb(147, 112, 219)']
     
@@ -43,57 +41,48 @@ def create_radar_chart(categories, values, labels, title):
         ),
         height=600
     )
-    
     return fig
 
 
 def main():
-
     DATASET_PATH = '../data/cleaned_data.xlsx'
     try:
         df = st.session_state.get('data', {}).get('survey')
     except AttributeError:
         df = pd.read_excel(DATASET_PATH)
 
-
 #################################################################################ààà
-    # Dati fake
+    # Dati fake x fare test (da cancellare!!!!!!!!!!!)
     data = {
-        'Azienda': ['azeinda1', 'azeinda2', 'azeinda3', 'azeinda4', 'azeinda5', 
-                    'azeinda6', 'azeinda7', 'azeinda8', 'azeinda9', 'azeinda10',
-                    'azeinda11', 'azeinda12', 'azeinda13', 'azeinda14', 'azeinda15',
-                    'azeinda16', 'azeinda17', 'azeinda18', 'azeinda19', 'azeinda20'],
-        'conoscenze': [5, 5, 4, 3, 1, 1, 5, 3, 1, 5, 5, 1, 5, 2, 4, 1, 1, 5, 1, 5],
-        'hardware': [5, 3, 5, 5, 5, 1, 1, 4, 2, 4, 1, 2, 1, 5, 3, 3, 5, 1, 1, 4],
-        'ecologia': [5, 2, 1, 2, 2, 1, 3, 1, 1, 3, 2, 3, 5, 2, 4, 2, 4, 3, 3, 3],
-        'resp_dipendenti': [3, 5, 1, 1, 1, 4, 5, 3, 4, 1, 2, 2, 5, 1, 5, 5, 3, 5, 3, 1],
-        'processi_digit': [1, 2, 2, 4, 5, 3, 2, 1, 3, 5, 1, 2, 4, 1, 2, 5, 1, 3, 5, 2],
-        'criticità': [5, 2, 2, 1, 3, 1, 1, 1, 2, 5, 5, 5, 5, 2, 3, 4, 5, 3, 3, 1]
-    }
+            'Azienda': ['azeinda1', 'azeinda2', 'azeinda3', 'azeinda4', 'azeinda5', 
+                        'azeinda6', 'azeinda7', 'azeinda8', 'azeinda9', 'azeinda10',
+                        'azeinda11', 'azeinda12', 'azeinda13', 'azeinda14', 'azeinda15',
+                        'azeinda16', 'azeinda17', 'azeinda18', 'azeinda19', 'azeinda20'],
+            'conoscenze': [5, 5, 4, 3, 1, 1, 5, 3, 1, 5, 5, 1, 5, 2, 4, 1, 1, 5, 1, 5],
+            'hardware': [5, 3, 5, 5, 5, 1, 1, 4, 2, 4, 1, 2, 1, 5, 3, 3, 5, 1, 1, 4],
+            'ecologia': [5, 2, 1, 2, 2, 1, 3, 1, 1, 3, 2, 3, 5, 2, 4, 2, 4, 3, 3, 3],
+            'resp_dipendenti': [3, 5, 1, 1, 1, 4, 5, 3, 4, 1, 2, 2, 5, 1, 5, 5, 3, 5, 3, 1],
+            'processi_digit': [1, 2, 2, 4, 5, 3, 2, 1, 3, 5, 1, 2, 4, 1, 2, 5, 1, 3, 5, 2],
+            'criticità': [5, 2, 2, 1, 3, 1, 1, 1, 2, 5, 5, 5, 5, 2, 3, 4, 5, 3, 3, 1]
+            }
 
     df = pd.DataFrame(data)
 #####################################################################################
 
-
     st.title("Self Analysis Comparativa")
-
     categories = ['conoscenze', 'hardware', 'ecologia', 'resp_dipendenti', 'processi_digit', 'criticità']
     st.sidebar.header("Seleziona Azienda e Confronto")
     selected_company = st.sidebar.selectbox(
                                             "Scegli l'azienda da analizzare",
                                             options=df['Azienda'].tolist()
                                             )
-    # Tipo di confronto
     comparison_type = st.sidebar.multiselect(
                                             "Scegli il tipo di confronto",
                                             options=["Media di tutte le aziende", "Azienda più virtuosa"],
                                             default=["Media di tutte le aziende"]
                                             )
-    # Preparazione dei dati per il radar chart
     values = []
     labels = []
-
-    # Dati dell'azienda selezionata
     company_data = df[df['Azienda'] == selected_company]
     values.append([company_data[cat].iloc[0] for cat in categories])
     labels.append(selected_company)
@@ -144,14 +133,13 @@ def main():
         
         # Creazione del grafico a barre per le differenze
         fig_diff = go.Figure()
-        
         fig_diff.add_trace(go.Bar(
-                                    x=categories,
-                                    y=differences,
-                                    marker_color=['red' if x < 0 else 'green' for x in differences],
-                                    text=[f"{x:.2f}" for x in differences],
-                                    textposition='auto',
-                                    ))
+                                x=categories,
+                                y=differences,
+                                marker_color=['red' if x < 0 else 'green' for x in differences],
+                                text=[f"{x:.2f}" for x in differences],
+                                textposition='auto',
+                                ))
         
         fig_diff.update_layout(
                                 title="Differenze rispetto alla media del settore",
@@ -169,13 +157,12 @@ def main():
                                         'Differenza dalla media': differences
                                         })
         st.dataframe(
-            diff_from_mean.style.background_gradient(
-                cmap='RdYlGn',
-                subset=['Differenza dalla media']
-            ),
-            hide_index=True
-        )
-    
+                    diff_from_mean.style.background_gradient(
+                                                            cmap='RdYlGn',
+                                                            subset=['Differenza dalla media'],
+                                                            ),
+                                                            hide_index=True
+                    )
 
 if __name__ == "__main__":
     main()

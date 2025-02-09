@@ -14,8 +14,6 @@ def create_section(title, function, df=None, explanation=None):
             st.markdown(explanation)
         st.markdown("<hr>", unsafe_allow_html=True)
 
-
-
 def main():
     # Set default plotly template
     pio.templates.default = "plotly"    

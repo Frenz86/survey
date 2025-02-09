@@ -3,14 +3,45 @@ import pandas as pd
 import plotly.io as pio
 from .func import Funz, GraficoInfrastruttura, GraficoRelazioni, GraficoFigure
 
-def main():
-    # Set default plotly template
-    pio.templates.default = "plotly"
-    
-    # Set page title
-    st.title('Digital Transformation Dashboard')
 
-    # Load data
+def create_section(title, plot_function, explanation=None):
+    """Create a section with a plot and optional explanation."""
+    col_left, col_center, col_right = st.columns([1, 4, 1])
+    with col_center:
+        st.markdown(f"### {title}")
+        plot_function()
+        if explanation:
+            st.markdown(explanation)
+        st.markdown("<hr>", unsafe_allow_html=True)
+
+def display_metrics(df):
+    """Display key metrics about the dataset."""
+    def simplify_maturity(x):
+        if pd.isna(x):
+            return "Non specificato"
+        elif "totalmente Digital Oriented" in x:
+            return "Totalmente Digital"
+        elif "relativamente digitale" in x:
+            return "Relativamente Digital"
+        elif "progetto pilota" in x:
+            return "Fase Pilota"
+        else:
+            return "Nessuna Trasformazione"
+    
+    # Add simplified maturity column
+    df['maturita_semplificata'] = df['maturita_digitale'].apply(simplify_maturity)
+    # Display metrics
+    col1, col2, col3, col4, col5 = st.columns(5)
+    with col3:
+        st.metric("Numero totale aziende", len(df))
+    with col4:
+        df['soddisfazione'] = pd.to_numeric(df['soddisfazione'], errors='coerce')
+        st.metric("Media soddisfazione", f"{df['soddisfazione'].mean():.2f}")
+
+
+def main():
+    pio.templates.default = "plotly"    
+    st.title('Digital Transformation Dashboard')
     DATASET_PATH = '../data/cleaned_data.xlsx'
     try:
         df = st.session_state.get('data', {}).get('survey')
@@ -20,13 +51,11 @@ def main():
     # Initialize function class
     funz = Funz()
 
-    # Initialize session state variables
     if 'selected_tab' not in st.session_state:
         st.session_state.selected_tab = "Analisi Descrittiva"
     if 'selected_subcategory' not in st.session_state:
         st.session_state.selected_subcategory = "Intervistato"
 
-    # Define subcategories
     subcategories = [
                     "Intervistato",
                     "Maturità Digitale",
@@ -36,57 +65,22 @@ def main():
                     "Transizione Digitale",
                     "Soddisfazione e miglioramenti"
                     ]
-    # Main content
+
     st.markdown("<h3 style='font-size: 36px; font-weight: bold;'>Seleziona una sottocategoria:</h3>", 
                 unsafe_allow_html=True)
 
     # Subcategory selection
     selected_subcategory = st.radio(
-        label=" ",
-        options=subcategories,
-        index=subcategories.index(st.session_state.get("selected_subcategory", subcategories[0])),
-        key="subcategory_radio",
-        help="Seleziona una sottocategoria per visualizzare i dati pertinenti."
-    )
+                                    label=" ",
+                                    options=subcategories,
+                                    index=subcategories.index(st.session_state.get("selected_subcategory", subcategories[0])),
+                                    key="subcategory_radio",
+                                    help="Seleziona una sottocategoria per visualizzare i dati pertinenti."
+                                    )
 
-    # Update session state
     if selected_subcategory != st.session_state.get("selected_subcategory"):
         st.session_state.selected_subcategory = selected_subcategory
 
-    def create_section(title, plot_function, explanation=None):
-        """Create a section with a plot and optional explanation."""
-        col_left, col_center, col_right = st.columns([1, 4, 1])
-        with col_center:
-            st.markdown(f"### {title}")
-            plot_function()
-            if explanation:
-                st.markdown(explanation)
-            st.markdown("<hr>", unsafe_allow_html=True)
-
-    def display_metrics(df):
-        """Display key metrics about the dataset."""
-        def simplify_maturity(x):
-            if pd.isna(x):
-                return "Non specificato"
-            elif "totalmente Digital Oriented" in x:
-                return "Totalmente Digital"
-            elif "relativamente digitale" in x:
-                return "Relativamente Digital"
-            elif "progetto pilota" in x:
-                return "Fase Pilota"
-            else:
-                return "Nessuna Trasformazione"
-        
-        # Add simplified maturity column
-        df['maturita_semplificata'] = df['maturita_digitale'].apply(simplify_maturity)
-        
-        # Display metrics
-        col1, col2, col3, col4, col5 = st.columns(5)
-        with col3:
-            st.metric("Numero totale aziende", len(df))
-        with col4:
-            df['soddisfazione'] = pd.to_numeric(df['soddisfazione'], errors='coerce')
-            st.metric("Media soddisfazione", f"{df['soddisfazione'].mean():.2f}")
 
 ###################################################  INTERVISTATO  #################################################
     if st.session_state.selected_subcategory == "Intervistato":
@@ -107,7 +101,7 @@ def main():
         
         display_metrics(df) 
 # OK
-###################################################  maturità digitale  #################################################
+###################################################  Maturità Digitale  #################################################
 
     elif st.session_state.selected_subcategory == "Maturità Digitale":
         st.markdown("### Analisi descrittiva - Maturità Digitale")
@@ -131,6 +125,8 @@ def main():
         )
         
         display_metrics(df)
+# OK
+###################################################  Figure con Competenze Digitali  ######################################
 
     elif st.session_state.selected_subcategory == "Figure con Competenze Digitali":
         st.markdown("### Analisi descrittiva - Figure con Competenze Digitali")
@@ -178,9 +174,12 @@ def main():
         )
         
         display_metrics(df)
+# OK
+###################################################  Infrastrutture Digitali  #################################################
 
     elif st.session_state.selected_subcategory == "Infrastrutture Digitali":
         st.markdown("### Analisi descrittiva - Infrastrutture digitali")
+        
         grafico_infr = GraficoInfrastruttura(df)
         
         create_section(
@@ -219,9 +218,12 @@ def main():
         )
         
         display_metrics(df)
+# OK
+###################################################  Relazioni e Valore economico  #################################################
 
     elif st.session_state.selected_subcategory == "Relazioni e Valore economico":
         st.markdown("### Analisi descrittiva - Relazioni e valore economico")
+        
         grafico_rel = GraficoRelazioni(df)
         
         create_section(
@@ -249,6 +251,8 @@ def main():
         )
         
         display_metrics(df)
+# OK
+###################################################  Transizione Digitale  #################################################
 
     elif st.session_state.selected_subcategory == "Transizione Digitale":
         st.markdown("### Analisi descrittiva - Transizione Digitale")
@@ -296,6 +300,8 @@ def main():
         )
         
         display_metrics(df)
+# OK
+###################################################  Soddisfazione e miglioramenti  #################################################
 
     elif st.session_state.selected_subcategory == "Soddisfazione e miglioramenti":
         st.markdown("### Analisi descrittiva - Soddisfazione e miglioramenti")
@@ -319,6 +325,9 @@ def main():
         )
         
         display_metrics(df)
+# OK
+###################################################################################################################################
+
 
 if __name__ == "__main__":
     main()

@@ -4,13 +4,9 @@ import pandas as pd
 from .corr import Correlazione
 
 def main():
-    # Set default plotly template
     pio.templates.default = "plotly"    
-    # Set page title
     st.title('Digital Transformation Dashboard')
-
     DATASET_PATH = '../data/cleaned_data.xlsx'
-
     try:
         df = st.session_state.get('data', {}).get('survey')
     except AttributeError:
