@@ -14,30 +14,7 @@ def create_section(title, function, df=None, explanation=None):
             st.markdown(explanation)
         st.markdown("<hr>", unsafe_allow_html=True)
 
-def display_metrics(df):
-    """Display key metrics about the dataset."""
-    def simplify_maturity(x):
-        if pd.isna(x):
-            return "Non specificato"
-        elif "totalmente Digital Oriented" in x:
-            return "Totalmente Digital"
-        elif "relativamente digitale" in x:
-            return "Relativamente Digital"
-        elif "progetto pilota" in x:
-            return "Fase Pilota"
-        else:
-            return "Nessuna Trasformazione"
-    
-    # Add simplified maturity column
-    df['maturita_semplificata'] = df['maturita_digitale'].apply(simplify_maturity)
-    
-    # Display metrics
-    col1, col2, col3, col4, col5 = st.columns(5)
-    with col3:
-        st.metric("Numero totale aziende", len(df))
-    with col4:
-        df['soddisfazione'] = pd.to_numeric(df['soddisfazione'], errors='coerce')
-        st.metric("Media soddisfazione", f"{df['soddisfazione'].mean():.2f}")
+
 
 def main():
     # Set default plotly template
@@ -52,6 +29,31 @@ def main():
     except AttributeError:
         df = pd.read_excel(DATASET_PATH)
     
+    def display_metrics(df):
+        """Display key metrics about the dataset."""
+        def simplify_maturity(x):
+            if pd.isna(x):
+                return "Non specificato"
+            elif "totalmente Digital Oriented" in x:
+                return "Totalmente Digital"
+            elif "relativamente digitale" in x:
+                return "Relativamente Digital"
+            elif "progetto pilota" in x:
+                return "Fase Pilota"
+            else:
+                return "Nessuna Trasformazione"
+        
+        # Add simplified maturity column
+        df['maturita_semplificata'] = df['maturita_digitale'].apply(simplify_maturity)
+        
+        # Display metrics
+        col1, col2, col3, col4, col5 = st.columns(5)
+        with col3:
+            st.metric("Numero totale aziende", len(df))
+        with col4:
+            df['soddisfazione'] = pd.to_numeric(df['soddisfazione'], errors='coerce')
+            st.metric("Media soddisfazione", f"{df['soddisfazione'].mean():.2f}")
+
     #st.dataframe(df)   
     chiave = Key(df)
 
