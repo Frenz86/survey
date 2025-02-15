@@ -73,7 +73,7 @@ def main():
    ))
 
    fig1.update_layout(
-       title='<b>MATRICE DI CORRELAZIONE</b>',
+       #title='<b>MATRICE DI CORRELAZIONE</b>',
        xaxis_title='Variabili',
        yaxis_title='Variabili',
        width=800,
@@ -85,11 +85,30 @@ def main():
    st.plotly_chart(fig1, use_container_width=False)
 
    st.markdown("""
-   **Analisi delle Correlazioni:**
-   - Forte correlazione positiva (+0.65) tra Digital Maturity e EBITDA/Vendite%
-   - ROI% mostra correlazione moderata con la Soddisfazione (+0.41)
-   - Rapporto indebitamento correlato negativamente (-0.37) con la Digital Maturity
-   - La Soddisfazione è più correlata agli indicatori finanziari che alla digitalizzazione
+    #### Correlazioni Principali
+    - **Digital Maturity e Soddisfazione (+0.46)**: 
+    - Correlazione moderata positiva 
+    - Le aziende con maggiore maturità digitale tendono ad avere livelli più elevati di soddisfazione complessiva
+    - Suggerisce che l'implementazione efficace di tecnologie digitali contribuisce positivamente alla percezione generale dell'azienda
+
+    - **EBITDA/Vendite% e ROI% (+0.50)**:
+    - Correlazione moderata positiva
+    - Evidenzia una naturale coerenza tra questi indicatori di performance finanziaria 
+    - Le aziende che mostrano una buona redditività operativa tendono anche ad avere un migliore ritorno sugli investimenti
+
+    #### Pattern nelle Correlazioni Finanziarie
+    - EBITDA/Vendite% mostra una correlazione moderata con la Soddisfazione (+0.35)
+    - ROI% presenta una correlazione debole ma positiva con il Rapporto di indebitamento (+0.31)
+    - Digital Maturity ha una correlazione molto debole con EBITDA/Vendite% (+0.17)
+    - Suggerisce che la digitalizzazione da sola potrebbe non essere un driver diretto della performance finanziaria
+
+    #### Correlazioni Deboli Significative
+    - Correlazione quasi nulla tra Digital Maturity e ROI% (0.00)
+    - Correlazione leggermente negativa tra Digital Maturity e Rapporto di indebitamento (-0.05)
+    - Correlazione debole tra Soddisfazione e Rapporto di indebitamento (-0.18)
+
+    #### Conclusioni
+    Le correlazioni evidenziano un quadro complesso dove la digitalizzazione e la performance finanziaria non sembrano essere direttamente collegate, ma potrebbero essere mediate da altri fattori organizzativi e operativi. La moderata correlazione tra Digital Maturity e Soddisfazione suggerisce che i benefici della digitalizzazione potrebbero manifestarsi primariamente attraverso migliori processi operativi e soddisfazione generale, prima di tradursi in risultati finanziari tangibili.
    """)
 
    # 2. Boxplot
@@ -101,7 +120,7 @@ def main():
        y='EBITDA/Vendite%',
        category_orders={'Digital_Maturity_Score': [1,2,3,4,5]},
        labels={'Digital_Maturity_Score': 'Livello Digital Maturity'},
-       title='<b>DISTRIBUZIONE EBITDA/VENDITE% PER LIVELLO DI MATURITÀ DIGITALE</b>'
+       #title='<b>DISTRIBUZIONE EBITDA/VENDITE% PER LIVELLO DI MATURITÀ DIGITALE</b>'
    )
 
    fig2.update_layout(
@@ -114,13 +133,27 @@ def main():
    st.plotly_chart(fig2, use_container_width=False)
 
    st.markdown("""
-   **Analisi della Distribuzione:**
-   - Aziende con Digital Maturity 5 (Totalmente Digital Oriented):
-       - EBITDA/Vendite% median superiore (>20%)
-       - Minore variabilità nei risultati
-   - Aziende con Digital Maturity 1-2 (Non digitalizzate/progetti interrotti):
-       - EBITDA/Vendite% median sotto il 10%
-       - Ampia dispersione (alcuni outlier positivi)
+
+    #### Aziende con Digital Maturity 5 (Totalmente Digital Oriented):
+    * EBITDA/Vendite% median superiore (>20%)
+    * Minore variabilità nei risultati
+
+    #### Aziende con Digital Maturity 1-2 (Non digitalizzate/progetti interrotti):
+    * EBITDA/Vendite% median sotto il 10%
+    * Ampia dispersione (alcuni outlier positivi)
+
+    #### Osservazioni sul Grafico:
+    * L'asse X rappresenta il livello di Digital Maturity (1=Min, 5=Max)
+    * L'asse Y mostra la percentuale EBITDA/Vendite
+    * I box plot mostrano la distribuzione dei valori per ogni livello
+    * Gli outlier sono rappresentati da punti individuali
+    * Si nota un trend positivo nella mediana all'aumentare della maturità digitale
+    * La dispersione dei dati tende a diminuire nei livelli più alti di maturità
+
+    #### Implicazioni:
+    * Le aziende più digitalizzate tendono ad avere performance migliori
+    * La stabilità dei risultati aumenta con la maturità digitale
+    * Esiste una correlazione positiva tra digitalizzazione e marginalità
    """)
 
    # 3. Grafico criticità
@@ -132,7 +165,7 @@ def main():
        y=criticita_counts.values,
        text_auto=True,
        labels={'x': 'Criticità', 'y': 'Conteggio'},
-       title='<b>DISTRIBUZIONE DELLE CRITICITÀ</b>',
+       #title='<b>DISTRIBUZIONE DELLE CRITICITÀ</b>',
        color=criticita_counts.index
    )
 
@@ -160,7 +193,7 @@ def main():
        x='Settore',
        y=['EBITDA/Vendite%', 'ROI_%'],
        barmode='group',
-       title='<b>PERFORMANCE PER SETTORE</b>',
+       #title='<b>PERFORMANCE PER SETTORE</b>',
        labels={'value': 'Percentuale'}
    )
 
