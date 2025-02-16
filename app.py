@@ -48,7 +48,7 @@ def get_pages():
                     'analisi descrittiva': 'bi-bullseye',
                     'analisi dimensione': 'bi-fire',
                     'analisi correlazione': 'bi-feather',
-                    'analisi ecofin': 'bi-graph-up',
+                    'analisi ecofin': 'bi-currency-euro',
                     'self analysis': 'bi-graph-up',
                     }
     
