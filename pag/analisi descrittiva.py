@@ -41,7 +41,7 @@ def display_metrics(df):
 
 def main():
     pio.templates.default = "plotly"    
-    st.title('Digital Transformation Dashboard')
+    st.title('Analisi Descrittiva della Survey')
     DATASET_PATH = '../data/cleaned_data.xlsx'
     try:
         df = st.session_state.get('data', {}).get('survey')

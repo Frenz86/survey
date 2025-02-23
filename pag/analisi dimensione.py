@@ -17,7 +17,7 @@ def create_section(title, function, df=None, explanation=None):
 def main():
     # Set default plotly template
     pio.templates.default = "plotly"    
-    st.title('Digital Transformation Dashboard')
+    st.title('Analisi Dimensionale')
 
     DATASET_PATH = '../data/cleaned_data.xlsx'
     try:

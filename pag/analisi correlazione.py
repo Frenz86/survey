@@ -18,7 +18,7 @@ def create_section(title, function, df=None, explanation=None):
 
 def main():
     pio.templates.default = "plotly"    
-    st.title('Digital Transformation Dashboard')
+    st.title('Analisi Correlazione')
     DATASET_PATH = '../data/cleaned_data.xlsx'
     try:
         df = st.session_state.get('data', {}).get('survey')
