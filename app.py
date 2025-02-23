@@ -17,6 +17,7 @@ def load_dataset():
     data_config = {
                     'survey': 'data/cleaned_data.xlsx',
                     'ecofin': 'data/new.xlsx',
+                    'spider': 'data/spider.xlsx',
                     }
     for dataset, datatset_path in data_config.items():
         if os.path.exists(datatset_path):
