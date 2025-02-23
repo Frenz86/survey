@@ -142,7 +142,7 @@ class Correlazione:
         )
         layout.update(margin=dict(l=200, r=200, t=150, b=30))
         fig.update_layout(layout)
-        
+        fig.update_coloraxes(showscale=False)
         st.plotly_chart(fig, use_container_width=True)
 
     def correlazione1_budget(self, df=None):
@@ -171,7 +171,7 @@ class Correlazione:
                                                             width=800,
                                                             height=800
                                                             ))
-                                                        
+        fig.update_coloraxes(showscale=False)                                                
         st.plotly_chart(fig, theme=None, use_container_width=True)
 
     def plot_criticita_budget(self, df=None):
@@ -200,6 +200,7 @@ class Correlazione:
             labels={'x': 'Budget (% sul fatturato)', 'y': 'Tipo di Criticità', 'color': 'Numero di Aziende'}
         )
         
+        fig.update_coloraxes(showscale=False)
         fig.update_layout(self._create_base_plotly_layout(
             x_title='Budget (% sul fatturato)',
             y_title='Tipo di Criticità'
@@ -247,5 +248,5 @@ class Correlazione:
                                                         width=800,
                                                         height=800
                                                         ))
-        
+        fig.update_coloraxes(showscale=False)
         st.plotly_chart(fig, use_container_width=True)
