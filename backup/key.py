@@ -142,11 +142,11 @@ class Key:
 
         # Mappa nomi delle infrastrutture per la visualizzazione
         nomi_infrastrutture = {
-            'infr_hardware': 'Hardware',
-            'infr_software': 'Software',
-            'infr_cloud': 'Cloud',
-            'infr_sicurezza': 'Sicurezza'
-        }
+                                'infr_hardware': 'Hardware',
+                                'infr_software': 'Software',
+                                'infr_cloud': 'Cloud',
+                                'infr_sicurezza': 'Sicurezza'
+                                }
 
         # Definisci i colori fissi per ogni tipo di infrastruttura
         colori_infrastrutture = {
@@ -221,12 +221,13 @@ class Key:
 
     def mappa_risposte1(self):
         mappa_risposte = {
-                        'Molto D\'accordo': 4,
-                        'D\'accordo': 3,
-                        'Neutrale': 2,
-                        'In disaccordo': 1,
-                        np.nan: 0  
-                        }
+            'Molto D\'accordo': 4,
+            'D\'accordo': 3,
+            'Neutrale': 2,
+            'In disaccordo': 1,
+            np.nan: 0  
+        }
+        
         #
         self.df[['cdh_conoscenze', 'cdh_competenze_tecniche', 'cdh_abilita_analitiche', 'cdh_innovazione', 'cdh_formazione']] = self.df[['cdh_conoscenze', 'cdh_competenze_tecniche', 'cdh_abilita_analitiche', 'cdh_innovazione', 'cdh_formazione']].replace('Nessuna risposta', np.nan)
         
