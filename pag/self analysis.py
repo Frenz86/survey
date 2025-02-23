@@ -356,6 +356,8 @@ def main():
     if df is None:
         return
     
+    #####
+    
     st.title("Self Analysis Comparativa")
     categories = [col for col in df.columns if col != 'Azienda']
     
