@@ -142,11 +142,11 @@ class Key:
 
         # Mappa nomi delle infrastrutture per la visualizzazione
         nomi_infrastrutture = {
-            'infr_hardware': 'Hardware',
-            'infr_software': 'Software',
-            'infr_cloud': 'Cloud',
-            'infr_sicurezza': 'Sicurezza'
-        }
+                                'infr_hardware': 'Hardware',
+                                'infr_software': 'Software',
+                                'infr_cloud': 'Cloud',
+                                'infr_sicurezza': 'Sicurezza'
+                                }
 
         # Definisci i colori fissi per ogni tipo di infrastruttura
         colori_infrastrutture = {
