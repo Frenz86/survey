@@ -45,6 +45,7 @@ class Key:
                             color_discrete_sequence=pastel_colors
                             )
         
+        
         # Personalizzazione del layout
         fig.update_layout(
                             title={'text': ' ', 'x': 0.5},
