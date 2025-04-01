@@ -66,156 +66,203 @@ class Key:
 
 
 #################################################################################################### Maturità Digitale e Infrastrutture Digitali ####################################################################################################
-    # Funzione per mappare le risposte
-    def mappa_risposte(self):
-        mappa_risposte = {
-            'Molto D\'accordo': 4,
-            'D\'accordo': 3,
-            'Neutrale': 2,
-            'In disaccordo': 1,
-            np.nan: 0  
-        }
-        
-        self.df[['infr_hardware', 'infr_software', 'infr_cloud', 'infr_sicurezza']] = self.df[['infr_hardware', 'infr_software', 'infr_cloud', 'infr_sicurezza']].replace('Nessuna risposta', np.nan)
-        
-        # Applica la mappatura a tutte le colonne delle infrastrutture
-        for col in ['infr_hardware', 'infr_software', 'infr_cloud', 'infr_sicurezza']:
-            self.df[col] = self.df[col].map(mappa_risposte)
-
-        # Converte le colonne delle infrastrutture in tipo numerico per evitare problemi con la media
-        for col in ['infr_hardware', 'infr_software', 'infr_cloud', 'infr_sicurezza']:
-            self.df[col] = pd.to_numeric(self.df[col], errors='coerce')  # Converte in numerico, sostituendo eventuali errori con NaN
-        # Funzione per creare il grafico con intensità del colore basata sul conteggio delle aziende
-    
+# Funzione per mappare le risposte
     def visualizza_maturita_infrastrutture(self):
-        """
-        Visualizza la relazione tra maturità digitale e infrastrutture con un grafico a barre.
-        I colori sono fissati per ogni tipo di infrastruttura.
-        """
-        # Applica la mappatura delle risposte
-        self.mappa_risposte()
-        
-        # Lista delle infrastrutture
-        infrastrutture = ['infr_hardware', 'infr_software', 'infr_cloud', 'infr_sicurezza']
-        
-        # Gestisci i valori NaN nelle colonne delle infrastrutture
-        self.df[infrastrutture] = self.df[infrastrutture].fillna(0)
-
-        # Rimuovi le righe non valide
-        self.df = self.df.dropna(subset=['maturita_digitale'])
-        self.df = self.df[self.df['maturita_digitale'] != 'Nessuna risposta']
-
-        # Definisci l'ordine delle categorie di maturità digitale
-        ordine_maturita = [
-            "Non digitalizzato",
-            "Qualche progetto interrotto",
-            "Qualche progetto avviato",
-            "Relativamente digitale",
-            "Totalmente Digital Oriented"
-        ]
-        
-        # Converti maturita_digitale in categorical con l'ordine specificato
-        self.df['maturita_digitale'] = pd.Categorical(
-            self.df['maturita_digitale'],
-            categories=ordine_maturita,
-            ordered=True
-        )
-
-        # Calcola medie e conteggi
-        medie = []
-        for infr in infrastrutture:
-            # Calcola media e conteggio
-            df_temp = self.df.groupby('maturita_digitale').agg({
-                infr: 'mean',
-                'maturita_digitale': 'size'
-            }).rename(columns={'maturita_digitale': 'conteggio'})
+            """
+            Visualizza la relazione tra maturità digitale e infrastrutture con un grafico a barre.
+            Utilizza session_state per mantenere il grafico tra i cambi di pagina.
+            """
             
-            # Resetta l'index e prepara il dataframe
-            df_temp = df_temp.reset_index()
-            df_temp['infrastruttura'] = infr
-            medie.append(df_temp)
-        
-        df_grouped = pd.concat(medie, ignore_index=True)
-
-        # Crea il grafico
-        fig = go.Figure()
-
-        # Mappa nomi delle infrastrutture per la visualizzazione
-        nomi_infrastrutture = {
-                                'infr_hardware': 'Hardware',
-                                'infr_software': 'Software',
-                                'infr_cloud': 'Cloud',
-                                'infr_sicurezza': 'Sicurezza'
-                                }
-
-        # Definisci i colori fissi per ogni tipo di infrastruttura
-        colori_infrastrutture = {
-            'infr_hardware': '#FAD02E',    # Blu
-            'infr_software': '#F28D35',    # Verde
-            'infr_cloud': '#D83367',       # Giallo
-            'infr_sicurezza': '#1F4068'    # Rosso
-        }
-
-        # Aggiungi le barre per ogni infrastruttura
-        for infr in infrastrutture:
-            df_infr = df_grouped[df_grouped['infrastruttura'] == infr]
+            # Definisci una chiave univoca per questo grafico nel session_state
+            chart_key = "maturita_infrastrutture_chart_data"
             
-            fig.add_trace(go.Bar(
-                name=nomi_infrastrutture[infr],
-                x=df_infr['maturita_digitale'],
-                y=df_infr[infr],
-                marker_color=colori_infrastrutture[infr],
-                hovertemplate=(
-                    f"<b>{nomi_infrastrutture[infr]}</b><br>" +
-                    "Maturità: %{x}<br>" +
-                    "Media: %{y:.2f}<br>" +
-                    "Numero aziende: %{customdata}<br>" +
-                    "<extra></extra>"
-                ),
-                customdata=df_infr['conteggio']
-            ))
+            try:
+                # Verifica se dobbiamo ricalcolare i dati o se possiamo usare dati precedenti
+                recalculate = True
+                
+                # Crea una copia del dataframe per evitare modifiche indesiderate
+                df_temp = self.df.copy()
+                
+                # Lista delle infrastrutture
+                infrastrutture = ['infr_hardware', 'infr_software', 'infr_cloud', 'infr_sicurezza']
+                
+                # Mappa le risposte manualmente
+                mappa_risposte = {
+                    'Molto D\'accordo': 4,
+                    'D\'accordo': 3,
+                    'Neutrale': 2,
+                    'In disaccordo': 1,
+                    'Nessuna risposta': 0,
+                    np.nan: 0  
+                }
+                
+                # Assicurati che tutte le colonne esistano
+                for col in infrastrutture:
+                    if col not in df_temp.columns:
+                        df_temp[col] = np.nan
+                
+                # Sostituisci e mappa i valori
+                df_temp[infrastrutture] = df_temp[infrastrutture].replace('Nessuna risposta', np.nan)
+                
+                # Applica la mappatura a tutte le colonne delle infrastrutture
+                for col in infrastrutture:
+                    df_temp[col] = df_temp[col].map(mappa_risposte)
+                    df_temp[col] = pd.to_numeric(df_temp[col], errors='coerce').fillna(0)
+                
+                # Rimuovi le righe non valide
+                df_valid = df_temp.dropna(subset=['maturita_digitale'])
+                df_valid = df_valid[df_valid['maturita_digitale'] != 'Nessuna risposta']
+                
+                # Se non ci sono dati validi, mostra un messaggio e termina
+                if len(df_valid) == 0:
+                    st.warning("Non ci sono dati validi da visualizzare.")
+                    return
 
-        # Aggiorna il layout
-        fig.update_layout(
-            title={
-                'text': 'Relazione tra Maturità Digitale e Infrastrutture',
-                'y': 0.95,
-                'x': 0.5,
-                'xanchor': 'center',
-                'yanchor': 'top',
-                'font': {'size': 20}
-            },
-            xaxis={
-                'title': 'Livello di Maturità Digitale',
-                'tickangle': -45,
-                'title_font': {'size': 16},
-                'tickfont': {'size': 12}
-            },
-            yaxis={
-                'title': 'Media Punteggio Infrastrutture',
-                'title_font': {'size': 16},
-                'tickfont': {'size': 12},
-                'range': [0, 5]
-            },
-            barmode='group',
-            bargap=0.15,
-            bargroupgap=0.1,
-            height=700,
-            width=1200,
-            showlegend=True,
-            legend={
-                'title': 'Infrastrutture',
-                'font': {'size': 12},
-                'yanchor': 'top',
-                'y': 0.99,
-                'xanchor': 'right',
-                'x': 0.99
-            },
-            margin={'l': 60, 'r': 30, 't': 80, 'b': 150}
-        )
+                # Definisci l'ordine delle categorie di maturità digitale
+                ordine_maturita = [
+                    "Non digitalizzato",
+                    "Qualche progetto interrotto",
+                    "Qualche progetto avviato",
+                    "Relativamente digitale",
+                    "Totalmente Digital Oriented"
+                ]
+                
+                # Converti maturita_digitale in categorical con l'ordine specificato
+                # Verifica che i valori siano nell'elenco delle categorie
+                valid_categories = [cat for cat in df_valid['maturita_digitale'].unique() if cat in ordine_maturita]
+                
+                if not valid_categories:
+                    st.warning("Nessuna categoria di maturità valida trovata nei dati.")
+                    st.write("Valori trovati:", df_valid['maturita_digitale'].unique())
+                    return
+                    
+                df_valid['maturita_digitale'] = pd.Categorical(
+                    df_valid['maturita_digitale'],
+                    categories=ordine_maturita,
+                    ordered=True
+                )
 
-        # Mostra il grafico
-        st.plotly_chart(fig, use_container_width=True)
+                # Calcola medie e conteggi
+                medie = []
+                for infr in infrastrutture:
+                    # Calcola media e conteggio
+                    try:
+                        df_temp = df_valid.groupby('maturita_digitale').agg({
+                            infr: 'mean',
+                            'maturita_digitale': 'size'
+                        }).rename(columns={'maturita_digitale': 'conteggio'})
+                        
+                        # Resetta l'index e prepara il dataframe
+                        df_temp = df_temp.reset_index()
+                        df_temp['infrastruttura'] = infr
+                        medie.append(df_temp)
+                    except Exception as e:
+                        st.error(f"Errore nel calcolo delle medie per {infr}: {str(e)}")
+                        continue
+                
+                if not medie:
+                    st.warning("Non è stato possibile calcolare le medie. Verifica i dati.")
+                    return
+                    
+                df_grouped = pd.concat(medie, ignore_index=True)
+
+                # Crea il grafico
+                fig = go.Figure()
+
+                # Mappa nomi delle infrastrutture per la visualizzazione
+                nomi_infrastrutture = {
+                    'infr_hardware': 'Hardware',
+                    'infr_software': 'Software',
+                    'infr_cloud': 'Cloud',
+                    'infr_sicurezza': 'Sicurezza'
+                }
+
+                # Definisci i colori fissi per ogni tipo di infrastruttura
+                colori_infrastrutture = {
+                    'infr_hardware': '#FAD02E',    # Giallo
+                    'infr_software': '#F28D35',    # Arancione
+                    'infr_cloud': '#D83367',       # Rosso
+                    'infr_sicurezza': '#1F4068'    # Blu scuro
+                }
+
+                # Aggiungi le barre per ogni infrastruttura
+                for infr in infrastrutture:
+                    df_infr = df_grouped[df_grouped['infrastruttura'] == infr]
+                    
+                    # Verifica che ci siano dati da visualizzare
+                    if df_infr.empty:
+                        continue
+                    
+                    fig.add_trace(go.Bar(
+                        name=nomi_infrastrutture[infr],
+                        x=df_infr['maturita_digitale'],
+                        y=df_infr[infr],
+                        marker_color=colori_infrastrutture[infr],
+                        hovertemplate=(
+                            f"<b>{nomi_infrastrutture[infr]}</b><br>" +
+                            "Maturità: %{x}<br>" +
+                            "Media: %{y:.2f}<br>" +
+                            "Numero aziende: %{customdata}<br>" +
+                            "<extra></extra>"
+                        ),
+                        customdata=df_infr['conteggio']
+                    ))
+
+                # Aggiorna il layout
+                fig.update_layout(
+                    title={
+                        'y': 0.95,
+                        'x': 0.5,
+                        'xanchor': 'center',
+                        'yanchor': 'top',
+                        'font': {'size': 20}
+                    },
+                    xaxis={
+                        'title': 'Livello di Maturità Digitale',
+                        'tickangle': -45,
+                        'title_font': {'size': 16},
+                        'tickfont': {'size': 12}
+                    },
+                    yaxis={
+                        'title': 'Media Punteggio Infrastrutture',
+                        'title_font': {'size': 16},
+                        'tickfont': {'size': 12},
+                        'range': [0, 5]
+                    },
+                    barmode='group',
+                    bargap=0.15,
+                    bargroupgap=0.1,
+                    height=700,
+                    width=1200,
+                    showlegend=True,
+                    legend={
+                        'title': 'Infrastrutture',
+                        'font': {'size': 12},
+                        'yanchor': 'top',
+                        'y': 0.99,
+                        'xanchor': 'right',
+                        'x': 0.99
+                    },
+                    margin={'l': 60, 'r': 30, 't': 80, 'b': 150}
+                )
+
+                # Usa una tecnica alternativa per assicurarsi che il grafico sia renderizzato correttamente
+                
+                # Tecnica 1: Usa una colonna per contenere il grafico
+                col = st.columns(1)[0]  # Crea una colonna singola
+                with col:
+                    # Mostra il grafico con un key univoco
+                    st.plotly_chart(fig, use_container_width=True, key=f"maturita_chart_{id(self)}")
+                
+            except Exception as e:
+                import traceback
+
+                st.error(f"Si è verificato un errore durante la visualizzazione: {str(e)}")
+                st.code(traceback.format_exc())
+                
+                # Aggiungi un pulsante per riprovare
+                if st.button("Riprova", key=f"retry_chart_{id(self)}"):
+                    st.experimental_rerun()
 
 #################################################################################################### Maturità Digitale e Relazioni Digitali ####################################################################################################
 
@@ -228,94 +275,143 @@ class Key:
             np.nan: 0  
         }
         
-        #
+        # Replace 'Nessuna risposta' with NaN
         self.df[['cdh_conoscenze', 'cdh_competenze_tecniche', 'cdh_abilita_analitiche', 'cdh_innovazione', 'cdh_formazione']] = self.df[['cdh_conoscenze', 'cdh_competenze_tecniche', 'cdh_abilita_analitiche', 'cdh_innovazione', 'cdh_formazione']].replace('Nessuna risposta', np.nan)
         
-        # Applica la mappatura a tutte le colonne specificate nel dizionario
+        # Apply mapping to all specified columns
         for col in ['cdh_conoscenze', 'cdh_competenze_tecniche', 'cdh_abilita_analitiche', 'cdh_innovazione', 'cdh_formazione']:
             self.df[col] = self.df[col].map(mappa_risposte)
 
-        # Converte le colonne in tipo numerico per evitare problemi con la media
+        # Convert columns to numeric type to avoid issues with mean calculation
         for col in ['cdh_conoscenze', 'cdh_competenze_tecniche', 'cdh_abilita_analitiche', 'cdh_innovazione', 'cdh_formazione']:
-            self.df[col] = pd.to_numeric(self.df[col], errors='coerce')  # Converte in numerico, sostituendo eventuali errori con NaN
+            self.df[col] = pd.to_numeric(self.df[col], errors='coerce')
 
-    # Funzione per creare il grafico con intensità del colore basata sul conteggio delle aziende
+    # Function to create the chart with color intensity based on company count
     def visualizza_maturita_figure(self):
-        titles_dict = {
-            'cdh_conoscenze': "figure conoscenze digitali",
-            'cdh_competenze_tecniche': "figure competenze tecniche",
-            'cdh_abilita_analitiche': "figure abilità analitiche/decisionali",
-            'cdh_innovazione': "figure capacità di innovazione",
-            'cdh_formazione': "formazione continua"
-        }
-        # Applica la mappatura delle risposte
-        self.mappa_risposte1()
-        
-        # Gestisci i valori NaN nelle colonne (li mappiamo a 0)
-        self.df[['cdh_conoscenze', 'cdh_competenze_tecniche', 'cdh_abilita_analitiche', 'cdh_innovazione', 'cdh_formazione']] = self.df[['cdh_conoscenze', 'cdh_competenze_tecniche', 'cdh_abilita_analitiche', 'cdh_innovazione', 'cdh_formazione']].fillna(0)
+        try:
+            # Check if DataFrame is initialized and not empty
+            if self.df is None or self.df.empty:
+                st.error("No data available. Please load data first.")
+                return
+                
+            titles_dict = {
+                'cdh_conoscenze': "figure conoscenze digitali",
+                'cdh_competenze_tecniche': "figure competenze tecniche",
+                'cdh_abilita_analitiche': "figure abilità analitiche/decisionali",
+                'cdh_innovazione': "figure capacità di innovazione",
+                'cdh_formazione': "formazione continua"
+            }
+            
+            # Create a deep copy of the DataFrame to avoid modifying the original
+            df_viz = self.df.copy(deep=True)
+            
+            # Force conversion to numeric values for these columns
+            columns = ['cdh_conoscenze', 'cdh_competenze_tecniche', 'cdh_abilita_analitiche', 'cdh_innovazione', 'cdh_formazione']
+            
+            # Direct mapping to numerical values without calling mappa_risposte1
+            value_map = {
+                'Molto D\'accordo': 4,
+                'D\'accordo': 3,
+                'Neutrale': 2,
+                'In disaccordo': 1,
+                'Nessuna risposta': 0,
+                np.nan: 0
+            }
+            
+            # Apply mapping and ensure numeric data type
+            for col in columns:
+                df_viz[col] = df_viz[col].map(value_map)
+                df_viz[col] = pd.to_numeric(df_viz[col], errors='coerce').fillna(0)
+                # Double-check it's really numeric
+                df_viz[col] = df_viz[col].astype(float)
 
-        # Rimuovi le righe dove non ci sono risposte valide per 'maturita_digitale'
-        self.df = self.df.dropna(subset=['maturita_digitale'])
+            # Remove rows where there are no valid answers for 'maturita_digitale'
+            df_viz = df_viz.dropna(subset=['maturita_digitale'])
 
-        # Filtra per rimuovere "Nessuna risposta" dalla colonna 'maturita_digitale'
-        self.df = self.df[self.df['maturita_digitale'] != 'Nessuna risposta']
-        self.df = self.df[self.df['maturita_digitale'] != 'Non digitalizzato'] 
+            # Filter to remove "Nessuna risposta" and "Non digitalizzato" from the 'maturita_digitale' column
+            df_viz = df_viz[df_viz['maturita_digitale'] != 'Nessuna risposta']
+            df_viz = df_viz[df_viz['maturita_digitale'] != 'Non digitalizzato']
 
-        # Raggruppa i dati per 'maturita_digitale' e calcola la media per ogni colonna
-        columns = ['cdh_conoscenze', 'cdh_competenze_tecniche', 'cdh_abilita_analitiche', 'cdh_innovazione', 'cdh_formazione']
-        data = []
+            # Check if we still have data after filtering
+            if df_viz.empty:
+                st.warning("No valid data after filtering. Please check your dataset.")
+                return
 
-        # Calcoliamo il conteggio delle risposte per ogni livello di maturità digitale
-        conteggi = self.df['maturita_digitale'].value_counts().reset_index()
-        conteggi.columns = ['maturita_digitale', 'conteggio']
+            # Calculate the count of responses for each level of digital maturity
+            conteggi = df_viz['maturita_digitale'].value_counts().reset_index()
+            conteggi.columns = ['maturita_digitale', 'conteggio']
+            
+            # Prepare data for plotting
+            plot_data = []
+            
+            for col in columns:
+                # Compute mean manually for each group to avoid dtype issues
+                group_means = []
+                for group in df_viz['maturita_digitale'].unique():
+                    group_data = df_viz[df_viz['maturita_digitale'] == group]
+                    mean_val = group_data[col].mean()
+                    group_means.append({
+                        'maturita_digitale': group,
+                        col: mean_val,
+                        'colonna': col
+                    })
+                
+                # Convert to DataFrame
+                media_col = pd.DataFrame(group_means)
+                plot_data.append(media_col)
 
-        for col in columns:
-            media_col = self.df.groupby('maturita_digitale')[col].mean().reset_index()
-            media_col['colonna'] = col
-            data.append(media_col)
-
-        # Unisci tutti i dati
-        df_grouped = pd.concat(data, ignore_index=True)
-
-        # Aggiungi i conteggi alle medie delle colonne
-        df_grouped = df_grouped.merge(conteggi, on='maturita_digitale', how='left')
-
-        # Crea il layout con 1 subplot
-        fig = go.Figure()
-
-        # Aggiungi i grafici per ogni colonna
-        for i, col in enumerate(columns):
-            df_col = df_grouped[df_grouped['colonna'] == col]
-
-            fig.add_trace(
-                go.Bar(
-                    x=df_col['maturita_digitale'],  # Maturità Digitale sull'asse X
-                    y=df_col[col],                   # Media dei punteggi sull'asse Y
-                    name=titles_dict[col],           # Usa il titolo dal dizionario
-                    marker=dict(
-                        color=df_col['conteggio'],   # Intensità del colore basata sul conteggio
-                        colorscale=['#FAD02E', '#F28D35', '#D83367', '#1F4068', '#5B84B1'],  # Colori specificati
-                        colorbar=dict(title="Conteggio Aziende")  # Barra dei colori
-                    ),
-                    hovertemplate='Colonna: %{text}<br>Maturità Digitale: %{x}<br>Media Punteggi: %{y}<br>Conteggio Aziende: %{marker.color}',
-                    text=titles_dict[col]  # Aggiungi il titolo
+            # Combine all data
+            if plot_data:
+                df_grouped = pd.concat(plot_data, ignore_index=True)
+                
+                # Add counts to column means
+                df_grouped = df_grouped.merge(conteggi, on='maturita_digitale', how='left')
+                
+                # Create layout with 1 subplot
+                fig = go.Figure()
+                
+                # Add charts for each column
+                for i, col in enumerate(columns):
+                    df_col = df_grouped[df_grouped['colonna'] == col]
+                    
+                    if not df_col.empty:
+                        fig.add_trace(
+                            go.Bar(
+                                x=df_col['maturita_digitale'],  # Digital Maturity on X axis
+                                y=df_col[col],                  # Mean scores on Y axis
+                                name=titles_dict[col],          # Use title from dictionary
+                                marker=dict(
+                                    color=df_col['conteggio'],  # Color intensity based on count
+                                    colorscale=['#FAD02E', '#F28D35', '#D83367', '#1F4068', '#5B84B1'],  # Specified colors
+                                    colorbar=dict(title="Conteggio Aziende")  # Color bar
+                                ),
+                                hovertemplate='Colonna: %{text}<br>Maturità Digitale: %{x}<br>Media Punteggi: %{y}<br>Conteggio Aziende: %{marker.color}',
+                                text=titles_dict[col]  # Add title
+                            )
+                        )
+                
+                # Update layout with titles, labels and other customizations
+                fig.update_layout(
+                    height=600,
+                    width=800,
+                    title_text="  ",
+                    showlegend=False,  # Remove legend
+                    barmode='group',   # Graphs will be grouped for each level of digital maturity
+                    xaxis_title="Maturità Digitale",
+                    yaxis_title="Media Punteggi",
+                    font=dict(size=12)
                 )
-            )
+                
+                # Display the chart
+                st.plotly_chart(fig, use_container_width=True)
+            else:
+                st.warning("No data available to plot after processing.")
+                
+        except Exception as e:
+            st.error(f"An error occurred in visualizza_maturita_figure: {str(e)}")
+            import traceback
+            st.code(traceback.format_exc())
 
-        # Aggiorna layout con titoli, etichette e altre personalizzazioni
-        fig.update_layout(
-            height=600,
-            width=800,
-            title_text="  ",
-            showlegend=False,  # Rimuove la legenda
-            barmode='group',  # I grafici saranno raggruppati per ogni livello di maturità digitale
-            xaxis_title="Maturità Digitale",
-            yaxis_title="Media Punteggi",
-            font=dict(size=12)
-        )
-
-        # Mostriamo il grafico
-        st.plotly_chart(fig, use_container_width=True)
 
 
 #################################################################################################### Maturità Digitale e Data di transizione ####################################################################################################
