@@ -103,8 +103,9 @@ class Funz:
         fig.update_yaxes(showgrid=False)
         st.plotly_chart(fig, theme=None, use_container_width=True)
 
-        
+
     def plot_role_distribution(self, df):
+        df_copy = df.copy() # Work on a copy
         it_roles = [
             'IT Manager', 'CIO', 'CFO', 'Coordinatore Data Unit', 'Chief Information Officer',
             'Responsabile IT', 'R&D Manager', 'Quality Assurance, Organization & Sustainability',
@@ -112,10 +113,10 @@ class Funz:
             'Co-founder e CTO', 'IT Manager', 'Direttore Innovation', 'Executive Assistant'
         ]
 
-        df['Ruolo Informatico'] = df['ruolo'].apply(
+        df_copy['Ruolo Informatico'] = df_copy['ruolo'].apply(
             lambda x: 'Ruolo informatico' if x in it_roles else 'Altro ruolo'
         )
-        role_counts = df['Ruolo Informatico'].value_counts()
+        role_counts = df_copy['Ruolo Informatico'].value_counts()
 
         pie_fig = go.Pie(
             labels=role_counts.index,
@@ -124,7 +125,7 @@ class Funz:
             marker=dict(colors=['#1d5b9b', '#a8c8f8'])
         )
 
-        it_role_list = df[df['Ruolo Informatico'] == 'Ruolo informatico']['ruolo'].unique()
+        it_role_list = df_copy[df_copy['Ruolo Informatico'] == 'Ruolo informatico']['ruolo'].unique()
 
         fig = make_subplots(
             rows=1, cols=2,
@@ -231,7 +232,8 @@ class Funz:
                     marker=dict(color=self.colors_red[:len(maturity_levels)]),
                     hovertemplate="<b>%{x}</b><br>" +
                                 "Valore: %{y}<br>" +
-                                "Percentuale: %{text}<extra></extra>"
+                                "Percentuale: %{text}<extra></extra>",
+                    text=percentages.apply(lambda x: f"{x:.1f}%") # Add percentages text for hover
                 ),
                 row=1, col=2
             )
@@ -328,6 +330,7 @@ class Funz:
         st.plotly_chart(fig, use_container_width=True)
 
     def plot_trans(self, df):
+        # No modification needed here, just counting values
         trans_counts = df['trans_digitale'].value_counts()
         fig = go.Figure()
 
@@ -353,8 +356,10 @@ class Funz:
         st.plotly_chart(fig)
 
     def inizio_trans(self, df):
-        df['inizio_trans'].fillna('Nessuna risposta', inplace=True)
-        distribution_counts = df['inizio_trans'].value_counts()
+        df_copy = df.copy() # Work on a copy
+        df_copy['inizio_trans'].fillna('Nessuna risposta', inplace=True) # Use inplace=False or assign back
+        # df_copy['inizio_trans'] = df_copy['inizio_trans'].fillna('Nessuna risposta') # Alternative to inplace=True
+        distribution_counts = df_copy['inizio_trans'].value_counts()
         total = distribution_counts.sum()
         percentages = (distribution_counts / total) * 100
 
@@ -406,8 +411,9 @@ class Funz:
     ##################################################################################################### stimoli trans ###########################################################################################
 
     def plot_stimoli_trans_funnel(self, df):
-        df['stimoli_trans'] = df['stimoli_trans'].fillna('Nessuna risposta')
-        df['stimoli_trans'] = df['stimoli_trans'].replace(
+        df_copy = df.copy() # Work on a copy
+        df_copy['stimoli_trans'] = df_copy['stimoli_trans'].fillna('Nessuna risposta')
+        df_copy['stimoli_trans'] = df_copy['stimoli_trans'].replace(
             'Stimoli da associazioni di categoria/centri di ricerca/ istituzioni universitarie',
             'Stimoli da associazioni e centri di ricerca'
             )
@@ -420,7 +426,7 @@ class Funz:
                         'Nessuna risposta': 0,
                     }
 
-        for response in df['stimoli_trans']:
+        for response in df_copy['stimoli_trans']: # Iterate over the copy
             for key in stimuli_counts.keys():
                 if key in response:
                     stimuli_counts[key] += 1
@@ -451,19 +457,31 @@ class Funz:
 ## originale 488
 ########################################################## COINVOGLIEMNTO LEADER ###################################################################
     def plot_coinvolgimento_leader(self, df):
+        df_copy = df.copy() # Work on a copy
         mappa_coinvolgimento = {
             0: 'Per niente coinvolto',
-            2: 'Poco coinvolto',
+            1: 'Poco coinvolto', # Assuming 1 was intended, not 2 based on map below
+            # 2: 'Poco coinvolto', # Original had 2 here, but map below uses 1
+            3: 'Parzialmente coinvolto',
             3: 'Parzialmente coinvolto',
             4: 'Molto coinvolto',
-            5: 'Pienamente coinvolto'
+            5: 'Pienamente coinvolto',
+            np.nan: 'Nessuna risposta' # Handle potential NaNs
         }
 
-        df['coinvolgimento_leader'] = df['coinvolgimento_leader'].map(mappa_coinvolgimento)
-        coinvolgimento_counts = df['coinvolgimento_leader'].value_counts().sort_index()
+        # Ensure the column is numeric before mapping, handle errors
+        df_copy['coinvolgimento_leader'] = pd.to_numeric(df_copy['coinvolgimento_leader'], errors='coerce')
+        df_copy['coinvolgimento_leader_mapped'] = df_copy['coinvolgimento_leader'].map(mappa_coinvolgimento).fillna('Nessuna risposta')
+        coinvolgimento_counts = df_copy['coinvolgimento_leader_mapped'].value_counts()
+
+        # Define the desired order for the plot
+        order = ['Per niente coinvolto', 'Poco coinvolto', 'Parzialmente coinvolto', 'Molto coinvolto', 'Pienamente coinvolto', 'Nessuna risposta']
+        coinvolgimento_counts = coinvolgimento_counts.reindex(order, fill_value=0) # Reindex to ensure order and include missing categories
 
         total = coinvolgimento_counts.sum()
-        percentages = (coinvolgimento_counts / total) * 100
+        # Calculate percentages, handle division by zero
+        percentages = (coinvolgimento_counts / total * 100) if total > 0 else pd.Series([0]*len(coinvolgimento_counts), index=coinvolgimento_counts.index)
+
 
         fig = make_subplots(
             rows=1, cols=2,
@@ -471,28 +489,34 @@ class Funz:
             horizontal_spacing=0.2
         )
 
-        fig.add_trace(
-            go.Pie(
-                labels=coinvolgimento_counts.index.astype(str),
-                values=coinvolgimento_counts.values,
-                marker=dict(colors=self.colors_red[:len(coinvolgimento_counts)]),
-                textinfo='percent+label',
-                textposition='outside',
-                pull=[0.1] * len(coinvolgimento_counts)
-            ),
-            row=1, col=1
-        )
+        # Filter out categories with 0 count before plotting pie
+        plot_counts_pie = coinvolgimento_counts[coinvolgimento_counts > 0]
+        if not plot_counts_pie.empty:
+            fig.add_trace(
+                go.Pie(
+                    labels=plot_counts_pie.index,
+                    values=plot_counts_pie.values,
+                    marker=dict(colors=self.colors_red[:len(plot_counts_pie)]),
+                    textinfo='percent+label',
+                    textposition='outside',
+                    pull=[0.1] * len(plot_counts_pie),
+                    sort=False # Keep the order defined by reindex
+                ),
+                row=1, col=1
+            )
 
+        # Plot all categories in the bar chart, including zeros
         fig.add_trace(
             go.Bar(
-                x=coinvolgimento_counts.index.astype(str),
-                y=coinvolgimento_counts.values,
-                text=percentages.round(1).astype(str) + '%',
+                x=coinvolgimento_counts.index, # Use the reindexed series for order
+                y=coinvolgimento_counts.values, # Use the reindexed series for order
+                text=percentages.apply(lambda x: f"{x:.1f}%"), # Format percentages
                 textposition='auto',
                 marker=dict(color=self.colors_red[:len(coinvolgimento_counts)])
             ),
             row=1, col=2
         )
+
 
         # Imposta sfondo bianco e rimuove la griglia
         fig.update_layout(
@@ -514,7 +538,8 @@ class Funz:
 ############################################################################################### responsabilità dipendenti ######################################################################
 
     def plot_resp_dipendenti_funnel(self, df):
-        df['resp_dipendenti'] = df['resp_dipendenti'].fillna('Nessuna risposta')
+        df_copy = df.copy() # Work on a copy
+        df_copy['resp_dipendenti'] = df_copy['resp_dipendenti'].fillna('Nessuna risposta')
 
         dizionario_resp_dipendenti = {
                                         'Assegnazione di obiettivi individuali': 0,
@@ -525,7 +550,7 @@ class Funz:
                                         'Nessuna risposta': 0
                                         }
 
-        for x in df['resp_dipendenti']:
+        for x in df_copy['resp_dipendenti']: # Iterate over the copy
             for key in dizionario_resp_dipendenti.keys():
                 if key in x:
                     dizionario_resp_dipendenti[key] += 1
@@ -562,13 +587,15 @@ class Funz:
             'Analisi e mappatura dei processi esistenti': 'Analisi dei processi',
             'Definizione della strategia e degli obiettivi': 'Definizione strategia',
             'Progettazione e pianificazione': 'Pianificazione e progettazione',
-            'nan': 'Nessuna risposta'
+            'nan': 'Nessuna risposta' # This might not be needed if fillna is used
         }
-
-        df['fase_trans'] = df['fase_trans'].replace(values)
-        fase_levels = df['fase_trans'].value_counts()
+        df_copy = df.copy() # Work on a copy
+        # Ensure the column is string type before replace and fillna
+        df_copy['fase_trans'] = df_copy['fase_trans'].astype(str).fillna('Nessuna risposta')
+        df_copy['fase_trans'] = df_copy['fase_trans'].replace(values)
+        fase_levels = df_copy['fase_trans'].value_counts()
         total = fase_levels.sum()
-        percentages = (fase_levels / total) * 100
+        percentages = (fase_levels / total * 100) if total > 0 else pd.Series([0]*len(fase_levels), index=fase_levels.index)
 
         fig = make_subplots(
             rows=1, cols=2,
@@ -594,9 +621,9 @@ class Funz:
             go.Bar(
                 x=fase_levels.index,
                 y=fase_levels.values,
-                text=percentages.round(1).astype(str) + '%',
+                text=percentages.apply(lambda x: f"{x:.1f}%"), # Format percentages
                 textposition='auto',
-                marker=dict(color=self.colors_red[:len(fase_levels)])  # Changed from colors to color
+                marker=dict(color=self.colors_red[:len(fase_levels)])
             ),
             row=1, col=2
         )
@@ -626,13 +653,15 @@ class Funz:
             'Meno del 5%': 'Meno del 5% del budget',
             'Non so': 'Non so',
             'Più del 30%': 'Più del 30% del budget',
-            'nan': 'Nessuna risposta'
+            'nan': 'Nessuna risposta' # This might not be needed if fillna is used
         }
-
-        df['budget_trans'] = df['budget_trans'].replace(values)
-        budget_levels = df['budget_trans'].value_counts()
+        df_copy = df.copy() # Work on a copy
+        # Ensure the column is string type before replace and fillna
+        df_copy['budget_trans'] = df_copy['budget_trans'].astype(str).fillna('Nessuna risposta')
+        df_copy['budget_trans'] = df_copy['budget_trans'].replace(values)
+        budget_levels = df_copy['budget_trans'].value_counts()
         total = budget_levels.sum()
-        percentages = (budget_levels / total) * 100
+        percentages = (budget_levels / total * 100) if total > 0 else pd.Series([0]*len(budget_levels), index=budget_levels.index)
 
         fig = make_subplots(
             rows=1, cols=2,
@@ -658,9 +687,9 @@ class Funz:
             go.Bar(
                 x=budget_levels.index,
                 y=budget_levels.values,
-                text=percentages.round(1).astype(str) + '%',
+                text=percentages.apply(lambda x: f"{x:.1f}%"), # Format percentages
                 textposition='auto',
-                marker=dict(color=self.colors_red[:len(budget_levels)])  # Changed from colors to color
+                marker=dict(color=self.colors_red[:len(budget_levels)])
             ),
             row=1, col=2
         )
@@ -680,7 +709,8 @@ class Funz:
         st.plotly_chart(fig, theme=None, use_container_width=True)
 
     def plot_processi_digit(self, df):
-        df['processi_digit'] = df['processi_digit'].fillna('Nessuna risposta')
+        df_copy = df.copy() # Work on a copy
+        df_copy['processi_digit'] = df_copy['processi_digit'].fillna('Nessuna risposta')
 
         dizionario_processi_digit = {
             'Consegna del Prodotto e del Servizio (Produzione, consegna del servizio, Gestione dell\'ambiente operativo, Gestione della manutenzione e del supporto)': 'Consegna Servizio',
@@ -694,7 +724,7 @@ class Funz:
 
         dizionario_abbreviato = {abbreviazione: 0 for abbreviazione in dizionario_processi_digit.values()}
 
-        for x in df['processi_digit']:
+        for x in df_copy['processi_digit']: # Iterate over the copy
             for key, abbreviazione in dizionario_processi_digit.items():
                 if key in x:
                     dizionario_abbreviato[abbreviazione] += 1
@@ -724,20 +754,31 @@ class Funz:
         fig.update_yaxes(showgrid=False)
         st.plotly_chart(fig, theme=None, use_container_width=True)
 
+#######################################################################################################
+
+    @st.cache_resource
     def plot_criticita(self, df):
-        df['criticita'] = df['criticita'].str.replace(
+        # Make a copy to avoid modifying the original dataframe
+        df_plot = df.copy()
+
+        # Ensure the 'criticita' column is string type before processing
+        df_plot['criticita'] = df_plot['criticita'].astype(str)
+
+        # Perform string replacements on the copy
+        df_plot['criticita'] = df_plot['criticita'].str.replace(
             r'Inadeguata analisi dei Business Case, la quale ha portato a sottovalutare alcune criticità o non cogliere determinate opportunità.',
             'Inadeguata analisi dei Business Case', regex=True
         )
-        df['criticita'] = df['criticita'].str.replace(
+        df_plot['criticita'] = df_plot['criticita'].str.replace(
             r'Problematiche emerse durante la fase di implementazione, come ad esempio un non adeguato ingaggio degli attori coinvolti.',
             'Problematiche emerse durante la fase di implementazione', regex=True
         )
-        df['criticita'] = df['criticita'].str.replace(
+        df_plot['criticita'] = df_plot['criticita'].str.replace(
             r'Inadeguato allineamento tra strategia e attività svolta.',
             'Inadeguato allineamento tra strategia e attività svolta', regex=True
         )
 
+        # Define dictionary to count occurrences
         dizionario1 = {
             'Inadeguata analisi dei Business Case': 0,
             'Problematiche emerse durante la fase di implementazione': 0,
@@ -745,36 +786,56 @@ class Funz:
             'Governance del progetto non adeguata': 0
         }
 
-        for risposta in df['criticita'].fillna(''):
+        # Count occurrences using the string-converted copy
+        # .fillna('') might not be necessary after .astype(str), but kept for safety
+        for risposta in df_plot['criticita'].fillna(''):
             for key in dizionario1.keys():
-                if key in risposta:
+                if key in risposta: # Check if the key substring is present
                     dizionario1[key] += 1
 
+        # Create dataframe for plotting
         df_criticita = pd.DataFrame({
             'Criticità': list(dizionario1.keys()),
             'Conteggi': list(dizionario1.values())
         })
 
+        # Ensure colors_red is defined or use a default color sequence
+        colors_red = self.colors_red if hasattr(self, 'colors_red') else px.colors.sequential.Reds
+
+        # Create and display plot
         fig = px.bar(
             df_criticita,
             x='Criticità',
             y='Conteggi',
             color='Criticità',
-            color_discrete_sequence=self.colors_red[:4],
+            color_discrete_sequence=colors_red[:4],
             text='Conteggi',
             title="Distribuzione delle criticità",
             width=400,
             height=500
         )
+        
+        # Update layout
         fig.update_xaxes(showgrid=False)
         fig.update_yaxes(showgrid=False)
-        fig.update_layout(showlegend=False,
-                        plot_bgcolor='white', 
-                        paper_bgcolor='white' )
+        fig.update_layout(
+            showlegend=False,
+            plot_bgcolor='white', 
+            paper_bgcolor='white'
+        )
+        
+        # Display chart in Streamlit
         st.plotly_chart(fig, theme=None, use_container_width=True)
+        
+        # # Debug output
+        # st.write(f"Debug - Data points: {len(df_criticita)}")
+        # st.write(f"Debug - Values: {dizionario1}")
+
+###########################################################################################
 
     def analyze_soddisfazione(self, df):
-        if 'soddisfazione' not in df.columns:
+        df_copy = df.copy() # Work on a copy
+        if 'soddisfazione' not in df_copy.columns:
             st.error("Colonna 'soddisfazione' non trovata nel DataFrame.")
             return
 
@@ -784,22 +845,36 @@ class Funz:
                             3.0: "Soddisfatto",
                             4.0: "Molto soddisfatto",
                             5.0: "Pienamente soddisfatto",
+                            np.nan: "Nessuna risposta" # Handle potential NaNs
                             }
 
-        soddisfazione_values = df['soddisfazione'].dropna()
-        mapped_values = soddisfazione_values.map(satisfaction_map)
+        # Ensure column is numeric, coerce errors, then map
+        soddisfazione_values = pd.to_numeric(df_copy['soddisfazione'], errors='coerce')
+        mapped_values = soddisfazione_values.map(satisfaction_map).fillna("Nessuna risposta")
         value_counts = mapped_values.value_counts()
 
-        colors = ['#FAD02E', '#F28D35', '#D83367', '#1F4068', '#5B84B1']
-        
-        fig = go.Figure(data=[go.Pie(
-            labels=value_counts.index,
-            values=value_counts.values,
-            marker=dict(colors=colors * (len(value_counts) // 5 + 1)),
-            textinfo='percent+label',
-            textposition='outside',
-            pull=[0.1] * len(value_counts),
-        )])
+        # Define order for plot
+        order = ["Per niente soddisfatto", "Poco soddisfatto", "Soddisfatto", "Molto soddisfatto", "Pienamente soddisfatto", "Nessuna risposta"]
+        value_counts = value_counts.reindex(order, fill_value=0) # Reindex to ensure order
+
+        colors = ['#FAD02E', '#F28D35', '#D83367', '#1F4068', '#5B84B1', '#CCCCCC'] # Added grey for 'Nessuna risposta'
+
+        # Filter out zero counts for pie chart
+        plot_counts_pie = value_counts[value_counts > 0]
+        if not plot_counts_pie.empty:
+            fig = go.Figure(data=[go.Pie(
+                labels=plot_counts_pie.index,
+                values=plot_counts_pie.values,
+                marker=dict(colors=colors[:len(plot_counts_pie)]), # Use defined colors
+                textinfo='percent+label',
+                textposition='outside',
+                pull=[0.1] * len(plot_counts_pie),
+                sort=False # Keep the order from reindex
+            )])
+        else:
+            # Handle case where there's no data to plot
+            fig = go.Figure()
+            fig.add_annotation(text="Nessun dato di soddisfazione disponibile", showarrow=False)
 
         fig.update_layout(
                             height=500,
@@ -822,9 +897,9 @@ class Funz:
         Args:
             df (pd.DataFrame): DataFrame contenente i dati.
         """
-        
+        df_copy = df.copy() # Work on a copy
         # Verifica se la colonna 'impatto_efficienza' esiste nel DataFrame
-        if 'impatto_efficienza' not in df.columns:
+        if 'impatto_efficienza' not in df_copy.columns:
             st.error("Colonna 'impatto_efficienza' non trovata nel DataFrame.")
             return
 
@@ -832,10 +907,10 @@ class Funz:
         all_values = []
 
         # Estrai tutti i valori separati da virgola e aggiungili alla lista
-        for entry in df['impatto_efficienza']:
+        for entry in df_copy['impatto_efficienza'].dropna(): # Use dropna() and iterate over the copy
             if isinstance(entry, str):  # Verifica che l'entry sia una stringa
                 values = entry.split(',')
-                all_values.extend([v.strip() for v in values])  # Rimuove spazi indesiderati
+                all_values.extend([v.strip() for v in values if v.strip()]) # Ensure not adding empty strings
             else:
                 continue
 
@@ -871,9 +946,9 @@ class Funz:
         Args:
             df (pd.DataFrame): DataFrame contenente i dati.
         """
-        
+        df_copy = df.copy() # Work on a copy
         # Verifica se la colonna 'miglioramenti' esiste nel DataFrame
-        if 'miglioramenti' not in df.columns:
+        if 'miglioramenti' not in df_copy.columns:
             st.error("Colonna 'miglioramenti' non trovata nel DataFrame.")
             return
 
@@ -881,10 +956,10 @@ class Funz:
         all_values = []
 
         # Estrai tutti i valori separati da virgola e aggiungili alla lista
-        for entry in df['miglioramenti']:
+        for entry in df_copy['miglioramenti'].dropna(): # Use dropna() and iterate over the copy
             if isinstance(entry, str):  # Verifica che l'entry sia una stringa
                 values = entry.split(',')
-                all_values.extend([v.strip() for v in values])  # Rimuove spazi indesiderati
+                all_values.extend([v.strip() for v in values if v.strip()]) # Ensure not adding empty strings
             else:
                 continue
 
@@ -922,7 +997,8 @@ class GraficoFigure:
         """
         Inizializza la classe con il dataframe.
         """
-        self.df = df  # Memorizza il dataframe nell'istanza
+        # Store a copy to avoid modifying the original df passed to the constructor
+        self.df = df.copy()
         
         # Dizionario per mappare le risposte
         self.mappa_risposte = {
@@ -937,9 +1013,11 @@ class GraficoFigure:
         """
         Genera un grafico a torta e a barre per una colonna specifica del dataframe.
         """
-        df = self.df.copy()  # Usa una copia del dataframe per non modificare l'originale
-        df[column_name] = df[column_name].map(self.mappa_risposte)
-        competency_counts = df[column_name].value_counts()
+        # No need to copy self.df again if it was copied in __init__
+        # df = self.df.copy()
+        # Map values directly on the instance's copy
+        mapped_column = self.df[column_name].map(self.mappa_risposte).fillna(0) # Ensure mapping handles NaN and fill with 0
+        competency_counts = mapped_column.value_counts()
 
         # Mappa inversa per visualizzare le risposte originali
         response_map_inverse = {
@@ -950,9 +1028,14 @@ class GraficoFigure:
             0: "Nessuna risposta"
         }
 
+        # Map index to labels, ensure all potential keys (0-4) are present
         competency_counts.index = competency_counts.index.map(response_map_inverse)
+        # Define order and reindex
+        order = ["In disaccordo", "Neutrale", "D'accordo", "Molto D'accordo", "Nessuna risposta"]
+        competency_counts = competency_counts.reindex(order, fill_value=0)
+
         total = competency_counts.sum()
-        percentages = (competency_counts / total) * 100
+        percentages = (competency_counts / total * 100) if total > 0 else pd.Series([0]*len(competency_counts), index=competency_counts.index)
 
         # Creazione del grafico
         fig = make_subplots(
@@ -962,29 +1045,46 @@ class GraficoFigure:
             horizontal_spacing=0.2
         )
 
-        fig.add_trace(
-            go.Pie(
-                labels=competency_counts.index, 
-                values=competency_counts.values,
-                texttemplate='%{label}<br><b>%{percent}</b>',
-                textposition='outside',
-                pull=[0.1] * len(competency_counts),
-                showlegend=False,
-            marker=dict(colors=self.custom_colors)
-            ),
-            row=1, col=1
-        )
+        # Filter out zero counts for pie chart
+        plot_counts_pie = competency_counts[competency_counts > 0]
+        if not plot_counts_pie.empty:
+            fig.add_trace( # Ensure this is indented correctly under the if
+                go.Pie(
+                    labels=plot_counts_pie.index,
+                    values=plot_counts_pie.values,
+                    texttemplate='%{label}<br><b>%{percent:.1f}%</b>', # Format percent
+                    textposition='outside',
+                    pull=[0.1] * len(plot_counts_pie),
+                    showlegend=False,
+                    marker=dict(colors=self.custom_colors[:len(plot_counts_pie)]),
+                    sort=False # Keep defined order
+                ),
+                row=1, col=1
+            )
 
+        # Plot all categories in bar chart
         fig.add_trace(
             go.Bar(
-                x=competency_counts.index,
-                y=competency_counts.values,
-                text=percentages.round(1).astype(str) + '%',
+                x=competency_counts.index, # Use reindexed series for order
+                y=competency_counts.values, # Use reindexed series for order
+                text=percentages.apply(lambda x: f"{x:.1f}%"), # Format percent
                 textposition='auto',
-                marker=dict(color=self.custom_colors)
+                marker=dict(color=self.custom_colors[:len(competency_counts)])
             ),
             row=1, col=2
         )
+
+        # Common layout updates
+        fig.update_layout(
+            height=500,
+            width=1000,
+            template='plotly_white',
+            showlegend=False,
+            title=" ", # Remove default title if any
+            title_x=0.5
+        )
+        fig.update_xaxes(showgrid=False)
+        fig.update_yaxes(showgrid=False)
 
         return fig
 
@@ -1008,7 +1108,7 @@ class GraficoFigure:
 
 class GraficoInfrastruttura:
     def __init__(self, df):
-        self.df = df
+        self.df = df.copy() # Store a copy
         self.mappa_risposte = {
             'Molto D\'accordo': 4,
             'D\'accordo': 3,
@@ -1024,15 +1124,20 @@ class GraficoInfrastruttura:
             1: "In disaccordo",
             0: "Nessuna risposta"
         }
-        self.colori = ['#228B22', '#8fbc8f', '#66cdaa', '#2e8b57', '#006400']
+        self.colori = ['#228B22', '#8fbc8f', '#66cdaa', '#2e8b57', '#006400', '#CCCCCC'] # Added grey for 'Nessuna risposta'
 
     def plot_graph(self, column_name):
-        self.df[column_name] = self.df[column_name].map(self.mappa_risposte)
-        competency_counts = self.df[column_name].value_counts()
+        # Work on the instance's copy
+        mapped_column = self.df[column_name].map(self.mappa_risposte).fillna(0)
+        competency_counts = mapped_column.value_counts()
         competency_counts.index = competency_counts.index.map(self.mappa_risposte_inversa)
 
+        # Define order and reindex
+        order = ["In disaccordo", "Neutrale", "D'accordo", "Molto D'accordo", "Nessuna risposta"]
+        competency_counts = competency_counts.reindex(order, fill_value=0)
+
         total = competency_counts.sum()
-        percentages = (competency_counts / total) * 100
+        percentages = (competency_counts / total * 100) if total > 0 else pd.Series([0]*len(competency_counts), index=competency_counts.index)
 
         fig = make_subplots(
             rows=1, cols=2, 
@@ -1041,26 +1146,30 @@ class GraficoInfrastruttura:
             horizontal_spacing=0.2
         )
 
-        fig.add_trace(
-            go.Pie(
-                labels=competency_counts.index, 
-                values=competency_counts.values,
-                marker=dict(colors=self.colori),
-                texttemplate='%{label}<br><b>%{percent}</b>',
-                textposition='outside',
-                pull=[0.1] * len(competency_counts),
-                showlegend=False
-            ),
-            row=1, col=1
-        )
+        # Filter out zero counts for pie chart
+        plot_counts_pie = competency_counts[competency_counts > 0]
+        if not plot_counts_pie.empty:
+            fig.add_trace(
+                go.Pie(
+                    labels=plot_counts_pie.index,
+                    values=plot_counts_pie.values,
+                    marker=dict(colors=self.colori[:len(plot_counts_pie)]),
+                    texttemplate='%{label}<br><b>%{percent:.1f}%</b>', # Format percent
+                    textposition='outside',
+                    pull=[0.1] * len(plot_counts_pie),
+                    showlegend=False,
+                    sort=False # Keep defined order
+                ),
+                row=1, col=1
+            )
 
+        # Plot all categories in bar chart
         fig.add_trace(
             go.Bar(
-                x=competency_counts.index,
-                y=competency_counts.values,
+                x=competency_counts.index, # Use reindexed series for order
+                y=competency_counts.values, # Use reindexed series for order
                 marker=dict(color=self.colori[:len(competency_counts)]),
-                text=[f"{p:.1f}%" for p in percentages],
-                #text=percentages.values.round(1).astype(str) + '%',
+                text=percentages.apply(lambda x: f"{x:.1f}%"), # Format percent
                 textposition='outside',
                 showlegend=False
             ),
@@ -1093,7 +1202,7 @@ class GraficoInfrastruttura:
 
 class GraficoRelazioni:
     def __init__(self, df):
-        self.df = df
+        self.df = df.copy() # Store a copy
         self.mappa_risposte = {
             'Molto D\'accordo': 4,
             'D\'accordo': 3,
@@ -1106,90 +1215,96 @@ class GraficoRelazioni:
                 3: 'D\'accordo',
                 2: 'Neutrale',
                 1: 'In disaccordo',
-                0: 'Nessuna risposta'
-            }
-        self.colori = ['#228B22', '#8fbc8f', '#66cdaa', '#2e8b57', '#006400']
+                0: 'Nessuna risposta' # Mapped from 0
+        }
+        # Define colors specific to this class if needed, or reuse others
+        self.colori_relazioni = ['#9370DB', '#1E90FF', '#006D5B', '#6A5ACD', '#4B0082', '#CCCCCC'] # Added grey
 
-# Funzione generica per creare grafici a torta e a barre per una colonna
+    # Funzione generica per creare grafici a torta e a barre per una colonna
     def plot_graph2(self, column_name):
-            self.df[column_name] = self.df[column_name].map(self.mappa_risposte)
-            competency_counts = self.df[column_name].value_counts()
+        # Work on the instance's copy
+        mapped_column = self.df[column_name].map(self.mappa_risposte).fillna(0)
+        competency_counts = mapped_column.value_counts()
 
-            # Riorganizza l'indice e applica la mappa inversa per ottenere le etichette originali
-            competency_counts.index = competency_counts.index.map(self.mappa_risposte_inversa)
+        # Map index to labels
+        competency_counts.index = competency_counts.index.map(self.mappa_risposte_inversa)
 
-            # Calcola la percentuale di ciascun valore
-            total = competency_counts.sum()
-            percentages = (competency_counts / total) * 100
+        # Define order and reindex
+        order = ["In disaccordo", "Neutrale", "D'accordo", "Molto D'accordo", "Nessuna risposta"]
+        competency_counts = competency_counts.reindex(order, fill_value=0)
 
-            # Crea un subplot con 1 riga e 2 colonne (grafico a torta e grafico a barre)
-            fig = make_subplots(
-                rows=1, cols=2, 
-                specs=[[{'type': 'pie'}, {'type': 'bar'}]],  # Usa 'bar' per il grafico a barre
-                column_widths=[0.48, 0.48],  # Imposta la larghezza delle colonne (più vicine)
-                horizontal_spacing=0.2  # Riduce la distanza orizzontale tra i grafici
-            )
+        # Calcola la percentuale di ciascun valore
+        total = competency_counts.sum()
+        percentages = (competency_counts / total * 100) if total > 0 else pd.Series([0]*len(competency_counts), index=competency_counts.index)
 
-            # Aggiungi il grafico a torta
-            fig.add_trace(
+        # Crea un subplot con 1 riga e 2 colonne (grafico a torta e grafico a barre)
+        fig = make_subplots(
+            rows=1, cols=2,
+            specs=[[{'type': 'pie'}, {'type': 'bar'}]],  # Usa 'bar' per il grafico a barre
+            column_widths=[0.48, 0.48],  # Imposta la larghezza delle colonne (più vicine)
+            horizontal_spacing=0.2
+        )
+
+        # Filter out zero counts for pie chart
+        plot_counts_pie = competency_counts[competency_counts > 0]
+        if not plot_counts_pie.empty:
+            fig.add_trace( # Indented under 'if'
                 go.Pie(
-                    labels=competency_counts.index, 
-                    values=competency_counts.values,
-                    marker=dict(
-                        colors=['#9370DB', '#1E90FF', '#006D5B', '#6A5ACD', '#4B0082']  # Gradazione di colori
-                    ),
-                    texttemplate='%{label}<br><b>%{percent}</b>',  # Mostra percentuale e etichetta
-                    textposition='outside',  # Posiziona il testo fuori dalle fette
-                    pull=[0.1] * len(competency_counts),  # Aggiungi un po' di spazio tra le fette
-                    showlegend=False  # Nascondi la legenda
+                    labels=plot_counts_pie.index,
+                    values=plot_counts_pie.values,
+                    marker=dict(colors=self.colori_relazioni[:len(plot_counts_pie)]),
+                    texttemplate='%{label}<br><b>%{percent:.1f}%</b>', # Format percent
+                    textposition='outside',
+                    pull=[0.1] * len(plot_counts_pie),
+                    showlegend=False,
+                    sort=False # Keep defined order
                 ),
                 row=1, col=1
             )
-            # Aggiungi il grafico a barre con asse Y e X invertiti
-            fig.add_trace(
-                go.Bar(
-                    x=competency_counts.index,  # Etichette ordinate
-                    y=competency_counts.values,  # Conteggi ordinati
-                    text=[f"{p:.1f}%" for p in percentages],
-                    textposition='outside',  # Posiziona il testo sopra le barre
-                    marker=dict(
-                        color=['#9370DB', '#1E90FF', '#006D5B', '#6A5ACD', '#4B0082'][:len(competency_counts)],  # Applica i colori nell'ordine specificato
-                    ),
-                    showlegend=False,  # Nascondi la legenda per il grafico a barre
-                ),
-                row=1, col=2
-            )
 
-            # Aggiungi titolo e layout
-            fig.update_layout(
-                title=" ",  # Non inserire alcun titolo
-                title_x=0.5,  # Centra il titolo orizzontalmente
-                height=500, 
-                width=1000,  # Imposta la larghezza del grafico
-                template='plotly_white',
-                xaxis=dict(title='Conteggio', showgrid=True),  # Aggiungi l'asse X
-                yaxis=dict(title='Risposte', showgrid=True),  # Aggiungi l'asse Y
-            )
+        # Plot all categories in bar chart
+        fig.add_trace( # Indented under 'plot_graph2'
+            go.Bar(
+                x=competency_counts.index, # Use reindexed series for order
+                y=competency_counts.values, # Use reindexed series for order
+                text=percentages.apply(lambda x: f"{x:.1f}%"), # Format percent
+                textposition='outside',
+                marker=dict(color=self.colori_relazioni[:len(competency_counts)]),
+                showlegend=False,
+            ),
+            row=1, col=2
+        )
 
-            return fig
+        # Aggiungi titolo e layout
+        fig.update_layout( # Indented under 'plot_graph2'
+            title=" ",  # Non inserire alcun titolo
+            title_x=0.5,  # Centra il titolo orizzontalmente
+            height=500,
+            width=1000,  # Imposta la larghezza del grafico
+            template='plotly_white',
+            xaxis=dict(title='Conteggio', showgrid=True),  # Aggiungi l'asse X
+            yaxis=dict(title='Risposte', showgrid=True),  # Aggiungi l'asse Y
+        )
 
-        # Funzione per il grafico delle interazioni digitali
-    def plot_cdh_interazione(self):
-            """
-            Genera il grafico per la colonna 'eco_interazione' in formato a torta e a barre.
-            """
-            st.plotly_chart(self.plot_graph2('eco_interazione'), use_container_width=True, key='eco_interazione')
+        return fig # Indented under 'plot_graph2'
 
-        # Funzione per il grafico delle piattaforme digitali
-    def plot_cdh_piattaforme(self):
-            """
-            Genera il grafico per la colonna 'eco_piattaforme' in formato a torta e a barre.
-            """
-            st.plotly_chart(self.plot_graph2('eco_piattaforme'), use_container_width=True, key='eco_piattaforme')
+    # Funzione per il grafico delle interazioni digitali
+    def plot_cdh_interazione(self): # Indented under 'class GraficoRelazioni'
+        """
+        Genera il grafico per la colonna 'eco_interazione' in formato a torta e a barre.
+        """
+        st.plotly_chart(self.plot_graph2('eco_interazione'), use_container_width=True, key='eco_interazione')
 
-        # Funzione per il grafico dei processi digitalizzati
-    def plot_cdh_processi(self):
-            """
-            Genera il grafico per la colonna 'eco_processi' in formato a torta e a barre.
-            """
-            st.plotly_chart(self.plot_graph2('eco_processi'), use_container_width=True, key='eco_processi')
+    # Funzione per il grafico delle piattaforme digitali
+    def plot_cdh_piattaforme(self): # Indented under 'class GraficoRelazioni'
+        """
+        Genera il grafico per la colonna 'eco_piattaforme' in formato a torta e a barre.
+        """
+        st.plotly_chart(self.plot_graph2('eco_piattaforme'), use_container_width=True, key='eco_piattaforme')
+
+    # Funzione per il grafico dei processi digitalizzati
+    def plot_cdh_processi(self): # Indented under 'class GraficoRelazioni'
+        """
+        Genera il grafico per la colonna 'eco_processi' in formato a torta e a barre.
+        """
+        st.plotly_chart(self.plot_graph2('eco_processi'), use_container_width=True, key='eco_processi')

@@ -16,6 +16,8 @@ def create_section(title, plot_function, explanation=None):
 
 def display_metrics(df):
     """Display key metrics about the dataset."""
+    df_copy = df.copy() # Work on a copy
+
     def simplify_maturity(x):
         if pd.isna(x):
             return "Non specificato"
@@ -27,28 +29,71 @@ def display_metrics(df):
             return "Fase Pilota"
         else:
             return "Nessuna Trasformazione"
-    
-    # Add simplified maturity column
-    df['maturita_semplificata'] = df['maturita_digitale'].apply(simplify_maturity)
-    # Display metrics
+
+    # Add simplified maturity column to the copy
+    df_copy['maturita_semplificata'] = df_copy['maturita_digitale'].apply(simplify_maturity)
+    # Display metrics using the copy
     col1, col2, col3, col4, col5 = st.columns(5)
     with col3:
-        st.metric("Numero totale aziende", len(df))
+        st.metric("Numero totale aziende", len(df_copy)) # Use len(df_copy)
     with col4:
-        df['soddisfazione'] = pd.to_numeric(df['soddisfazione'], errors='coerce')
-        st.metric("Media soddisfazione", f"{df['soddisfazione'].mean():.2f}")
+        # Ensure 'soddisfazione' is numeric on the copy for calculation
+        df_copy['soddisfazione'] = pd.to_numeric(df_copy['soddisfazione'], errors='coerce')
+        mean_satisfaction = df_copy['soddisfazione'].mean()
+        st.metric("Media soddisfazione", f"{mean_satisfaction:.2f}" if pd.notna(mean_satisfaction) else "N/A")
 
 
 def main():
     pio.templates.default = "plotly"    
     st.title('Analisi Descrittiva della Survey')
-    DATASET_PATH = '../data/cleaned_data.xlsx'
-    try:
-        df = st.session_state.get('data', {}).get('survey')
-    except AttributeError:
-        df = pd.read_excel(DATASET_PATH)
+    DATASET_PATH = 'data/cleaned_data.xlsx' # Corrected path relative to app.py CWD
+    df = None # Initialize df
 
-    # Initialize function class
+    # Attempt to load data from session state first
+    if 'data' in st.session_state and 'survey' in st.session_state['data']:
+        df = st.session_state['data']['survey']
+        # Check if data in session state is valid
+        if df is None or df.empty:
+             st.warning("Survey data in session state is empty or invalid. Attempting to reload from file.")
+             df = None # Reset df to trigger file loading
+
+    # If not loaded from session state or invalid, try loading from file
+    if df is None:
+        st.info(f"Attempting to load survey data from {DATASET_PATH}...")
+        try:
+            # Ensure the path exists before trying to read
+            import os
+            if not os.path.exists(DATASET_PATH):
+                 raise FileNotFoundError(f"File not found at the specified path: {DATASET_PATH}")
+            
+            df = pd.read_excel(DATASET_PATH)
+            
+            # Basic validation after loading
+            if df is None or df.empty:
+                st.error(f"Loaded data from {DATASET_PATH} is empty or invalid.")
+                return # Stop execution
+                
+            # Store successfully loaded data in session state
+            if 'data' not in st.session_state:
+                st.session_state['data'] = {}
+            st.session_state['data']['survey'] = df
+            st.success("Survey data loaded successfully from file and stored in session state.")
+            
+        except FileNotFoundError as fnf_error:
+            st.error(f"Dataset file not found: {fnf_error}. Please ensure the file exists at '{DATASET_PATH}' relative to the main app script.")
+            return # Stop execution
+        except Exception as e:
+            st.error(f"An unexpected error occurred during data loading from file: {e}")
+            import traceback
+            st.code(traceback.format_exc())
+            return # Stop execution
+
+    # Final check if df is valid before proceeding
+    if df is None or df.empty:
+        st.error("Failed to load or retrieve valid survey data. Cannot display plots for this page.")
+        return # Stop execution if df is still invalid
+
+    # Initialize function class only if df is valid
     funz = Funz()
 
     if 'selected_tab' not in st.session_state:
@@ -293,11 +338,11 @@ def main():
             explanation="Analisi dell'utilizzo delle risorse digitali"
         )
         
-        create_section(
-            title='Criticità nel processo di trasformazione',
-            plot_function=lambda: funz.plot_criticita(df),
-            explanation="Analisi delle criticità riscontrate"
-        )
+        # create_section(
+        #     title='Criticità nel processo di trasformazione',
+        #     # plot_function=lambda: funz.plot_criticita(df),
+        #     explanation="Analisi delle criticità riscontrate"
+        # )
         
         display_metrics(df)
 # OK

@@ -23,10 +23,6 @@ class Key:
         # Normalizza le stringhe nella colonna 'maturita_digitale'
         self.df['maturita_digitale'] = self.df['maturita_digitale'].apply(lambda x: unicodedata.normalize('NFKD', x) if isinstance(x, str) else x)
         
-        self.df['maturita_digitale'] = self.df['maturita_digitale'].replace(values)
-        self.df['maturita_digitale'].fillna('Nessuna risposta', inplace=True)
-    # Funzione per creare lo scatter plot
-
     # Funzione per la creazione del grafico
     def hist_soddisfazione_maturita(self):
         # Assicurati che la funzione 'mappa_maturita' sia stata applicata in precedenza
@@ -539,100 +535,6 @@ class Key:
         st.plotly_chart(fig, use_container_width=True)
 
 #################################################################################################### MATURITA E LEADER ####################################################################################################
-    def analizza_relazione_maturita_heatmap(self):
-        """
-        Crea una heatmap che mostra la relazione tra il livello di maturità digitale 
-        e l'anno di inizio della digitalizzazione delle aziende.
-        """
-        # Verifica che le colonne esistano
-        if 'inizio_trans' not in self.df.columns or 'maturita_digitale' not in self.df.columns:
-            st.error("Le colonne 'inizio_trans' e 'maturita_digitale' non sono presenti nel dataset.")
-            return
-
-        # Definiamo l'ordine delle categorie
-        ordine_inizio_trans = [
-            "Prima del 2015 ",
-            "Tra il 2015 e il 2019 ",
-            "Dal 2020 in poi "
-        ]
-        
-        ordine_maturita = [
-            "Non digitalizzato",
-            "Qualche progetto interrotto",
-            "Qualche progetto avviato",
-            "Relativamente digitale",
-            "Totalmente Digital Oriented"
-        ]
-        
-        # Creiamo la tabella di contingenza con aggregazione
-        tabella_contingenza = (self.df.groupby(["inizio_trans", "maturita_digitale"])
-                            .size()
-                            .reset_index(name="conteggio"))
-        
-        # Aggiungi un controllo per verificare se la tabella di contingenza è corretta
-        if tabella_contingenza.empty:
-            st.warning("La tabella di contingenza è vuota. Verifica i dati di input.")
-            return
-
-        # Ordiniamo le categorie
-        tabella_contingenza["inizio_trans"] = pd.Categorical(
-            tabella_contingenza["inizio_trans"], 
-            categories=ordine_inizio_trans, 
-            ordered=True
-        )
-        tabella_contingenza["maturita_digitale"] = pd.Categorical(
-            tabella_contingenza["maturita_digitale"], 
-            categories=ordine_maturita, 
-            ordered=True
-        )
-
-        # Creiamo la matrice pivot usando pivot_table per gestire i duplicati
-        matrice_heatmap = (tabella_contingenza.pivot_table(
-            index="inizio_trans",
-            columns="maturita_digitale",
-            values="conteggio",
-            aggfunc='sum'
-        ).fillna(0))
-
-        # Creiamo la heatmap
-        fig = px.imshow(
-            matrice_heatmap.values,
-            labels=dict(
-                x="Maturità Digitale",
-                y="Anno di inizio digitalizzazione",
-                color="Numero di Aziende"
-            ),
-            text_auto=True,
-            x=matrice_heatmap.columns,
-            y=matrice_heatmap.index,
-            color_continuous_scale=['#FAD02E', '#F28D35', '#D83367', '#1F4068', '#5B84B1']
-        )
-
-        # Personalizziamo il layout
-        fig.update_layout(
-            xaxis=dict(
-                title=dict(text='Maturità Digitale', font=dict(size=18, family='Arial', weight='bold')),
-                tickfont=dict(size=14, family='Arial', weight='bold'),
-                tickangle=45,
-                showticklabels=True
-            ),
-            yaxis=dict(
-                title=dict(text='Anno di inizio digitalizzazione', font=dict(size=18, family='Arial', weight='bold')),
-                tickfont=dict(size=14, family='Arial', weight='bold'),
-                showticklabels=True
-            ),
-            title={'text': '  ', 'x': 0.5},
-            template='plotly_white',
-            font=dict(size=14),
-            width=1500,
-            height=900,
-            margin=dict(l=200, r=200, t=150, b=30)
-        )
-
-        # Mostriamo il grafico in Streamlit
-        st.plotly_chart(fig, use_container_width=True, key="heatmap_maturita_inizio")
-###########################################################################################################################
-
     def analizza_maturita_leader(self):
         """
         Crea una heatmap che mostra la relazione tra il livello di maturità digitale 
