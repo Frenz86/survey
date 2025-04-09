@@ -2,8 +2,7 @@ import streamlit as st
 import plotly.io as pio
 import pandas as pd
 from .corr import Correlazione
-
-
+from .descrizione import * #tutti i text1,text2...etc etc
 
 def create_section(title, function, df=None, explanation=None):
     """Create a section with a plot and optional explanation."""
@@ -56,27 +55,19 @@ def main():
             st.metric("Media soddisfazione", f"{df['soddisfazione'].mean():.2f}")
     create_section(     title='Correlazione tra la maturità digitale raggiunta dall\'azienda e l\'esperienza dell\'intervistato',
                         function= lambda: corr.heatmap_anni_maturita(),
-                        explanation="""
-                            - Aggiungo spiegazione
-                        """
+                        explanation=text35
                         )
     create_section(     title='Correlazione tra il budget investito e il grado di soddisfazione del vertice aziendale',
                         function= lambda: corr.correlazione1_budget(),
-                        explanation="""
-                            - Aggiungo spiegazione
-                        """
+                        explanation=text36
                         )
     create_section(     title='Correlazione tra il budget investito e le criticità riscontrate',
                         function= lambda: corr.plot_criticita_budget(),
-                        explanation="""
-                            - Aggiungo spiegazione
-                        """
+                        explanation=text37
                         )
     create_section(     title='Correlazione tra il budget investito e l\'efficienza riscontrata',
                         function= lambda: corr.cor_budget_efficienza(),
-                        explanation="""
-                            - Aggiungo spiegazione
-                        """
+                        explanation=text38
                         )
     display_metrics(df)
     #######################################################################

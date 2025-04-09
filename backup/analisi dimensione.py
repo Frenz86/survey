@@ -2,6 +2,7 @@ import streamlit as st
 import plotly.io as pio
 import pandas as pd
 from ..pag.key import Key
+from .descrizione import * #tutti i text1,text2...etc etc
 
 def create_section(title, function, df=None, explanation=None):
     """Create a section with a plot and optional explanation."""

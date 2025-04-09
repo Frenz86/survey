@@ -36,9 +36,9 @@ def get_pages():
     icons = []
     modules = []
     
-    BLACKLIST_FILES = ['__init__', 'test','key','func','corr','ANNINA']  # aggiungi qui i file da escludere    
+    BLACKLIST_FILES = ['__init__', 'test','key','func','corr','ANNINA','_template_page','descrizione']  # aggiungi qui i file da escludere    
     # page_order = []
-    page_order = ['analisi descrittiva','analisi dimensione','analisi correlazione','analisi ecofin','self analysis']
+    page_order = ['introduzione','analisi descrittiva','analisi dimensione','analisi correlazione','analisi ecofin','conclusione','self analysis']
 
     files = [f[:-3] for f in os.listdir(PAGES) if f.endswith('.py') and f[:-3] not in BLACKLIST_FILES]
     files.sort(key=lambda x: page_order.index(x) if x in page_order else len(page_order))
@@ -46,10 +46,12 @@ def get_pages():
     # Mapping icon 
     icon_mapping = {
                     #https://icons.getbootstrap.com/
+                    'introduzione': 'bi-person-raised-hand',
                     'analisi descrittiva': 'bi-bullseye',
                     'analisi dimensione': 'bi-fire',
                     'analisi correlazione': 'bi-feather',
                     'analisi ecofin': 'bi-currency-euro',
+                    'conclusione': 'bi-lightbulb',
                     'self analysis': 'bi-graph-up',
                     }
     

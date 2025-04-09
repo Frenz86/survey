@@ -2,6 +2,7 @@ import streamlit as st
 import plotly.io as pio
 import pandas as pd
 from .key import Key
+from .descrizione import * #tutti i text1,text2...etc etc
 
 def create_section(title, function, df=None, explanation=None):
     """Create a section with a plot and optional explanation."""
@@ -58,43 +59,31 @@ def main():
     create_section(
                     title='Maturità Digitale e Soddisfazione',
                     function= lambda: chiave.hist_soddisfazione_maturita(),
-                    explanation="""
-                        - Aggiungo spiegazione
-                    """
+                    explanation=text30
                     )
     
     create_section(
                     title='Maturità Digitale e Infrastrutture Digitali',
                     function= lambda: chiave.visualizza_maturita_infrastrutture(),
-                    explanation="""
-                        - Ogni livello di maturità digitale possiede un gruppo di barre.
-                        - Ogni barra rappresenta l'average score delle infrastrutture (hardware, software, cloud, sicurezza)
-                        - I colori aiutano a visualizzare immediatamente la densità delle aziende in ciascun gruppo.
-                    """
+                    explanation=text31
                     )
     
     create_section(
                     title='Maturità Digitale e Presenza Figure Competenti',
                     function= lambda: chiave.visualizza_maturita_figure(),
-                    explanation="""
-                        - Aggiungo spiegazione
-                    """
+                    explanation=text32
                     )
     
     create_section(
                     title='Periodo di Inizio Transizione Digitale e Maturità Digitale Raggiunta',
                     function=lambda: chiave.analizza_relazione_inizio_maturita_heatmap(),
-                    explanation="""
-                        - Aggiungo spiegazione
-                    """
+                    explanation=text33
                     )
     
     create_section(
                     title='Grado di Coinvolgimento del Leader e Maturità Digitale Raggiunta',
                     function=lambda: chiave.analizza_maturita_leader(),
-                    explanation="""
-                        - Aggiungo spiegazione
-                    """
+                    explanation=text34
                     )
     
     display_metrics(df)
