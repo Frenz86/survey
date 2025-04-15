@@ -5,52 +5,56 @@ import pandas as pd
 
 istruzioni = """
 
-## 1. Comprensione della Struttura del Report
+## 1. Zero Criticità
 
-I report di self analysis sono tipicamente organizzati in categorie che rappresentano:
-* **Aree critiche**: Elementi che richiedono attenzione immediata e interventi correttivi
-* **Aree intermedie**: Aspetti con performance nella media che possono essere migliorati
-* **Aree di eccellenza**: Punti di forza dove si sta performando a livelli ottimali
+Questa categoria riguarda la gestione dei rischi e delle situazioni critiche nell'organizzazione:
 
-## 2. Interpretazione degli Indicatori
+* **Eccellente**: L'organizzazione ha sviluppato un sistema avanzato di gestione delle criticità, con focus su approcci preventivi, modelli predittivi e automazione del risk management.
+* **Buono**: C'è una gestione adeguata ma con margini di miglioramento, puntando sul potenziamento del monitoraggio, sviluppo di procedure di risposta e formazione.
+* **Scarso**: Richiede interventi prioritari nella mappatura dei rischi, sviluppo di procedure d'emergenza e formazione intensiva del team.
 
-* **Gap negativi**: Rappresentano la distanza dalla performance desiderata
-* **Valori neutri**: Indicano allineamento con lo standard di riferimento
-* **Gap positivi**: Mostrano superamento dello standard di riferimento
-* **Simboli e codici colore**: Spesso utilizzati come segnalatori visivi (⚠️, 🏆, rosso, giallo, verde)
+## 2. Soddisfazione
 
-## 3. Analisi delle Priorità
+Misura il livello di soddisfazione degli utenti o clienti:
 
-1. Concentrati prima sulle aree critiche con i gap negativi più ampi
-2. Identifica pattern ricorrenti tra diverse aree problematiche
-3. Valuta l'impatto potenziale di ciascuna area sulla performance complessiva
-4. Considera l'interdipendenza tra le diverse aree
+* **Eccellente**: Focus sul mantenimento di standard elevati, innovazione continua e anticipazione delle esigenze future.
+* **Buono**: Prevede analisi dettagliata dei feedback, ottimizzazione dei processi di customer service e implementazione di sistemi di monitoraggio avanzati.
+* **Scarso**: Necessita di analisi approfondita delle criticità, revisione dei processi di customer service e implementazione di sistemi di feedback strutturati.
 
-## 4. Implementazione dei Piani d'Azione
+## 3. Maturità (Digitale)
 
-Per ogni area analizzata:
-* Esamina i piani d'azione consigliati
-* Personalizzali in base al contesto specifico
-* Definisci obiettivi SMART (Specifici, Misurabili, Achievable, Rilevanti, Temporizzati)
-* Assegna responsabilità chiare
-* Stabilisci milestone e tempistiche
+Valuta il livello di maturità digitale dell'organizzazione:
 
-## 5. Monitoraggio e Misurazione dei Progressi
+* **Eccellente**: Posizione di leadership con focus su innovazione continua, sviluppo di competenze avanzate e sperimentazione con tecnologie emergenti.
+* **Buono**: Prevede potenziamento delle competenze esistenti, ottimizzazione dei processi digitali e incremento dell'automazione.
+* **Scarso**: Richiede un assessment completo delle competenze, formazione intensiva e implementazione di processi digitali di base.
 
-* Definisci indicatori chiave di performance (KPI) per ciascuna area
-* Stabilisci una cadenza regolare per la revisione dei progressi
-* Confronta i risultati con i benchmark interni ed esterni
-* Aggiorna i piani d'azione in base ai progressi e alle nuove sfide
+## 4. Trasformazione Digitale
+
+Valuta lo stato di avanzamento della trasformazione digitale:
+
+* **Eccellente**: Caratterizzata dall'implementazione di tecnologie avanzate, creazione di nuovi modelli operativi e leadership nell'innovazione di settore.
+* **Buono**: Richiede accelerazione dei progetti digitali, rafforzamento delle competenze chiave e ampliamento delle iniziative esistenti.
+* **Scarso**: Necessita di una strategia digitale chiara, implementazione di progetti pilota e formazione intensiva del personale.
+
+## 5. Impatto Efficienza
+
+Misura l'efficienza operativa e l'ottimizzazione dei processi:
+
+* **Eccellente**: Focus su ottimizzazione continua, innovazione nei metodi di lavoro e sviluppo di nuovi standard.
+* **Buono**: Prevede analisi delle aree di inefficienza, implementazione di soluzioni mirate e monitoraggio delle performance.
+* **Scarso**: Richiede un audit completo dei processi, identificazione delle priorità e implementazione di soluzioni immediate.
+
+## Caratteristiche comuni a tutte le categorie:
+
+1. **Struttura a tre livelli**: Ogni categoria è valutata su tre livelli (eccellente, buono, scarso)
+2. **Raccomandazioni pratiche**: Per ogni livello sono fornite azioni specifiche
+3. **Approccio incrementale**: Le raccomandazioni sono calibrate in base al livello attuale
+4. **Orientamento all'azione**: Tutte includono piani d'azione concreti e implementabili
+
+Questo framework permette una valutazione completa della maturità organizzativa su diversi assi, facilitando l'identificazione delle aree di forza e di quelle che richiedono intervento, per guidare un processo di miglioramento strutturato e consapevole.
 
 """
-
-
-
-
-
-
-
-
 
 
 def load_data(file_path):
@@ -413,6 +417,8 @@ def main():
     #####
     
     st.title("Self Analysis Comparativa")
+    st.markdown(""" La self analysis è uno strumento potente che permette di valutare la performance di un'organizzazione, di un progetto o di un'attività attraverso un'analisi strutturata. Ecco come interpretare e utilizzare efficacemente qualsiasi report di self analysis.
+""")
     categories = [col for col in df.columns if col != 'Azienda']
     
     # Sidebar selections
