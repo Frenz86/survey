@@ -1,13 +1,12 @@
 import streamlit as st
 
-import streamlit as st
-
 def main():
 ###############################################
+   st.title("Introduzione all'Osservatorio sulla Maturità Digitale")
+
+   st.image("./img/ecosistemi.jpg")
 
    text= """
-        # Introduzione all'Osservatorio sulla Maturità Digitale
-
         L'Osservatorio sulla Maturità Digitale ha coinvolto un totale di 74 imprese, prevalentemente manifatturiere e di servizi, provenienti quasi esclusivamente dall'area forlivese. È importante sottolineare che, data questa limitata distribuzione geografica e numerica, il campione non può considerarsi statisticamente significativo.
 
         La ricerca ha esplorato molteplici dimensioni della trasformazione digitale:
