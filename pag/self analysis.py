@@ -2,6 +2,57 @@ import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
 
+
+istruzioni = """
+
+## 1. Comprensione della Struttura del Report
+
+I report di self analysis sono tipicamente organizzati in categorie che rappresentano:
+* **Aree critiche**: Elementi che richiedono attenzione immediata e interventi correttivi
+* **Aree intermedie**: Aspetti con performance nella media che possono essere migliorati
+* **Aree di eccellenza**: Punti di forza dove si sta performando a livelli ottimali
+
+## 2. Interpretazione degli Indicatori
+
+* **Gap negativi**: Rappresentano la distanza dalla performance desiderata
+* **Valori neutri**: Indicano allineamento con lo standard di riferimento
+* **Gap positivi**: Mostrano superamento dello standard di riferimento
+* **Simboli e codici colore**: Spesso utilizzati come segnalatori visivi (⚠️, 🏆, rosso, giallo, verde)
+
+## 3. Analisi delle Priorità
+
+1. Concentrati prima sulle aree critiche con i gap negativi più ampi
+2. Identifica pattern ricorrenti tra diverse aree problematiche
+3. Valuta l'impatto potenziale di ciascuna area sulla performance complessiva
+4. Considera l'interdipendenza tra le diverse aree
+
+## 4. Implementazione dei Piani d'Azione
+
+Per ogni area analizzata:
+* Esamina i piani d'azione consigliati
+* Personalizzali in base al contesto specifico
+* Definisci obiettivi SMART (Specifici, Misurabili, Achievable, Rilevanti, Temporizzati)
+* Assegna responsabilità chiare
+* Stabilisci milestone e tempistiche
+
+## 5. Monitoraggio e Misurazione dei Progressi
+
+* Definisci indicatori chiave di performance (KPI) per ciascuna area
+* Stabilisci una cadenza regolare per la revisione dei progressi
+* Confronta i risultati con i benchmark interni ed esterni
+* Aggiorna i piani d'azione in base ai progressi e alle nuove sfide
+
+"""
+
+
+
+
+
+
+
+
+
+
 def load_data(file_path):
     """
     Load and prepare the dataset
@@ -295,7 +346,10 @@ def display_recommendations(recommendations, categories):
     # st.write("Debug - Recommendations:", recommendations)
     # st.write("Debug - Categories for display:", categories)
     st.header("Analisi e Raccomandazioni")
-    
+
+
+    st.markdown(istruzioni)
+
     # Sort recommendations by priority
     sorted_cats = sorted(categories, 
                         key=lambda x: (recommendations[x]['priority'], 
