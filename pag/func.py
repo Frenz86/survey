@@ -214,7 +214,8 @@ class Funz:
                     labels=maturity_levels.index,
                     values=maturity_levels.values,
                     marker=dict(colors=self.colors_red[:len(maturity_levels)]),
-                    text=percentages.apply(lambda x: float(f"{x:.1f}".replace(',', '.')) * 10), # Format percentages
+                    #text=percentages.apply(lambda x: float(f"{x:.1f}".replace(',', '.')) * 10), # Format percentages
+                    textinfo='percent+label',
                     textposition='outside',
                     pull=[0.1] * len(maturity_levels),
                     hovertemplate="<b>%{label}</b><br>" +
