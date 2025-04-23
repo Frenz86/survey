@@ -212,7 +212,7 @@ class Funz:
             fig.add_trace(
                 go.Pie(
                     labels=maturity_levels.index,
-                    values=maturity_levels.values,
+                    values=maturity_levels.values*10,
                     marker=dict(colors=self.colors_red[:len(maturity_levels)]),
                     textinfo='percent+label',
                     textposition='outside',
@@ -228,12 +228,12 @@ class Funz:
             fig.add_trace(
                 go.Bar(
                     x=maturity_levels.index,
-                    y=maturity_levels.values*10,
+                    y=maturity_levels.values,
                     marker=dict(color=self.colors_red[:len(maturity_levels)]),
-                    # hovertemplate="<b>%{x}</b><br>" +
-                    #             "Valore: %{y}<br>" +
-                    #             "Percentuale: %{text}<extra></extra>",
-                    text=percentages.apply(lambda x: float(f"{x:.1f}".replace(',', '.')) * 10), # Format percentages
+                    hovertemplate="<b>%{x}</b><br>" +
+                                "Valore: %{y}<br>" +
+                                "Percentuale: %{text}<extra></extra>",
+                    text=percentages.apply(lambda x: f"{x:.1f}%") # Add percentages text for hover
                 ),
                 row=1, col=2
             )
