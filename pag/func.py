@@ -77,13 +77,16 @@ class Funz:
             row=1, col=1
         )
 
+        # Add bar chart without text labels
         fig.add_trace(
             go.Bar(
                 x=counts.index,
                 y=counts.values,
-                name="Distribuzione fasce di anni",
-                marker=dict(color='#4687e1'),
-                showlegend=False
+                marker=dict(color=self.colors_red[:len(counts)]),
+                hovertemplate="<b>%{x}</b><br>" +
+                            "Valore: %{y}<br>" +
+                            "Percentuale: %{text}<extra></extra>",
+                text=counts.apply(lambda x: f"{x:.1f}%") # Add percentages text for hover
             ),
             row=1, col=2
         )
