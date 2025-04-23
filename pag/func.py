@@ -691,7 +691,7 @@ class Funz:
             go.Bar(
                 x=budget_levels.index,
                 y=budget_levels.values,
-                text=percentages.apply(lambda x: float(f"{x:.1f}".replace(',', '.')) * 10), # Format percentages
+                text=percentages.apply(lambda x: float(f"{x:.1f}".replace(',', '.')) * 1), # Format percentages
                 textposition='auto',
                 marker=dict(color=self.colors_red[:len(budget_levels)])
             ),
