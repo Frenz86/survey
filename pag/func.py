@@ -690,19 +690,12 @@ class Funz:
         budget_levels = budget_levels.reindex(available_categories)
         percentages = percentages.reindex(available_categories)
         
-        # Create a consistent color mapping
-        color_mapping = {
-            'Meno del 5% del budget': self.colors_red[0],
-            'Non so': self.colors_red[1],
-            'Nessuna risposta': self.colors_red[2],
-            '5%-10% del budget': self.colors_red[3],
-            '11%-20% del budget': self.colors_red[4],
-            'Più del 30% del budget': self.colors_red[5],
-            '21%-30% del budget': self.colors_red[6]
-        }
+        # Instead of trying to access specific indices of self.colors_red,
+        # use modulo to cycle through available colors
+        num_categories = len(budget_levels)
         
-        # Get colors in the right order for the actual categories
-        colors = [color_mapping[cat] for cat in budget_levels.index]
+        # Use the colors available, repeating if necessary
+        colors = [self.colors_red[i % len(self.colors_red)] for i in range(num_categories)]
         
         # Create the subplot with pie and bar charts
         fig = make_subplots(
@@ -742,7 +735,7 @@ class Funz:
             width=1000,
             showlegend=False,
             bargap=0.1,
-            margin=dict(l=40, r=40, t=0, b=40),
+            margin=dict(l=40, r=40, t=40, b=40),
             plot_bgcolor='white', 
             paper_bgcolor='white',
             title={
@@ -760,6 +753,7 @@ class Funz:
         
         # Display the chart
         st.plotly_chart(fig, theme=None, use_container_width=True)
+
 
     def plot_processi_digit(self, df):
         df_copy = df.copy() # Work on a copy
