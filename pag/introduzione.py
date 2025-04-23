@@ -9,6 +9,8 @@ def main():
         st.title("Trasformazione Digitale: Dalla Tecnologia all'Ecosistema")
         st.image("./img/ecosistemi.jpg")
         text= """
+<div style="text-align: justify;">
+
 ## Rapporto Finale dell'Osservatorio sulla Maturità Digitale 2024  
 
 ### Prefazione
@@ -297,9 +299,9 @@ Dall'analisi dei dati sono emersi cinque pattern principali che caratterizzano l
 4. Pattern dell'Investimento Efficace: Anche investimenti moderati (5%-10% del budget) mostrano significativi miglioramenti dell'efficienza
 5. Pattern della Maturità Settoriale: Settore Servizi con EBITDA/Vendite medio del 18% contro il 12% del Manifatturiero
 
-
-"""
-        st.markdown(text)
+    </div>
+    """
+        st.markdown(text, unsafe_allow_html=True)
 ###############################################
 
 if __name__ == "__main__":
