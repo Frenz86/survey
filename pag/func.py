@@ -228,7 +228,7 @@ class Funz:
             fig.add_trace(
                 go.Bar(
                     x=maturity_levels.index,
-                    y=maturity_levels.values,
+                    y=maturity_levels.values*10,
                     marker=dict(color=self.colors_red[:len(maturity_levels)]),
                     # hovertemplate="<b>%{x}</b><br>" +
                     #             "Valore: %{y}<br>" +
