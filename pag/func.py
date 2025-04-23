@@ -198,7 +198,7 @@ class Funz:
             df_copy['maturita_digitale'] = df_copy['maturita_digitale'].replace(values_map)
             maturity_levels = df_copy['maturita_digitale'].value_counts()
             total = maturity_levels.sum()
-            percentages = (maturity_levels / total) * 100
+            percentages = (maturity_levels / total) * 10
 
             fig = make_subplots(
                 rows=1, cols=2,
@@ -212,7 +212,7 @@ class Funz:
             fig.add_trace(
                 go.Pie(
                     labels=maturity_levels.index,
-                    values=maturity_levels.values*10,
+                    values=maturity_levels.values,
                     marker=dict(colors=self.colors_red[:len(maturity_levels)]),
                     textinfo='percent+label',
                     textposition='outside',
