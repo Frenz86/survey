@@ -2,24 +2,23 @@ import streamlit as st
 
 def main():
 ###############################################
-   st.title("Introduzione all'Osservatorio sulla Maturità Digitale")
+   st.title("Trasformazione Digitale: Dalla Tecnologia all'Ecosistema")
 
    st.image("./img/ecosistemi.jpg")
 
    text= """
-        L'Osservatorio sulla Maturità Digitale ha coinvolto un totale di 74 imprese, prevalentemente manifatturiere e di servizi, provenienti quasi esclusivamente dall'area forlivese. È importante sottolineare che, data questa limitata distribuzione geografica e numerica, il campione non può considerarsi statisticamente significativo.
+         ## Rapporto Finale dell'Osservatorio sulla Maturità Digitale 2024  
 
-        La ricerca ha esplorato molteplici dimensioni della trasformazione digitale:
-        - dal livello di implementazione tecnologica alle competenze digitali presenti
-        - dagli investimenti effettuati ai benefici percepiti
-        - fino all'impatto sui risultati economici
+         ### Prefazione
+         Il presente rapporto è stato realizzato grazie al contributo essenziale della Fondazione Cassa dei
+         Risparmi di Forlì, che ha reso possibile la ricerca e la messa a disposizione dei risultati all'intera
+         comunità imprenditoriale e istituzionale del territorio. Attraverso questo sostegno, la Fondazione
+         conferma il proprio impegno nel promuovere lo sviluppo economico e l'innovazione locale,
+         contribuendo a costruire un ecosistema digitale territoriale più competitivo e resiliente.
+         L'Osservatorio sulla Maturità Digitale rappresenta uno strumento strategico per comprendere lo
+         stato attuale della trasformazione digitale e orientare azioni concrete per il futuro.
 
-        Il campione analizzato presenta una composizione interessante dal punto di vista dell'esperienza professionale, con una distribuzione bimodale che vede una forte presenza sia di professionisti molto esperti (oltre 20 anni di esperienza) sia di figure relativamente nuove nel settore (0-5 anni). Questo suggerisce un possibile ricambio generazionale in corso, con un buon equilibrio tra esperienza consolidata e nuove competenze.
-
-        Circa un terzo degli intervistati ricopre ruoli specificamente informatici, evidenziando l'importanza crescente delle competenze digitali anche in aziende operanti in settori diversi dall'IT.
-
-        La survey ha adottato un approccio multidimensionale, analizzando non solo aspetti tecnologici, ma anche organizzativi, strategici ed economici della trasformazione digitale, con l'obiettivo di fornire una visione completa e articolata del fenomeno.
-                 """
+         """
    st.markdown(text)
 
 
