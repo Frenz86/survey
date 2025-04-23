@@ -81,13 +81,14 @@ class Funz:
             go.Bar(
                 x=counts.index,
                 y=counts.values,
+                text=counts.values,  # This adds the count value as text
+                textposition='outside',  # Position the text outside the bars
                 name="Distribuzione fasce di anni",
                 marker=dict(color='#4687e1'),
                 showlegend=False
             ),
             row=1, col=2
         )
-
 
 
         fig.update_layout(
