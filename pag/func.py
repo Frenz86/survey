@@ -1151,36 +1151,6 @@ class GraficoInfrastruttura:
             horizontal_spacing=0.2
         )
 
-        # # Filter out zero counts for pie chart
-        # plot_counts_pie = competency_counts[competency_counts > 0]
-        # if not plot_counts_pie.empty:
-        #     fig.add_trace(
-        #         go.Pie(
-        #             labels=plot_counts_pie.index,
-        #             values=plot_counts_pie.values,
-        #             marker=dict(colors=self.colori[:len(plot_counts_pie)]),
-        #             textinfo='percent+label',
-        #             textposition='outside',
-        #             pull=[0.1] * len(plot_counts_pie),
-        #             showlegend=False,
-        #             sort=False # Keep defined order
-        #         ),
-        #         row=1, col=1
-        #     )
-
-        # # Plot all categories in bar chart
-        # fig.add_trace(
-        #     go.Bar(
-        #         x=competency_counts.index, # Use reindexed series for order
-        #         y=competency_counts.values, # Use reindexed series for order
-        #         marker=dict(color=self.colori[:len(competency_counts)]),
-        #         text=percentages.apply(lambda x: f"{x:.1f}%"), # Format percent
-        #         textposition='outside',
-        #         showlegend=False
-        #     ),
-        #     row=1, col=2
-        # )
-
         # Use the same data (competency_counts) for both charts
         fig.add_trace(
             go.Pie(
@@ -1303,7 +1273,7 @@ class GraficoRelazioni:
             go.Bar(
                 x=competency_counts.index, # Use reindexed series for order
                 y=competency_counts.values, # Use reindexed series for order
-                text=percentages.apply(lambda x: float(f"{x:.1f}".replace(',', '.')) * 1), # Format percentages
+                text=[f"{x:.1f}%" for x in percentages], # Better way to format percentages
                 textposition='outside',
                 marker=dict(color=self.colori_relazioni[:len(competency_counts)]),
                 showlegend=False,
