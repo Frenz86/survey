@@ -651,47 +651,30 @@ class Funz:
 ############################################################################ cosa #############################################################################################################################################
 
     def analyze_budget_trans(self, df):
-        # Define budget categories with proper ordering
-        budget_categories = [
-            'Meno del 5% del budget',
-            '5%-10% del budget',
-            '11%-20% del budget',
-            '21%-30% del budget',
-            'Più del 30% del budget',
-            'Non so',
-            'Nessuna risposta'
-        ]
-        
-        # Mapping for standardization
         values = {
-            'Meno del 5%': 'Meno del 5% del budget',
-            '5%-10%': '5%-10% del budget',
             '11%-20%': '11%-20% del budget',
             '21%-30%': '21%-30% del budget',
+            '5%-10%': '5%-10% del budget',
+            'Meno del 5%': 'Meno del 5% del budget',
+            'Non so': 'Non so',
             'Più del 30%': 'Più del 30% del budget',
-            'Non so': 'Non so'
+            'nan': 'Nessuna risposta' # This might not be needed if fillna is used
         }
-        
-        df_copy = df.copy()
-        # Fill NaN values first, then convert to string, then apply mapping
-        df_copy['budget_trans'] = df_copy['budget_trans'].fillna('Nessuna risposta')
+        df_copy = df.copy() # Work on a copy
+        # Ensure the column is string type before replace and fillna
+        df_copy['budget_trans'] = df_copy['budget_trans'].astype(str).fillna('Nessuna risposta')
         df_copy['budget_trans'] = df_copy['budget_trans'].replace(values)
-        
-        # Get counts and ensure all categories are represented (even if zero)
-        budget_levels = df_copy['budget_trans'].value_counts().reindex(
-            budget_categories, fill_value=0
-        )
-        
+        budget_levels = df_copy['budget_trans'].value_counts()
         total = budget_levels.sum()
         percentages = (budget_levels / total * 100) if total > 0 else pd.Series([0]*len(budget_levels), index=budget_levels.index)
-        
+
         fig = make_subplots(
             rows=1, cols=2,
             specs=[[{'type': 'pie'}, {'type': 'bar'}]],
             horizontal_spacing=0.2
         )
-        
-        # Use colors consistently (plural form)
+
+        # Pie chart - uses 'colors'
         fig.add_trace(
             go.Pie(
                 labels=budget_levels.index,
@@ -703,18 +686,18 @@ class Funz:
             ),
             row=1, col=1
         )
-        
+
+        # Bar chart - uses 'color'
         fig.add_trace(
             go.Bar(
                 x=budget_levels.index,
                 y=budget_levels.values,
-                text=[f"{x:.1f}%" for x in percentages],
+                text=[f"{x:.1f}%" for x in percentages], # Better way to format percentages
                 textposition='auto',
-                marker=dict(colors=self.colors_red[:len(budget_levels)])  # Consistent with pie chart
+                marker=dict(color=self.colors_red[:len(budget_levels)])
             ),
             row=1, col=2
         )
-        
 
         fig.update_layout(
             height=500,
