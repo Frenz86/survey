@@ -130,7 +130,7 @@ class Correlazione:
         fig = px.imshow(
             pivot,
             text_auto=True,
-            color_continuous_scale=self.RED_COLOR_SCALE,
+            color_continuous_scale=self.BLUE_COLOR_SCALE,
             labels={'x': 'Maturità Digitale', 'y': 'Fascia Anni Esperienza', 'color': 'Numero di Aziende'}
         )
         
