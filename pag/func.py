@@ -1159,6 +1159,7 @@ class GraficoInfrastruttura:
                     values=plot_counts_pie.values,
                     marker=dict(colors=self.colori[:len(plot_counts_pie)]),
                     #texttemplate='%{label}<br><b>%{percent:.1f}%</b>', # Format percent
+                    textinfo='percent+label',
                     textposition='outside',
                     pull=[0.1] * len(plot_counts_pie),
                     showlegend=False,
