@@ -200,6 +200,9 @@ class Funz:
             total = maturity_levels.sum()
             percentages = (maturity_levels / total) * 100
 
+            # Calculate 10x percentages
+            percentages_10x = percentages * 10
+
             fig = make_subplots(
                 rows=1, cols=2,
                 specs=[[{'type': 'pie'}, {'type': 'bar'}]],
@@ -208,19 +211,19 @@ class Funz:
                 column_widths=[0.5, 0.5]
             )
 
-            # Add pie chart
+            # Add pie chart with custom percentages
             fig.add_trace(
                 go.Pie(
                     labels=maturity_levels.index,
                     values=maturity_levels.values,
                     marker=dict(colors=self.colors_red[:len(maturity_levels)]),
-                    #text=percentages.apply(lambda x: float(f"{x:.1f}".replace(',', '.')) * 10), # Format percentages
                     textinfo='percent+label',
                     textposition='outside',
                     pull=[0.1] * len(maturity_levels),
+                    customdata=percentages_10x,  # Pass the 10x percentages as customdata
                     hovertemplate="<b>%{label}</b><br>" + 
                                 "Valore: %{value}<br>" + 
-                                "Percentuale (×10): %{percent:.1f}0%<extra></extra>"
+                                "Percentuale: %{customdata:.1f}%<extra></extra>"  # Use customdata instead of percent
                 ),
                 row=1, col=1
             )
