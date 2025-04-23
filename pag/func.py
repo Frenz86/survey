@@ -230,9 +230,9 @@ class Funz:
                     x=maturity_levels.index,
                     y=maturity_levels.values,
                     marker=dict(color=self.colors_red[:len(maturity_levels)]),
-                    hovertemplate="<b>%{x}</b><br>" +
-                                "Valore: %{y}<br>" +
-                                "Percentuale: %{text}<extra></extra>",
+                    # hovertemplate="<b>%{x}</b><br>" +
+                    #             "Valore: %{y}<br>" +
+                    #             "Percentuale: %{text}<extra></extra>",
                     text=percentages.apply(lambda x: float(f"{x:.1f}".replace(',', '.')) * 10), # Format percentages
                 ),
                 row=1, col=2
