@@ -201,7 +201,7 @@ class Funz:
             percentages = (maturity_levels / total) * 100
 
             # Calculate 10x percentages
-            percentages_10x = percentages * 10
+            percentages_10x = percentages * 1
 
             fig = make_subplots(
                 rows=1, cols=2,
