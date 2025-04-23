@@ -651,6 +651,7 @@ class Funz:
 ############################################################################ cosa #############################################################################################################################################
 
     def analyze_budget_trans(self, df):
+        # Define mapping for budget categories to ensure consistent labeling
         values = {
             '11%-20%': '11%-20% del budget',
             '21%-30%': '21%-30% del budget',
@@ -658,47 +659,84 @@ class Funz:
             'Meno del 5%': 'Meno del 5% del budget',
             'Non so': 'Non so',
             'Più del 30%': 'Più del 30% del budget',
-            'nan': 'Nessuna risposta' # This might not be needed if fillna is used
+            'nan': 'Nessuna risposta'
         }
-        df_copy = df.copy() # Work on a copy
-        # Ensure the column is string type before replace and fillna
+        
+        # Create a copy of the dataframe to avoid modifying the original
+        df_copy = df.copy()
+        
+        # Ensure the column is string type, handle missing values, and apply mapping
         df_copy['budget_trans'] = df_copy['budget_trans'].astype(str).fillna('Nessuna risposta')
         df_copy['budget_trans'] = df_copy['budget_trans'].replace(values)
+        
+        # Calculate frequencies and percentages
         budget_levels = df_copy['budget_trans'].value_counts()
         total = budget_levels.sum()
         percentages = (budget_levels / total * 100) if total > 0 else pd.Series([0]*len(budget_levels), index=budget_levels.index)
-
+        
+        # Define a consistent order for categories
+        order = [
+            'Meno del 5% del budget',
+            'Non so',
+            'Nessuna risposta',
+            '5%-10% del budget',
+            '11%-20% del budget',
+            'Più del 30% del budget',
+            '21%-30% del budget'
+        ]
+        
+        # Filter and reorder based on what's actually in the data
+        available_categories = [cat for cat in order if cat in budget_levels.index]
+        budget_levels = budget_levels.reindex(available_categories)
+        percentages = percentages.reindex(available_categories)
+        
+        # Create a consistent color mapping
+        color_mapping = {
+            'Meno del 5% del budget': self.colors_red[0],
+            'Non so': self.colors_red[1],
+            'Nessuna risposta': self.colors_red[2],
+            '5%-10% del budget': self.colors_red[3],
+            '11%-20% del budget': self.colors_red[4],
+            'Più del 30% del budget': self.colors_red[5],
+            '21%-30% del budget': self.colors_red[6]
+        }
+        
+        # Get colors in the right order for the actual categories
+        colors = [color_mapping[cat] for cat in budget_levels.index]
+        
+        # Create the subplot with pie and bar charts
         fig = make_subplots(
             rows=1, cols=2,
             specs=[[{'type': 'pie'}, {'type': 'bar'}]],
             horizontal_spacing=0.2
         )
-
-        # Pie chart - uses 'colors'
+        
+        # Add pie chart with consistent colors
         fig.add_trace(
             go.Pie(
                 labels=budget_levels.index,
                 values=budget_levels.values,
-                marker=dict(colors=self.colors_red[:len(budget_levels)]),
+                marker=dict(colors=colors),
                 textinfo='percent+label',
                 textposition='outside',
                 pull=[0.1] * len(budget_levels)
             ),
             row=1, col=1
         )
-
-        # Bar chart - uses 'color'
+        
+        # Add bar chart with the same colors
         fig.add_trace(
             go.Bar(
                 x=budget_levels.index,
                 y=budget_levels.values,
-                text=[f"{x:.1f}%" for x in percentages], # Better way to format percentages
+                text=[f"{x:.1f}%" for x in percentages.values],
                 textposition='auto',
-                marker=dict(color=self.colors_red[:len(budget_levels)])
+                marker=dict(color=colors)
             ),
             row=1, col=2
         )
-
+        
+        # Update layout
         fig.update_layout(
             height=500,
             width=1000,
@@ -706,11 +744,21 @@ class Funz:
             bargap=0.1,
             margin=dict(l=40, r=40, t=0, b=40),
             plot_bgcolor='white', 
-            paper_bgcolor='white'
+            paper_bgcolor='white',
+            title={
+                'text': 'Budget allocato per iniziative di trasformazione digitale (2023)',
+                'y':0.98,
+                'x':0.5,
+                'xanchor': 'center',
+                'yanchor': 'top'
+            }
         )
+        
+        # Update axes
         fig.update_xaxes(showgrid=False)
         fig.update_yaxes(showgrid=False)
-
+        
+        # Display the chart
         st.plotly_chart(fig, theme=None, use_container_width=True)
 
     def plot_processi_digit(self, df):
