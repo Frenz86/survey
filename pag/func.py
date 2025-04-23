@@ -1151,16 +1151,15 @@ class GraficoInfrastruttura:
             horizontal_spacing=0.2
         )
 
-        # Filter out zero counts for pie chart
         plot_counts_pie = competency_counts[competency_counts > 0]
         if not plot_counts_pie.empty:
-            fig.add_trace(
+            fig.add_trace( # Indented under 'if'
                 go.Pie(
                     labels=plot_counts_pie.index,
                     values=plot_counts_pie.values,
-                    marker=dict(colors=self.colori[:len(plot_counts_pie)]),
+                    marker=dict(colors=self.colori_relazioni[:len(plot_counts_pie)]),
                     #texttemplate='%{label}<br><b>%{percent:.1f}%</b>', # Format percent
-                    textinfo='percent+label',
+                    textinfo='percent+label', 
                     textposition='outside',
                     pull=[0.1] * len(plot_counts_pie),
                     showlegend=False,
@@ -1170,17 +1169,48 @@ class GraficoInfrastruttura:
             )
 
         # Plot all categories in bar chart
-        fig.add_trace(
+        fig.add_trace( # Indented under 'plot_graph2'
             go.Bar(
                 x=competency_counts.index, # Use reindexed series for order
                 y=competency_counts.values, # Use reindexed series for order
-                marker=dict(color=self.colori[:len(competency_counts)]),
-                text=percentages.apply(lambda x: f"{x:.1f}%"), # Format percent
+                text=percentages.apply(lambda x: float(f"{x:.1f}".replace(',', '.')) * 1), # Format percentages
                 textposition='outside',
-                showlegend=False
+                marker=dict(color=self.colori_relazioni[:len(competency_counts)]),
+                showlegend=False,
             ),
             row=1, col=2
         )
+
+        # # Filter out zero counts for pie chart
+        # plot_counts_pie = competency_counts[competency_counts > 0]
+        # if not plot_counts_pie.empty:
+        #     fig.add_trace(
+        #         go.Pie(
+        #             labels=plot_counts_pie.index,
+        #             values=plot_counts_pie.values,
+        #             marker=dict(colors=self.colori[:len(plot_counts_pie)]),
+        #             #texttemplate='%{label}<br><b>%{percent:.1f}%</b>', # Format percent
+        #             textinfo='percent+label',
+        #             textposition='outside',
+        #             pull=[0.1] * len(plot_counts_pie),
+        #             showlegend=False,
+        #             sort=False # Keep defined order
+        #         ),
+        #         row=1, col=1
+        #     )
+
+        # # Plot all categories in bar chart
+        # fig.add_trace(
+        #     go.Bar(
+        #         x=competency_counts.index, # Use reindexed series for order
+        #         y=competency_counts.values, # Use reindexed series for order
+        #         marker=dict(color=self.colori[:len(competency_counts)]),
+        #         text=percentages.apply(lambda x: f"{x:.1f}%"), # Format percent
+        #         textposition='outside',
+        #         showlegend=False
+        #     ),
+        #     row=1, col=2
+        # )
 
         fig.update_layout(
             title=" ",
