@@ -1196,13 +1196,14 @@ class GraficoInfrastruttura:
             row=1, col=1
         )
 
-        # Plot all categories in bar chart (same as before)
         fig.add_trace(
             go.Bar(
-                x=competency_counts.index, # Use reindexed series for order
-                y=competency_counts.values, # Use reindexed series for order
-                marker=dict(colors=self.colori[:len(competency_counts)]),
-                text=percentages.apply(lambda x: f"{x:.1f}%"), # Format percent
+                x=competency_counts.index,
+                y=competency_counts.values,
+                marker=dict(
+                    color=self.colori[:len(competency_counts)]
+                ),  # Make sure the dict is properly formatted
+                text=percentages.apply(lambda x: f"{x:.1f}%"),
                 textposition='outside',
                 showlegend=False
             ),
