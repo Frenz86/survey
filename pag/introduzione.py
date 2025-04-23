@@ -64,7 +64,7 @@ def main():
       fase di sviluppo, caratterizzato da elementi di complessità e alcune contraddizioni significative.
 
          """
-   st.markdown(text)
+      st.markdown(text)
 
 
 ###############################################
