@@ -679,7 +679,7 @@ class Funz:
             go.Pie(
                 labels=budget_levels.index,
                 values=budget_levels.values,
-                marker=dict(colors=self.colors_red[:len(budget_levels)])
+                marker=dict(colors=self.colors_red[:len(budget_levels)]),
                 textinfo='percent+label',
                 textposition='outside',
                 pull=[0.1] * len(budget_levels)
@@ -694,7 +694,7 @@ class Funz:
                 y=budget_levels.values,
                 text=[f"{x:.1f}%" for x in percentages], # Better way to format percentages
                 textposition='auto',
-                marker=dict(colors=self.colors_red[:len(budget_levels)])
+                marker=dict(color=self.colors_red[:len(budget_levels)])
             ),
             row=1, col=2
         )
