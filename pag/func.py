@@ -233,7 +233,7 @@ class Funz:
                     hovertemplate="<b>%{x}</b><br>" +
                                 "Valore: %{y}<br>" +
                                 "Percentuale: %{text}<extra></extra>",
-                    text=percentages.apply(lambda x: f"{x:.1f}%") # Add percentages text for hover
+                    text=percentages.apply(lambda x: float(f"{x:.1f}".replace(',', '.')) * 10), # Format percentages
                 ),
                 row=1, col=2
             )
