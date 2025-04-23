@@ -8,6 +8,8 @@ def main():
     with col2:
         st.title("Conclusione")
         text= """
+<div style="text-align: justify;">
+
 L'Osservatorio sulla Maturità Digitale ha rivelato un tessuto imprenditoriale in chiara evoluzione digitale, ma con significative opportunità di miglioramento. La trasformazione digitale nelle imprese analizzate richiede un salto di qualità: dall'approccio tattico a quello strategico, dall'ottimizzazione all'innovazione, dalla tecnologia come strumento alla tecnologia come abilitatore di nuovi modelli di business.
 
 Il percorso di maturazione digitale è iniziato per quasi tutte le aziende (93,8%), ma la vera sfida consiste ora nel passare dalla semplice adozione tecnologica a una trasformazione profonda dei processi e dei modelli di business. La ricerca ha evidenziato che anche investimenti relativamente contenuti (5-10% del budget) possono generare significativi miglioramenti, suggerendo che non è tanto la quantità di risorse investite quanto la loro allocazione strategica a fare la differenza.
@@ -88,13 +90,9 @@ Nel paradigma emergente dell'economia digitale interconnessa, non è più solo l
 
 Come evidenziato dall'Osservatorio, siamo ancora nelle fasi iniziali di questo percorso ecosistemico, ma le fondamenta per questa evoluzione sono già visibili nelle esperienze più avanzate. Il futuro appartiene a chi saprà interpretare la trasformazione digitale non come una questione meramente tecnologica, ma come un'opportunità di ridefinizione sistemica del modo in cui creiamo e condividiamo valore.
 
+</div>
 """
-        st.markdown(text)
-
-
-
-
-
+        st.markdown(text, unsafe_allow_html=True)
 
 ###############################################
 
