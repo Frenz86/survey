@@ -3,15 +3,12 @@ import streamlit as st
 def main():
 ###############################################
 
-
    # Puoi usare le colonne di Streamlit per centrare contenuti
     col1, col2, col3 = st.columns([1, 2, 1])
-    
-   	with col2:
-    	st.title("Trasformazione Digitale: Dalla Tecnologia all'Ecosistema")
-
-    	st.image("./img/ecosistemi.jpg")
-    	text= """
+    with col2:
+        st.title("Trasformazione Digitale: Dalla Tecnologia all'Ecosistema")
+        st.image("./img/ecosistemi.jpg")
+        text= """
       ## Rapporto Finale dell'Osservatorio sulla Maturità Digitale 2024  
 
       ### Prefazione
@@ -65,9 +62,7 @@ def main():
       fase di sviluppo, caratterizzato da elementi di complessità e alcune contraddizioni significative.
 
          """
-    	st.markdown(text)
-
-
+        st.markdown(text)
 ###############################################
 
 if __name__ == "__main__":
