@@ -51,7 +51,6 @@ L'Osservatorio sulla Maturità Digitale rappresenta uno strumento strategico per
 	- Lungo periodo (3-5 anni)
 12. **Considerazioni Finali**
 
-
 ## Executive Summary
 
 L'Osservatorio sulla Maturità Digitale ha coinvolto 74 imprese, prevalentemente manifatturiere e di servizi dell'area forlivese, rivelando un tessuto imprenditoriale in evoluzione digitale, con il 93,8% delle aziende che dichiara di aver avviato un processo di trasformazione digitale. Con un indice medio di soddisfazione di 3,43 su 5, l'analisi evidenzia un approccio alla digitalizzazione ancora in fase di sviluppo, caratterizzato da elementi di complessità e alcune contraddizioni significative.
