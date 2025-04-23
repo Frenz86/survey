@@ -1257,7 +1257,7 @@ class GraficoRelazioni:
                     labels=plot_counts_pie.index,
                     values=plot_counts_pie.values,
                     marker=dict(colors=self.colori_relazioni[:len(plot_counts_pie)]),
-                    #texttemplate='%{label}<br><b>%{percent:.1f}%</b>', # Format percent
+                    texttemplate='%{label}<br><b>%{percent:.1f}%</b>', # Format percent
                     textposition='outside',
                     pull=[0.1] * len(plot_counts_pie),
                     showlegend=False,
@@ -1271,7 +1271,7 @@ class GraficoRelazioni:
             go.Bar(
                 x=competency_counts.index, # Use reindexed series for order
                 y=competency_counts.values, # Use reindexed series for order
-                text=percentages.apply(lambda x: f"{x:.1f}%"), # Format percent
+                text=percentages.apply(lambda x: float(f"{x:.1f}".replace(',', '.')) * 1), # Format percentages
                 #textposition='outside',
                 marker=dict(color=self.colori_relazioni[:len(competency_counts)]),
                 showlegend=False,
