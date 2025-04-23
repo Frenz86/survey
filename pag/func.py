@@ -1056,7 +1056,7 @@ class GraficoFigure:
                 go.Pie(
                     labels=plot_counts_pie.index,
                     values=plot_counts_pie.values,
-                    text=percentages.apply(lambda x: float(f"{x:.1f}".replace(',', '.')) * 10), # Format percentages
+                    text=percentages.apply(lambda x: float(f"{x:.1f}".replace(',', '.')) * 1), # Format percentages
                     textposition='outside',
                     pull=[0.1] * len(plot_counts_pie),
                     showlegend=False,
