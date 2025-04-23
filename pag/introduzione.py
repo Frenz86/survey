@@ -62,9 +62,9 @@ I principali risultati evidenziano che il 39,2% delle aziende ha iniziato il per
 
 Emerge un chiaro gap tra l'adozione di infrastrutture tecnologiche (hardware 82,2%, sicurezza informatica 79,4%) e la loro effettiva integrazione nei processi (digitalizzazione processi 37%, piattaforme collaborative 39,2%). La ricerca ha identificato tre livelli di maturità digitale:
 
-* Imprese digitalmente mature (circa 15% del campione): mostrano performance finanziarie superiori (EBITDA/Vendite mediano >20%)
-* Imprese in fase di transizione (circa 50% del campione): digitalizzazione ancora parziale, principalmente nei processi amministrativi
-* Imprese digitalmente immature (circa 35% del campione): approccio frammentario e investimenti minimi
+* **Imprese digitalmente mature (circa 15% del campione)**: mostrano performance finanziarie superiori (EBITDA/Vendite mediano >20%)
+* **Imprese in fase di transizione (circa 50% del campione)**: digitalizzazione ancora parziale, principalmente nei processi amministrativi
+* **Imprese digitalmente immature (circa 35% del campione)**: approccio frammentario e investimenti minimi
 
 La ricerca evidenzia come il successo della trasformazione digitale non dipenda esclusivamente dalle singole organizzazioni, ma dalla loro capacità di interagire efficacemente con un ecosistema complesso di attori interconnessi. Le organizzazioni che adottano un approccio ecosistemico alla trasformazione digitale mostrano maggiore capacità di ottimizzare investimenti, ridurre rischi e accelerare l'innovazione.
 
@@ -72,8 +72,8 @@ La ricerca evidenzia come il successo della trasformazione digitale non dipenda 
 
 ### Maturità digitale e investimenti
 
-* Difficoltà autovalutativa: La maggioranza delle aziende (74,3%) non risponde alla domanda sul livello di maturità digitale, riflettendo una sostanziale difficoltà nel comprendere e analizzare il complesso mondo della digital transformation. Questo fenomeno non è riconducibile a semplice reticenza strategica, ma evidenzia una più profonda incertezza nella comprensione dei paradigmi e delle implicazioni organizzative della trasformazione digitale. Le aziende sembrano mancare di parametri chiari e framework condivisi per autovalutare oggettivamente il proprio posizionamento nel percorso di digitalizzazione.
-* Approccio pragmatico: Le aziende mostrano una significativa maggiore facilità nel riconoscere e descrivere azioni specifiche e progetti concreti rispetto a valutare uno stato complessivo di maturità digitale. Questo orientamento al "fare" piuttosto che al "pianificare strategicamente" riflette un approccio incrementale alla trasformazione, dove l'adozione di singole soluzioni tecnologiche prevale sulla definizione di una visione integrata. Tale comportamento potrebbe limitare la capacità di sfruttare appieno le sinergie tra diverse iniziative digitali.
+* **Difficoltà autovalutativa**: La maggioranza delle aziende (74,3%) non risponde alla domanda sul livello di maturità digitale, riflettendo una sostanziale difficoltà nel comprendere e analizzare il complesso mondo della digital transformation. Questo fenomeno non è riconducibile a semplice reticenza strategica, ma evidenzia una più profonda incertezza nella comprensione dei paradigmi e delle implicazioni organizzative della trasformazione digitale. Le aziende sembrano mancare di parametri chiari e framework condivisi per autovalutare oggettivamente il proprio posizionamento nel percorso di digitalizzazione.
+* **Approccio pragmatico**: Le aziende mostrano una significativa maggiore facilità nel riconoscere e descrivere azioni specifiche e progetti concreti rispetto a valutare uno stato complessivo di maturità digitale. Questo orientamento al "fare" piuttosto che al "pianificare strategicamente" riflette un approccio incrementale alla trasformazione, dove l'adozione di singole soluzioni tecnologiche prevale sulla definizione di una visione integrata. Tale comportamento potrebbe limitare la capacità di sfruttare appieno le sinergie tra diverse iniziative digitali.
          """
         st.markdown(text)
 ###############################################
