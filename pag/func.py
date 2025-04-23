@@ -1158,7 +1158,7 @@ class GraficoInfrastruttura:
                     labels=plot_counts_pie.index,
                     values=plot_counts_pie.values,
                     marker=dict(colors=self.colori[:len(plot_counts_pie)]),
-                    texttemplate='%{label}<br><b>%{percent:.1f}%</b>', # Format percent
+                    #texttemplate='%{label}<br><b>%{percent:.1f}%</b>', # Format percent
                     textposition='outside',
                     pull=[0.1] * len(plot_counts_pie),
                     showlegend=False,
@@ -1257,7 +1257,7 @@ class GraficoRelazioni:
                     labels=plot_counts_pie.index,
                     values=plot_counts_pie.values,
                     marker=dict(colors=self.colori_relazioni[:len(plot_counts_pie)]),
-                    texttemplate='%{label}<br><b>%{percent:.1f}%</b>', # Format percent
+                    #texttemplate='%{label}<br><b>%{percent:.1f}%</b>', # Format percent
                     textposition='outside',
                     pull=[0.1] * len(plot_counts_pie),
                     showlegend=False,
