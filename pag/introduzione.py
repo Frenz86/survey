@@ -18,7 +18,7 @@ def main():
          L'Osservatorio sulla Maturità Digitale rappresenta uno strumento strategico per comprendere lo
          stato attuale della trasformazione digitale e orientare azioni concrete per il futuro.
 
-         # Indice
+# Indice
 
 1. **Executive Summary**
 2. **Metodologia e Campione**
