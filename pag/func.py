@@ -1168,18 +1168,18 @@ class GraficoInfrastruttura:
         #         row=1, col=1
         #     )
 
-        # Plot all categories in bar chart
-        fig.add_trace( # Indented under 'plot_graph2'
-            go.Bar(
-                x=competency_counts.index, # Use reindexed series for order
-                y=competency_counts.values, # Use reindexed series for order
-                text=percentages.apply(lambda x: float(f"{x:.1f}".replace(',', '.')) * 1), # Format percentages
-                textposition='outside',
-                marker=dict(color=self.colori_relazioni[:len(competency_counts)]),
-                showlegend=False,
-            ),
-            row=1, col=2
-        )
+        # # Plot all categories in bar chart
+        # fig.add_trace( # Indented under 'plot_graph2'
+        #     go.Bar(
+        #         x=competency_counts.index, # Use reindexed series for order
+        #         y=competency_counts.values, # Use reindexed series for order
+        #         text=percentages.apply(lambda x: float(f"{x:.1f}".replace(',', '.')) * 1), # Format percentages
+        #         textposition='outside',
+        #         marker=dict(color=self.colori_relazioni[:len(competency_counts)]),
+        #         showlegend=False,
+        #     ),
+        #     row=1, col=2
+        # )
 
         # Filter out zero counts for pie chart
         plot_counts_pie = competency_counts[competency_counts > 0]
@@ -1199,18 +1199,18 @@ class GraficoInfrastruttura:
                 row=1, col=1
             )
 
-        # # Plot all categories in bar chart
-        # fig.add_trace(
-        #     go.Bar(
-        #         x=competency_counts.index, # Use reindexed series for order
-        #         y=competency_counts.values, # Use reindexed series for order
-        #         marker=dict(color=self.colori[:len(competency_counts)]),
-        #         text=percentages.apply(lambda x: f"{x:.1f}%"), # Format percent
-        #         textposition='outside',
-        #         showlegend=False
-        #     ),
-        #     row=1, col=2
-        # )
+        # Plot all categories in bar chart
+        fig.add_trace(
+            go.Bar(
+                x=competency_counts.index, # Use reindexed series for order
+                y=competency_counts.values, # Use reindexed series for order
+                marker=dict(color=self.colori[:len(competency_counts)]),
+                text=percentages.apply(lambda x: f"{x:.1f}%"), # Format percent
+                textposition='outside',
+                showlegend=False
+            ),
+            row=1, col=2
+        )
 
         fig.update_layout(
             title=" ",
