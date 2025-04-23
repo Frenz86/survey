@@ -218,9 +218,9 @@ class Funz:
                     textinfo='percent+label',
                     textposition='outside',
                     pull=[0.1] * len(maturity_levels),
-                    hovertemplate="<b>%{label}</b><br>" +
-                                "Valore: %{value}<br>" +
-                                "Percentuale: %{percent:.1f}*10%<extra></extra>"
+                    hovertemplate="<b>%{label}</b><br>" + 
+                                "Valore: %{value}<br>" + 
+                                "Percentuale (×10): %{percent:.1f}0%<extra></extra>"
                 ),
                 row=1, col=1
             )
