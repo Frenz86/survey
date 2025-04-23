@@ -220,7 +220,7 @@ class Funz:
                     pull=[0.1] * len(maturity_levels),
                     hovertemplate="<b>%{label}</b><br>" +
                                 "Valore: %{value}<br>" +
-                                "Percentuale: %{percent:.1f}%<extra></extra>"
+                                "Percentuale: %{percent:.1f}*10%<extra></extra>"
                 ),
                 row=1, col=1
             )
