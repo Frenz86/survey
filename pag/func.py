@@ -198,7 +198,7 @@ class Funz:
             df_copy['maturita_digitale'] = df_copy['maturita_digitale'].replace(values_map)
             maturity_levels = df_copy['maturita_digitale'].value_counts()
             total = maturity_levels.sum()
-            percentages = (maturity_levels / total) * 10
+            percentages = (maturity_levels / total) * 100
 
             fig = make_subplots(
                 rows=1, cols=2,
@@ -214,7 +214,7 @@ class Funz:
                     labels=maturity_levels.index,
                     values=maturity_levels.values,
                     marker=dict(colors=self.colors_red[:len(maturity_levels)]),
-                    textinfo='percent+label',
+                    text=percentages.apply(lambda x: float(f"{x:.1f}".replace(',', '.')) * 10), # Format percentages
                     textposition='outside',
                     pull=[0.1] * len(maturity_levels),
                     hovertemplate="<b>%{label}</b><br>" +
@@ -1052,7 +1052,7 @@ class GraficoFigure:
                 go.Pie(
                     labels=plot_counts_pie.index,
                     values=plot_counts_pie.values,
-                    texttemplate='%{label}<br><b>%{percent:.1f}%</b>', # Format percent
+                    text=percentages.apply(lambda x: float(f"{x:.1f}".replace(',', '.')) * 10), # Format percentages
                     textposition='outside',
                     pull=[0.1] * len(plot_counts_pie),
                     showlegend=False,
