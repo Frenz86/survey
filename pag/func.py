@@ -1144,6 +1144,18 @@ class GraficoInfrastruttura:
         total = competency_counts.sum()
         percentages = (competency_counts / total * 100) if total > 0 else pd.Series([0]*len(competency_counts), index=competency_counts.index)
 
+        # Create a color dictionary to ensure consistent colors across both charts
+        color_dict = {
+            "In disaccordo": "#2E7D32",       # Dark green
+            "Neutrale": "#81C784",            # Light green
+            "D'accordo": "#AED581",           # Lighter green
+            "Molto D'accordo": "#66BB6A",     # Medium green
+            "Nessuna risposta": "#4CAF50"     # Standard green
+        }
+        
+        # Ensure the color order matches the category order
+        colors = [color_dict[cat] for cat in order]
+
         fig = make_subplots(
             rows=1, cols=2, 
             specs=[[{'type': 'pie'}, {'type': 'bar'}]],
@@ -1154,17 +1166,19 @@ class GraficoInfrastruttura:
         # Filter out zero counts for pie chart
         plot_counts_pie = competency_counts[competency_counts > 0]
         if not plot_counts_pie.empty:
+            # Get colors in the same order as the filtered pie data
+            pie_colors = [color_dict[label] for label in plot_counts_pie.index]
+            
             fig.add_trace(
                 go.Pie(
                     labels=plot_counts_pie.index,
                     values=plot_counts_pie.values,
-                    marker=dict(colors=self.colori[:len(plot_counts_pie)]),
-                    #texttemplate='%{label}<br><b>%{percent:.1f}%</b>', # Format percent
+                    marker=dict(colors=pie_colors),  # Use colors that match the labels
                     textinfo='percent+label',
                     textposition='outside',
                     pull=[0.1] * len(plot_counts_pie),
                     showlegend=False,
-                    sort=False # Keep defined order
+                    sort=False  # Keep defined order
                 ),
                 row=1, col=1
             )
@@ -1172,10 +1186,10 @@ class GraficoInfrastruttura:
         # Plot all categories in bar chart
         fig.add_trace(
             go.Bar(
-                x=competency_counts.index, # Use reindexed series for order
+                x=competency_counts.index,  # Use reindexed series for order
                 y=competency_counts.values, # Use reindexed series for order
-                marker=dict(color=self.colori[:len(competency_counts)]),
-                text=percentages.apply(lambda x: f"{x:.1f}%"), # Format percent
+                marker=dict(colors=colors),  # Use the consistent color mapping
+                text=percentages.apply(lambda x: f"{x:.1f}%"),  # Format percent
                 textposition='outside',
                 showlegend=False
             ),
