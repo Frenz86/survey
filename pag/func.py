@@ -1272,7 +1272,7 @@ class GraficoRelazioni:
                 x=competency_counts.index, # Use reindexed series for order
                 y=competency_counts.values, # Use reindexed series for order
                 text=percentages.apply(lambda x: float(f"{x:.1f}".replace(',', '.')) * 1), # Format percentages
-                #textposition='outside',
+                textposition='outside',
                 marker=dict(color=self.colori_relazioni[:len(competency_counts)]),
                 showlegend=False,
             ),
