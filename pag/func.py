@@ -626,7 +626,7 @@ class Funz:
             go.Bar(
                 x=fase_levels.index,
                 y=fase_levels.values,
-                text=percentages.apply(lambda x: float(f"{x:.1f}"+"%")) , # Format percentages
+                text=[f"{x:.1f}%" for x in percentages], # Better way to format percentages
                 textposition='auto',
                 marker=dict(color=self.colors_red[:len(fase_levels)])
             ),
