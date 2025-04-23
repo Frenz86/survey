@@ -15,9 +15,9 @@ text2 = """
 text3 = """
 Il primo dato che emerge con forza è la predominanza di non-risposte sulla valutazione della maturità digitale. Questo fenomeno può essere interpretato attraverso diverse chiavi di lettura:
 
-- Difficoltà autovalutativa: Molte organizzazioni potrebbero non disporre di framework o parametri chiari per valutare oggettivamente il proprio livello di maturità digitale
-- Reticenza strategica: La riluttanza a dichiarare il proprio posizionamento può derivare dalla percezione di questa informazione come sensibile in termini competitivi
-- Consapevolezza emergente: Le aziende più informate sul potenziale della digitalizzazione potrebbero essere paradossalmente più esitanti nel proclamare livelli avanzati, consapevoli della distanza tra lo stato attuale e le possibilità future
+- difficoltà autovalutativa: molte organizzazioni potrebbero non disporre di framework o parametri chiari per valutare oggettivamente il proprio livello di maturità digitale
+- reticenza strategica: la riluttanza a dichiarare il proprio posizionamento può derivare dalla percezione di questa informazione come sensibile in termini competitivi
+- consapevolezza emergente: le aziende più informate sul potenziale della digitalizzazione potrebbero essere paradossalmente più esitanti nel proclamare livelli avanzati, consapevoli della distanza tra lo stato attuale e le possibilità future
 
 Tuttavia, quando si sposta l'attenzione dal concetto astratto di "maturità digitale" alla concretezza del "processo di trasformazione", il quadro diventa più positivo, con un numero significativo di aziende che dichiarano di aver avviato percorsi concreti. Questa apparente contraddizione suggerisce una maggiore facilità nel riconoscere azioni specifiche rispetto a valutare uno stato complessivo di maturità.
 """
@@ -26,8 +26,8 @@ text4 = """
         """
 text5 = """
 Una seconda tensione significativa emerge dal confronto tra il livello di investimenti e la percezione delle competenze:
-- Da un lato, gli investimenti risultano relativamente contenuti, con la maggioranza delle aziende che destina meno del 10% del budget alla digitalizzazione o non ha una visione chiara degli investimenti effettuati
-- Dall'altro, si registra una discreta fiducia nelle competenze del personale, specialmente in ambito tecnico e digitale
+- da un lato, gli investimenti risultano relativamente contenuti, con la maggioranza delle aziende che destina meno del 10% del budget alla digitalizzazione o non ha una visione chiara degli investimenti effettuati
+- dall'altro, si registra una discreta fiducia nelle competenze del personale, specialmente in ambito tecnico e digitale
 
 Questa dissonanza può riflettere una sottovalutazione della complessità della trasformazione digitale: le aziende potrebbero ritenere sufficiente un investimento limitato in tecnologie di base e competenze tecniche essenziali, senza cogliere la necessità di un approccio più sistemico che includa competenze strategiche, analitiche e innovative più sofisticate.
 Il gap percepito proprio in queste ultime competenze "avanzate" conferma questa ipotesi: mentre le organizzazioni si sentono relativamente sicure sulle competenze tecniche, riconoscono carenze nelle capacità necessarie per capitalizzare strategicamente sugli investimenti tecnologici.
@@ -61,9 +61,9 @@ text11 = """
 text12 = """
 Un terzo elemento di riflessione emerge dall'analisi delle infrastrutture:
 
-- Le aziende sembrano aver investito adeguatamente in infrastrutture hardware di base
-- Si registra però una certa lacunosità sul fronte delle soluzioni software più avanzate
-- Parallelamente, tra gli ostacoli alla maturità digitale non figurano primariamente le carenze infrastrutturali, ma piuttosto la mancanza di competenze specifiche e strategie chiare
+- le aziende sembrano aver investito adeguatamente in infrastrutture hardware di base
+- si registra però una certa lacunosità sul fronte delle soluzioni software più avanzate
+- parallelamente, tra gli ostacoli alla maturità digitale non figurano primariamente le carenze infrastrutturali, ma piuttosto la mancanza di competenze specifiche e strategie chiare
 
 Questo scenario delinea un paradosso tipico delle prime fasi della trasformazione digitale: le aziende investono in tecnologie tangibili e visibili (hardware), ma potrebbero sottovalutare l'importanza di soluzioni software più sofisticate e, soprattutto, del capitale umano e strategico necessario per valorizzare tali investimenti.
 """
@@ -150,13 +150,13 @@ La vera maturità digitale si configura come un ecosistema integrato
 
 La vera maturità digitale si configura come un ecosistema integrato dove tre elementi fondamentali devono coesistere e rafforzarsi reciprocamente:
 
-1. **Integrazione efficace delle tecnologie**: Non basta implementare numerose soluzioni digitali se queste operano in silos separati. La capacità di far dialogare i sistemi, creare flussi di dati coerenti e costruire un'architettura tecnologica unificata è determinante.
+1. **integrazione efficace delle tecnologie**: non basta implementare numerose soluzioni digitali se queste operano in silos separati. la capacità di far dialogare i sistemi, creare flussi di dati coerenti e costruire un'architettura tecnologica unificata è determinante.
 
-2. **Sviluppo mirato delle competenze**: Le tecnologie rimangono strumenti inerti senza le persone capaci di utilizzarle strategicamente. Questo implica non solo competenze tecniche specialistiche, ma anche capacità trasversali di visione sistemica e pensiero innovativo.
+2. **sviluppo mirato delle competenze**: le tecnologie rimangono strumenti inerti senza le persone capaci di utilizzarle strategicamente. questo implica non solo competenze tecniche specialistiche, ma anche capacità trasversali di visione sistemica e pensiero innovativo.
 
-3. **Allineamento strategico**: Le iniziative digitali devono essere intimamente connesse agli obiettivi di business dell'organizzazione, supportando e accelerando il conseguimento delle priorità strategiche.
+3. **allineamento strategico**: le iniziative digitali devono essere intimamente connesse agli obiettivi di business dell'organizzazione, supportando e accelerando il conseguimento delle priorità strategiche.
 
-#### Stato attuale della trasformazione
+#### stato attuale della trasformazione
 
 L'osservatorio dipinge un quadro del tessuto aziendale ancora in transizione. La maggioranza delle organizzazioni si trova nelle fasi iniziali o intermedie del percorso di trasformazione digitale, con un focus prevalente sull'efficienza operativa e sull'ottimizzazione dei costi.
 
@@ -179,7 +179,7 @@ text33 = """
 
 Il grafico rivela una tendenza significativa nell'evoluzione temporale della trasformazione digitale nelle aziende intervistate. La distribuzione temporale dei progetti digitali evidenzia un punto di svolta fondamentale che merita un'analisi approfondita.
 
-#### La Trasformazione Digitale: Un Percorso in Accelerazione
+#### la trasformazione digitale: un percorso in accelerazione
 
 L'analisi temporale dell'avvio di progetti digitali mostra chiaramente che siamo di fronte a un fenomeno in fase di rapida evoluzione. La maggior parte delle aziende del campione si trova ancora nelle fasi iniziali del proprio percorso di trasformazione digitale, con una concentrazione significativa di iniziative avviate dopo il 2020.
 
@@ -193,13 +193,13 @@ Il grafico offre una prospettiva illuminante sulla relazione tra il coinvolgimen
 
 I grafici presentano quattro dinamiche chiave nella trasformazione digitale aziendale:
 
-1. **Leadership come catalizzatore**: Esiste una chiara correlazione positiva tra coinvolgimento dei leader e avvio di progetti digitali. I leader attivamente impegnati favoriscono l'implementazione di iniziative digitali attraverso un approccio top-down che supera resistenze organizzative e garantisce risorse adeguate.
+1. **leadership come catalizzatore**: esiste una chiara correlazione positiva tra coinvolgimento dei leader e avvio di progetti digitali. i leader attivamente impegnati favoriscono l'implementazione di iniziative digitali attraverso un approccio top-down che supera resistenze organizzative e garantisce risorse adeguate.
 
-2. **Innovazione bottom-up**: Significativamente, 5 aziende hanno avviato progetti digitali nonostante leader "Non coinvolti", dimostrando che l'innovazione può emergere dal basso attraverso manager intermedi visionari, pressioni competitive, iniziative dipartimentali o richieste di clienti. Il supporto dirigenziale, pur importante, non è quindi sempre indispensabile.
+2. **innovazione bottom-up**: significativamente, 5 aziende hanno avviato progetti digitali nonostante leader "non coinvolti", dimostrando che l'innovazione può emergere dal basso attraverso manager intermedi visionari, pressioni competitive, iniziative dipartimentali o richieste di clienti. il supporto dirigenziale, pur importante, non è quindi sempre indispensabile.
 
-3. **Soffitto di vetro digitale**: Nessuna azienda ha raggiunto livelli avanzati di maturità digitale, indipendentemente dal coinvolgimento dirigenziale. Questo fenomeno riflette la complessità sistemica della trasformazione digitale, che richiede non solo tecnologie ma cambiamenti organizzativi, culturali e competenze specialistiche spesso inadeguate.
+3. **soffitto di vetro digitale**: nessuna azienda ha raggiunto livelli avanzati di maturità digitale, indipendentemente dal coinvolgimento dirigenziale. questo fenomeno riflette la complessità sistemica della trasformazione digitale, che richiede non solo tecnologie ma cambiamenti organizzativi, culturali e competenze specialistiche spesso inadeguate.
 
-4. **Polarizzazione dirigenziale**: L'assenza di leader "minimamente coinvolti" evidenzia una tendenza all'impegno "tutto o niente": i dirigenti o si disimpegnano completamente o assumono un ruolo almeno moderatamente attivo, riconoscendo che la trasformazione digitale richiede un impegno sostanziale.
+4. **polarizzazione dirigenziale**: l'assenza di leader "minimamente coinvolti" evidenzia una tendenza all'impegno "tutto o niente": i dirigenti o si disimpegnano completamente o assumono un ruolo almeno moderatamente attivo, riconoscendo che la trasformazione digitale richiede un impegno sostanziale.
 """
 
 ############## ANALISI CORRELAZIONE ###
@@ -218,9 +218,9 @@ Il grafico rivela una correlazione positiva tra la percentuale di budget investi
 
 La notevole percentuale di aziende che non hanno specificato il budget investito rappresenta un dato rilevante. Questo potrebbe riflettere:
 
-- Una difficoltà oggettiva nel tracciare con precisione i costi della digitalizzazione, spesso distribuiti tra diversi centri di costo
-- Una possibile mancanza di governance finanziaria dedicata ai progetti digitali
-- Una reticenza strategica a condividere informazioni considerate sensibili per il posizionamento competitivo
+- una difficoltà oggettiva nel tracciare con precisione i costi della digitalizzazione, spesso distribuiti tra diversi centri di costo
+- una possibile mancanza di governance finanziaria dedicata ai progetti digitali
+- una reticenza strategica a condividere informazioni considerate sensibili per il posizionamento competitivo
 """
 
 text37 = """
@@ -228,10 +228,10 @@ L'analisi evidenzia una correlazione inversa tra il livello di investimento e l'
 
 Particolarmente significativo è il fatto che le problematiche di implementazione persistano anche in presenza di investimenti più consistenti. Questo suggerisce che la trasformazione digitale comporta sfide intrinseche che trascendono la mera disponibilità di risorse finanziarie:
 
-- Complessità nell'integrazione di nuove tecnologie con sistemi legacy
-- Necessità di gestire il cambiamento organizzativo e culturale
-- Difficoltà nel reperire competenze specialistiche sul mercato
-- Sfide nella gestione della complessità progettuale
+- complessità nell'integrazione di nuove tecnologie con sistemi legacy
+- necessità di gestire il cambiamento organizzativo e culturale
+- difficoltà nel reperire competenze specialistiche sul mercato
+- sfide nella gestione della complessità progettuale
 """
 
 text38 = """
