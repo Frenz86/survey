@@ -283,7 +283,8 @@ def main():
     elif st.session_state.selected_subcategory == "Relazioni e Valore economico":
         st.markdown("### Analisi descrittiva - Relazioni e valore economico")
         st.markdown("""
-                    xxxx
+                    * **Adozione disomogenea e focalizzazione operativa**: I dati mostrano un'adozione significativa delle tecnologie digitali (73,8% crea valore attraverso strumenti digitali nelle relazioni esterne), ma con una netta preferenza per la digitalizzazione dei processi operativi (50% di consenso) rispetto all'integrazione strategica delle risorse digitali (solo 28,4%). Questa disparità riflette il "Pattern della Discrepanza Infrastrutturale" identificato nell'analisi, dove l'alta adozione di hardware (82,2%) non corrisponde a un'equivalente digitalizzazione dei processi (37%), evidenziando un approccio ancora prevalentemente tattico e orientato all'efficienza operativa piuttosto che all'innovazione strategica.
+                    * **Ecosistema digitale in formazione**: L'analisi delle piattaforme collaborative rivela che il 39,2% delle aziende utilizza strumenti digitali per la collaborazione, un dato che, combinato con l'elevata percentuale di "nessuna risposta" (36,5%) su questo tema, suggerisce un ecosistema digitale territoriale ancora in fase di consolidamento. Questa situazione rispecchia il più ampio contesto rilevato dall'Osservatorio, in cui si evidenzia un tessuto imprenditoriale in movimento (93,8% ha avviato percorsi di digitalizzazione) ma con livelli di maturità molto differenziati e con significative opportunità di sviluppo nell'orchestrazione delle relazioni digitali inter-aziendali e nella valorizzazione dei dati come asset strategico.
                     """)        
 
         grafico_rel = GraficoRelazioni(df)
