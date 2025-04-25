@@ -9,7 +9,17 @@ import numpy as np
 def main():
    pio.templates.default = "plotly"    
    st.title('Analisi ECO-FIN')
-   
+
+   st.markdown("""
+                <div style="text-align: justify;">
+
+                * **Digital Maturity come driver della soddisfazione ma non direttamente della performance finanziaria**: La matrice di correlazione rivela una relazione moderatamente positiva (+0.46) tra maturità digitale e soddisfazione aziendale, suggerendo che l'implementazione efficace di tecnologie digitali migliora la percezione generale dell'organizzazione. Tuttavia, la correlazione molto debole tra Digital Maturity e indicatori finanziari (EBITDA/Vendite +0.17, ROI 0.00) evidenzia come la digitalizzazione non si traduca automaticamente in migliori risultati economici, ma probabilmente operi attraverso fattori intermedi come l'efficienza operativa, la cultura organizzativa e la capacità di innovazione, creando benefici che maturano nel tempo piuttosto che immediati ritorni finanziari.
+                * **Stabilità e performance superiori nelle aziende digitalmente mature**: L'analisi della distribuzione dell'EBITDA/Vendite per livello di maturità digitale mostra un pattern illuminante: le aziende completamente orientate al digitale (livello 5) non solo presentano una mediana superiore (>20%) rispetto alle aziende meno digitalizzate (<10%), ma mostrano anche una minore variabilità nei risultati. Questa convergenza verso performance più stabili e prevedibili suggerisce che la maturità digitale potrebbe fungere da stabilizzatore, riducendo la vulnerabilità a fattori esterni e incrementando la resilienza operativa. La riduzione della dispersione dei dati nei livelli più alti di maturità digitale rappresenta forse il vantaggio competitivo più significativo della trasformazione digitale.
+                * **Criticità evolutive nel percorso di trasformazione**: L'analisi delle criticità rivela come le problematiche cambino lungo il percorso di maturità digitale. Se le "Problematiche di Implementazione" rappresentano la sfida dominante (45% dei casi), particolarmente interessante è l'emergere di questioni di "Governance" nelle aziende di livello intermedio (3-4), suggerendo come al progredire della trasformazione le difficoltà si spostino dagli aspetti tecnico-operativi a quelli organizzativo-gestionali. L'"Allineamento tra strategia e attività" appare invece come un problema trasversale, evidenziando la persistente sfida di mantenere coerenza tra visione strategica ed esecuzione operativa in contesti di rapida evoluzione tecnologica.
+                * **Divergenza settoriale nell'impatto della digitalizzazione**: Le performance settoriali mostrano un quadro differenziato nell'impatto della digitalizzazione: il settore Servizi presenta un EBITDA/Vendite medio del 18% (contro il 12% del Manifatturiero) e un ROI più stabile (15% vs 10%), suggerendo che i modelli di business service-oriented potrebbero beneficiare più rapidamente della trasformazione digitale. Il settore Manifatturiero, pur caratterizzato da maggiore variabilità nelle performance, mostra la presenza di eccellenze con EBITDA/Vendite superiori al 25%, indicando come anche in contesti produttivi tradizionali la digitalizzazione possa generare vantaggi competitivi significativi quando pienamente integrata nella catena del valore.
+                </div>
+                """,unsafe_allow_html=True)
+
    DATASET_PATH = '../data/new.xlsx'
    try:
        df = st.session_state.get('data', {}).get('ecofin')
