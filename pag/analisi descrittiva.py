@@ -4,15 +4,6 @@ import plotly.io as pio
 from .func import Funz, GraficoInfrastruttura, GraficoRelazioni, GraficoFigure
 from .descrizione import * #tutti i text1,text2...etc etc
 
-st.markdown("""
-<style>
-.justified-text {
-    text-align: justify;
-}
-</style>
-""", unsafe_allow_html=True)
-
-
 def create_section(title, plot_function, explanation=None):
     """Create a section with a plot and optional explanation."""
     col_left, col_center, col_right = st.columns([1, 4, 1])
@@ -140,6 +131,13 @@ def main():
     if st.session_state.selected_subcategory == "Intervistato":
         st.markdown("### Analisi descrittiva - Intervistato")
         st.markdown("""
+                    <style>
+                    .justified-text {
+                        text-align: justify;
+                    }
+                    </style>
+                    """, unsafe_allow_html=True)
+        st.markdown("""
                     <div class="justified-text">
                     xxx
                     </div>
@@ -166,6 +164,13 @@ def main():
 
     elif st.session_state.selected_subcategory == "Maturità Digitale":
         st.markdown("### Analisi descrittiva - Maturità Digitale")
+        st.markdown("""
+                    <style>
+                    .justified-text {
+                        text-align: justify;
+                    }
+                    </style>
+                    """, unsafe_allow_html=True)        
         st.markdown("""
         <div class="justified-text">
 
@@ -201,6 +206,13 @@ def main():
 
     elif st.session_state.selected_subcategory == "Figure con Competenze Digitali":
         st.markdown("### Analisi descrittiva - Figure con Competenze Digitali")
+        st.markdown("""
+                    <style>
+                    .justified-text {
+                        text-align: justify;
+                    }
+                    </style>
+                    """, unsafe_allow_html=True)
         st.markdown("""
                     <div class="justified-text">
                     * **Polarizzazione delle esperienze**: Il campione evidenzia una forte presenza sia di professionisti con esperienza consolidata (oltre 20 anni) che di figure relativamente nuove (0-5 anni), con una distribuzione bimodale che riflette la natura emergente della trasformazione digitale. Questa composizione non è interpretabile come un ricambio generazionale in atto, ma piuttosto come la necessità di incorporare competenze digitali specifiche non sempre disponibili nelle aziende consolidate. Tale polarizzazione crea potenzialmente un terreno fertile per la cross-fertilization di competenze: da un lato l'esperienza di settore e la conoscenza profonda dei processi aziendali, dall'altro la familiarità con le nuove tecnologie e l'apertura all'innovazione.
@@ -256,6 +268,13 @@ def main():
     elif st.session_state.selected_subcategory == "Infrastrutture Digitali":
         st.markdown("### Analisi descrittiva - Infrastrutture digitali")
         st.markdown("""
+                    <style>
+                    .justified-text {
+                        text-align: justify;
+                    }
+                    </style>
+                    """, unsafe_allow_html=True)
+        st.markdown("""
                     <div class="justified-text">
                     * **Paradosso delle infrastrutture**: L'analisi rivela un significativo divario tra l'adozione di hardware tangibile (82,2%) e l'effettiva integrazione di questi strumenti nei processi aziendali (digitalizzazione processi 37%). Le aziende sembrano aver investito adeguatamente in infrastrutture fisiche e dispositivi, creando così una base tecnologica, ma mostrano lacune considerevoli nell'implementazione di soluzioni software avanzate e nell'integrazione tra diversi sistemi. Questo paradosso riflette una tendenza a concentrarsi sugli aspetti più visibili e concreti della digitalizzazione (computer, server, dispositivi mobili) piuttosto che sulle componenti architetturali e applicative che generano effettivo valore di business. Tale squilibrio può generare una "valle dell'implementazione" dove gli investimenti tecnologici non producono i ritorni attesi perché non adeguatamente integrati nei flussi di lavoro e nei processi decisionali.
                     * **Priorità alla sicurezza**: Gli investimenti in sicurezza informatica (79,4%) emergono come area prioritaria nell'allocazione delle risorse tecnologiche, posizionandosi subito dopo l'hardware nelle preferenze di investimento. Questa focalizzazione riflette probabilmente la crescente consapevolezza dei rischi cyber, amplificata da fattori come l'aumento degli attacchi informatici, l'evoluzione normativa (GDPR, NIS2) e la maggiore attenzione mediatica verso incidenti di sicurezza. La sicurezza sembra essere percepita come un prerequisito abilitante, una condizione necessaria per procedere con altre iniziative digitali, evidenziando un approccio prudente che antepone la protezione degli asset esistenti all'innovazione.
@@ -302,6 +321,13 @@ def main():
     elif st.session_state.selected_subcategory == "Relazioni e Valore economico":
         st.markdown("### Analisi descrittiva - Relazioni e valore economico")
         st.markdown("""
+                    <style>
+                    .justified-text {
+                        text-align: justify;
+                    }
+                    </style>
+                    """, unsafe_allow_html=True)
+        st.markdown("""
                     <div class="justified-text">
                     * **Adozione disomogenea e focalizzazione operativa**: I dati mostrano un'adozione significativa delle tecnologie digitali (73,8% crea valore attraverso strumenti digitali nelle relazioni esterne), ma con una netta preferenza per la digitalizzazione dei processi operativi (50% di consenso) rispetto all'integrazione strategica delle risorse digitali (solo 28,4%). Questa disparità riflette il "Pattern della Discrepanza Infrastrutturale" identificato nell'analisi, dove l'alta adozione di hardware (82,2%) non corrisponde a un'equivalente digitalizzazione dei processi (37%), evidenziando un approccio ancora prevalentemente tattico e orientato all'efficienza operativa piuttosto che all'innovazione strategica.
                     * **Ecosistema digitale in formazione**: L'analisi delle piattaforme collaborative rivela che il 39,2% delle aziende utilizza strumenti digitali per la collaborazione, un dato che, combinato con l'elevata percentuale di "nessuna risposta" (36,5%) su questo tema, suggerisce un ecosistema digitale territoriale ancora in fase di consolidamento. Questa situazione rispecchia il più ampio contesto rilevato dall'Osservatorio, in cui si evidenzia un tessuto imprenditoriale in movimento (93,8% ha avviato percorsi di digitalizzazione) ma con livelli di maturità molto differenziati e con significative opportunità di sviluppo nell'orchestrazione delle relazioni digitali inter-aziendali e nella valorizzazione dei dati come asset strategico.
@@ -340,6 +366,13 @@ def main():
 
     elif st.session_state.selected_subcategory == "Transizione Digitale":
         st.markdown("### Analisi descrittiva - Transizione Digitale")
+        st.markdown("""
+                    <style>
+                    .justified-text {
+                        text-align: justify;
+                    }
+                    </style>
+                    """, unsafe_allow_html=True)
         st.markdown("""
                     <div class="justified-text">
                     * **Fenomeno recente**: La trasformazione digitale strutturata emerge dall'analisi come un fenomeno significativamente recente nel panorama aziendale esaminato. Ben il 39,2% delle aziende ha avviato questo percorso solo dal 2020 in poi, evidenziando un punto di svolta temporale chiaramente identificabile. Questo timing non appare casuale ma coincide con l'inizio della pandemia COVID-19, che ha rappresentato un potente catalizzatore esterno, trasformando la digitalizzazione da opzione strategica a necessità operativa per garantire la continuità aziendale. I dati suggeriscono un "effetto compressione" nella curva di adozione: processi che in condizioni normali avrebbero richiesto anni sono stati condensati in pochi mesi, generando un'accelerazione forzata che, seppur positiva nell'immediato, potrebbe aver portato a implementazioni tattiche più che a trasformazioni strategiche pianificate.
@@ -398,6 +431,13 @@ def main():
 
     elif st.session_state.selected_subcategory == "Soddisfazione e miglioramenti":
         st.markdown("### Analisi descrittiva - Soddisfazione e miglioramenti")
+        st.markdown("""
+                    <style>
+                    .justified-text {
+                        text-align: justify;
+                    }
+                    </style>
+                    """, unsafe_allow_html=True)
         st.markdown("""
                     <div class="justified-text">
                     * **Focus sull'efficienza**: L'analisi dei benefici percepiti dalle iniziative di trasformazione digitale evidenzia una netta prevalenza di risultati legati all'efficienza operativa e all'ottimizzazione dei costi. Tra i principali miglioramenti segnalati emergono la riduzione dei costi diretti e indiretti (27 risposte), la riduzione del personale (26 risposte) e il miglioramento della produzione per i clienti (18 risposte). Significativamente minori risultano invece i riferimenti a benefici legati alla crescita strategica, all'espansione di mercato o all'innovazione di prodotto e servizio. Questa distribuzione conferma l'approccio prevalentemente tattico alla digitalizzazione, orientato al miglioramento incrementale dell'esistente piuttosto che alla generazione di nuove opportunità di business. Tale orientamento, sebbene comprensibile nell'immediato per il suo ROI più facilmente quantificabile, rischia di limitare il potenziale trasformativo delle tecnologie digitali, posizionando le aziende in una traiettoria di ottimizzazione piuttosto che di reinvenzione.
