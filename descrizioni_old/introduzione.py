@@ -219,6 +219,8 @@ La ricerca evidenzia come il successo della trasformazione digitale non dipenda 
 
 ## Risultati dell'Analisi Dimensionale
 
+
+
 ### Principali correlazioni identificate
 
 * Maturità digitale e soddisfazione: Le aziende con progetti digitali avviati riportano livelli di soddisfazione significativamente più elevati rispetto a quelle non digitalizzate o con progetti interrotti.
@@ -227,10 +229,19 @@ La ricerca evidenzia come il successo della trasformazione digitale non dipenda 
 * Paradosso delle competenze: Emerge una dinamica controintuitiva: le aziende con progetti interrotti presentano professionisti con competenze di livello eccellente nelle aree strategiche, ma mancano di contesti applicativi e collaborativi per valorizzarle.
 * Leadership e innovazione: La leadership emerge come catalizzatore fondamentale, ma si evidenzia anche la possibilità di innovazione bottom-up attraverso manager intermedi visionari o pressioni competitive.
 
+
+
+
 ### Evoluzione temporale e contesto storico
 
 * Accelerazione post-2020: Si registra una netta concentrazione di iniziative digitali avviate dopo il 2020, evidenziando il ruolo catalizzatore della pandemia COVID-19.
 * Effetto compressione: Processi che in condizioni normali avrebbero richiesto anni sono stati condensati in pochi mesi, generando un'accelerazione significativa nell'adozione di soluzioni digitali.
+
+
+
+
+
+
 
 ## Risultati dell'Analisi Economico-Finanziaria
 

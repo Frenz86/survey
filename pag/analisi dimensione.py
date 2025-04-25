@@ -4,6 +4,15 @@ import pandas as pd
 from .key import Key
 from .descrizione import * #tutti i text1,text2...etc etc
 
+st.markdown("""
+            <style>
+            .justified-text {
+                text-align: justify;
+            }
+            </style>
+            """, unsafe_allow_html=True)
+
+
 def create_section(title, function, df=None, explanation=None):
     """Create a section with a plot and optional explanation."""
     col_left, col_center, col_right = st.columns([1, 4, 1])
@@ -19,6 +28,14 @@ def main():
     # Set default plotly template
     pio.templates.default = "plotly"    
     st.title('Analisi Dimensionale')
+
+    st.markdown("""
+                <div class="justified-text">
+
+                * **xx**: xx
+                </div>
+                """,unsafe_allow_html=True)
+
 
     DATASET_PATH = '../data/cleaned_data.xlsx'
     try:
