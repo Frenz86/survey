@@ -214,12 +214,17 @@ class Funz:
                 column_widths=[0.5, 0.5]
             )
 
+            num_categories = len(maturity_levels)
+        
+            # Use the colors available, repeating if necessary
+            colors = [self.colors_red[i % len(self.colors_red)] for i in range(num_categories)]
+
             # Add pie chart with custom percentages
             fig.add_trace(
                 go.Pie(
                     labels=maturity_levels.index,
                     values=maturity_levels.values,
-                    marker=dict(colors=self.colors_red[:len(maturity_levels)]),
+                    marker=dict(colors=colors),
                     textinfo='percent+label',
                     textposition='outside',
                     pull=[0.1] * len(maturity_levels),
@@ -237,7 +242,7 @@ class Funz:
                     y=maturity_levels.values,
                     text=percentages.round(1).astype(str) + '%',
                     textposition='outside',
-                    marker=dict(color=self.colors_red[:len(maturity_levels)]),  # Bar charts use 'color' (singular)
+                    marker=dict(color=colors),  # Bar charts use 'color' (singular)
                     showlegend=False
                 ),
                 row=1, col=2
