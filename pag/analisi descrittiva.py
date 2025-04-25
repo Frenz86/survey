@@ -4,6 +4,14 @@ import plotly.io as pio
 from .func import Funz, GraficoInfrastruttura, GraficoRelazioni, GraficoFigure
 from .descrizione import * #tutti i text1,text2...etc etc
 
+st.markdown("""
+<style>
+.justified-text {
+    text-align: justify;
+}
+</style>
+""", unsafe_allow_html=True)
+
 
 def create_section(title, plot_function, explanation=None):
     """Create a section with a plot and optional explanation."""
@@ -159,12 +167,13 @@ def main():
     elif st.session_state.selected_subcategory == "Maturità Digitale":
         st.markdown("### Analisi descrittiva - Maturità Digitale")
         st.markdown("""
-<div style="text-align: justify;">
-* **Difficoltà autovalutativa**: La maggioranza delle aziende (74,3%) non risponde alla domanda sul livello di maturità digitale, riflettendo una sostanziale difficoltà nel comprendere e analizzare il complesso mondo della digital transformation. Questo fenomeno non è riconducibile a semplice reticenza strategica, ma evidenzia una più profonda incertezza nella comprensione dei paradigmi e delle implicazioni organizzative della trasformazione digitale. Le aziende sembrano mancare di parametri chiari e framework condivisi per autovalutare oggettivamente il proprio posizionamento nel percorso di digitalizzazione.
-* **Approccio pragmatico**: Le aziende mostrano una significativa maggiore facilità nel riconoscere e descrivere azioni specifiche e progetti concreti rispetto a valutare uno stato complessivo di maturità digitale. Questo orientamento al "fare" piuttosto che al "pianificare strategicamente" riflette un approccio incrementale alla trasformazione, dove l'adozione di singole soluzioni tecnologiche prevale sulla definizione di una visione integrata. Tale comportamento potrebbe limitare la capacità di sfruttare appieno le sinergie tra diverse iniziative digitali.
-* **Investimenti contenuti**: La maggioranza delle aziende destina meno del 10% del budget complessivo alla digitalizzazione (29,3% investe meno del 5% e 24,1% tra il 5% e il 10%), evidenziando una possibile sottovalutazione della complessità e dell'impatto potenziale della trasformazione digitale. Questo livello di investimento, sebbene consenta l'implementazione di soluzioni tattiche, risulta generalmente insufficiente per una trasformazione strategica e sistemica dei modelli di business e dei processi operativi. È significativo che il 27,6% delle aziende non sia in grado di quantificare gli investimenti effettuati, suggerendo una carenza di governance finanziaria specifica per i progetti digitali.
-</div>
-                    """,unsafe_allow_html=True)  
+        <div class="justified-text">
+
+        * **Difficoltà autovalutativa**: La maggioranza delle aziende (74,3%) non risponde alla domanda sul livello di maturità digitale, riflettendo una sostanziale difficoltà nel comprendere e analizzare il complesso mondo della digital transformation. Questo fenomeno non è riconducibile a semplice reticenza strategica, ma evidenzia una più profonda incertezza nella comprensione dei paradigmi e delle implicazioni organizzative della trasformazione digitale. Le aziende sembrano mancare di parametri chiari e framework condivisi per autovalutare oggettivamente il proprio posizionamento nel percorso di digitalizzazione.
+        * **Approccio pragmatico**: Le aziende mostrano una significativa maggiore facilità nel riconoscere e descrivere azioni specifiche e progetti concreti rispetto a valutare uno stato complessivo di maturità digitale. Questo orientamento al "fare" piuttosto che al "pianificare strategicamente" riflette un approccio incrementale alla trasformazione, dove l'adozione di singole soluzioni tecnologiche prevale sulla definizione di una visione integrata. Tale comportamento potrebbe limitare la capacità di sfruttare appieno le sinergie tra diverse iniziative digitali.
+        * **Investimenti contenuti**: La maggioranza delle aziende destina meno del 10% del budget complessivo alla digitalizzazione (29,3% investe meno del 5% e 24,1% tra il 5% e il 10%), evidenziando una possibile sottovalutazione della complessità e dell'impatto potenziale della trasformazione digitale. Questo livello di investimento, sebbene consenta l'implementazione di soluzioni tattiche, risulta generalmente insufficiente per una trasformazione strategica e sistemica dei modelli di business e dei processi operativi. È significativo che il 27,6% delle aziende non sia in grado di quantificare gli investimenti effettuati, suggerendo una carenza di governance finanziaria specifica per i progetti digitali.
+        </div>
+        """, unsafe_allow_html=True)
 
 
         create_section(
