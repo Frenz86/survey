@@ -10,6 +10,7 @@ def main():
     #     st.image("./img/ecosistemi.jpg")
         text= """
 <div style="text-align: justify;">
+
 # Lo Stato della Trasformazione Digitale nelle Imprese del Territorio
 
 ## Sintesi dei risultati dell'Osservatorio sulla Maturità Digitale 2024
