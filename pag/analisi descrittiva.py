@@ -132,10 +132,10 @@ def main():
     if st.session_state.selected_subcategory == "Intervistato":
         st.markdown("### Analisi descrittiva - Intervistato")
         st.markdown("""
-<div style="text-align: justify;">
-xxx
-</div>
-                    """)    
+                    <div style="text-align: justify;">
+                    xxx
+                    </div>
+                    """,unsafe_allow_html=True)    
 
         create_section(
                         title='Distribuzione Anni di Esperienza degli intervistati',
@@ -154,17 +154,17 @@ xxx
 ###################################################  Maturità Digitale  #################################################
         # st.markdown("""
         #             xxx       
-        #             """)
+        #             """,unsafe_allow_html=True)  
 
     elif st.session_state.selected_subcategory == "Maturità Digitale":
         st.markdown("### Analisi descrittiva - Maturità Digitale")
         st.markdown("""
-<div style="text-align: justify;">
-* **Difficoltà autovalutativa**: La maggioranza delle aziende (74,3%) non risponde alla domanda sul livello di maturità digitale, riflettendo una sostanziale difficoltà nel comprendere e analizzare il complesso mondo della digital transformation. Questo fenomeno non è riconducibile a semplice reticenza strategica, ma evidenzia una più profonda incertezza nella comprensione dei paradigmi e delle implicazioni organizzative della trasformazione digitale. Le aziende sembrano mancare di parametri chiari e framework condivisi per autovalutare oggettivamente il proprio posizionamento nel percorso di digitalizzazione.
-* **Approccio pragmatico**: Le aziende mostrano una significativa maggiore facilità nel riconoscere e descrivere azioni specifiche e progetti concreti rispetto a valutare uno stato complessivo di maturità digitale. Questo orientamento al "fare" piuttosto che al "pianificare strategicamente" riflette un approccio incrementale alla trasformazione, dove l'adozione di singole soluzioni tecnologiche prevale sulla definizione di una visione integrata. Tale comportamento potrebbe limitare la capacità di sfruttare appieno le sinergie tra diverse iniziative digitali.
-* **Investimenti contenuti**: La maggioranza delle aziende destina meno del 10% del budget complessivo alla digitalizzazione (29,3% investe meno del 5% e 24,1% tra il 5% e il 10%), evidenziando una possibile sottovalutazione della complessità e dell'impatto potenziale della trasformazione digitale. Questo livello di investimento, sebbene consenta l'implementazione di soluzioni tattiche, risulta generalmente insufficiente per una trasformazione strategica e sistemica dei modelli di business e dei processi operativi. È significativo che il 27,6% delle aziende non sia in grado di quantificare gli investimenti effettuati, suggerendo una carenza di governance finanziaria specifica per i progetti digitali.
-</div>
-                    """)
+                    <div style="text-align: justify;">
+                    * **Difficoltà autovalutativa**: La maggioranza delle aziende (74,3%) non risponde alla domanda sul livello di maturità digitale, riflettendo una sostanziale difficoltà nel comprendere e analizzare il complesso mondo della digital transformation. Questo fenomeno non è riconducibile a semplice reticenza strategica, ma evidenzia una più profonda incertezza nella comprensione dei paradigmi e delle implicazioni organizzative della trasformazione digitale. Le aziende sembrano mancare di parametri chiari e framework condivisi per autovalutare oggettivamente il proprio posizionamento nel percorso di digitalizzazione.
+                    * **Approccio pragmatico**: Le aziende mostrano una significativa maggiore facilità nel riconoscere e descrivere azioni specifiche e progetti concreti rispetto a valutare uno stato complessivo di maturità digitale. Questo orientamento al "fare" piuttosto che al "pianificare strategicamente" riflette un approccio incrementale alla trasformazione, dove l'adozione di singole soluzioni tecnologiche prevale sulla definizione di una visione integrata. Tale comportamento potrebbe limitare la capacità di sfruttare appieno le sinergie tra diverse iniziative digitali.
+                    * **Investimenti contenuti**: La maggioranza delle aziende destina meno del 10% del budget complessivo alla digitalizzazione (29,3% investe meno del 5% e 24,1% tra il 5% e il 10%), evidenziando una possibile sottovalutazione della complessità e dell'impatto potenziale della trasformazione digitale. Questo livello di investimento, sebbene consenta l'implementazione di soluzioni tattiche, risulta generalmente insufficiente per una trasformazione strategica e sistemica dei modelli di business e dei processi operativi. È significativo che il 27,6% delle aziende non sia in grado di quantificare gli investimenti effettuati, suggerendo una carenza di governance finanziaria specifica per i progetti digitali.
+                    </div>
+                    """,unsafe_allow_html=True)  
 
 
         create_section(
@@ -199,7 +199,7 @@ xxx
                     * **Gap nelle competenze avanzate**: Si registra una significativa carenza percepita nelle capacità strategiche, analitiche (58,1% di valutazioni positive) e innovative (63,5% di valutazioni positive) necessarie per capitalizzare strategicamente sugli investimenti tecnologici. Queste competenze avanzate - che includono la capacità di analizzare grandi quantità di dati, identificare pattern significativi, sviluppare soluzioni innovative e tradurle in vantaggio competitivo - risultano essenziali per evolvere da un approccio tattico a uno strategico nella trasformazione digitale. La difficoltà nel reperire e sviluppare tali competenze rappresenta uno dei principali ostacoli alla piena maturità digitale.
                     * **Approcci tradizionali al talent management**: Le strategie per attrarre e sviluppare talenti digitali si basano principalmente su metodi tradizionali come formazione (33,3%) e reclutamento (30,3%), con un utilizzo significativamente minore di metodologie innovative come hackathon e conferenze tecnologiche (5,05%) o programmi di mentoring e coaching (9,09%). Colpisce l'assenza di approcci come innovation lab, digital academy interne, reverse mentoring o collaborazioni strutturate con università. Questa predominanza di metodi convenzionali potrebbe limitare la capacità delle aziende di attrarre profili altamente specializzati in un mercato del lavoro digitale sempre più competitivo.
                     </div>
-                    """)
+                    """,unsafe_allow_html=True)  
 
 
         grafico_figure = GraficoFigure(df)
@@ -252,7 +252,7 @@ xxx
                     * **Priorità alla sicurezza**: Gli investimenti in sicurezza informatica (79,4%) emergono come area prioritaria nell'allocazione delle risorse tecnologiche, posizionandosi subito dopo l'hardware nelle preferenze di investimento. Questa focalizzazione riflette probabilmente la crescente consapevolezza dei rischi cyber, amplificata da fattori come l'aumento degli attacchi informatici, l'evoluzione normativa (GDPR, NIS2) e la maggiore attenzione mediatica verso incidenti di sicurezza. La sicurezza sembra essere percepita come un prerequisito abilitante, una condizione necessaria per procedere con altre iniziative digitali, evidenziando un approccio prudente che antepone la protezione degli asset esistenti all'innovazione.
                     * **Adozione limitata del cloud**: I servizi cloud mostrano livelli di adozione significativamente inferiori rispetto ad altre tecnologie, emergendo come una delle aree di maggiore ritardo. Questa limitazione rappresenta un potenziale freno all'innovazione, alla scalabilità e alla flessibilità operativa delle aziende. La minore propensione verso soluzioni cloud potrebbe essere attribuibile a vari fattori: preoccupazioni sulla sicurezza e sovranità dei dati, resistenza culturale al cambiamento dei modelli operativi, mancanza di competenze specifiche per la gestione di ambienti cloud ibridi o multi-cloud, e difficoltà nella valutazione dei costi effettivi (passaggio da CapEx a OpEx). Questo ritardo nell'adozione del cloud rischia di ostacolare l'accesso delle aziende a tecnologie avanzate come AI, analytics distribuiti e microservizi, che si basano prevalentemente su architetture cloud-native.        
                     </div>
-                    """)        
+                    """,unsafe_allow_html=True)        
 
         grafico_infr = GraficoInfrastruttura(df)
         
@@ -297,7 +297,7 @@ xxx
                     * **Adozione disomogenea e focalizzazione operativa**: I dati mostrano un'adozione significativa delle tecnologie digitali (73,8% crea valore attraverso strumenti digitali nelle relazioni esterne), ma con una netta preferenza per la digitalizzazione dei processi operativi (50% di consenso) rispetto all'integrazione strategica delle risorse digitali (solo 28,4%). Questa disparità riflette il "Pattern della Discrepanza Infrastrutturale" identificato nell'analisi, dove l'alta adozione di hardware (82,2%) non corrisponde a un'equivalente digitalizzazione dei processi (37%), evidenziando un approccio ancora prevalentemente tattico e orientato all'efficienza operativa piuttosto che all'innovazione strategica.
                     * **Ecosistema digitale in formazione**: L'analisi delle piattaforme collaborative rivela che il 39,2% delle aziende utilizza strumenti digitali per la collaborazione, un dato che, combinato con l'elevata percentuale di "nessuna risposta" (36,5%) su questo tema, suggerisce un ecosistema digitale territoriale ancora in fase di consolidamento. Questa situazione rispecchia il più ampio contesto rilevato dall'Osservatorio, in cui si evidenzia un tessuto imprenditoriale in movimento (93,8% ha avviato percorsi di digitalizzazione) ma con livelli di maturità molto differenziati e con significative opportunità di sviluppo nell'orchestrazione delle relazioni digitali inter-aziendali e nella valorizzazione dei dati come asset strategico.
                     </div>
-                    """)        
+                    """,unsafe_allow_html=True)         
 
         grafico_rel = GraficoRelazioni(df)
         
@@ -340,7 +340,7 @@ xxx
                     * **Coinvolgimento parziale della leadership**: L'analisi del livello di coinvolgimento della leadership nei processi di trasformazione digitale evidenzia un quadro complesso: mentre circa il 46% dei leader risulta fortemente o completamente coinvolto, emerge un significativo 21,6% di "Per niente coinvolto" e un altro 22% solo "Parzialmente coinvolto". Questo limitato engagement di numerosi leader aziendali costituisce probabilmente uno dei principali ostacoli al pieno successo delle iniziative di trasformazione. La mancanza di sponsorship al vertice si traduce spesso in insufficiente allocazione di risorse, scarsa prioritizzazione strategica e difficoltà nel gestire efficacemente il cambiamento organizzativo e culturale necessario. Il dato suggerisce anche una polarizzazione dell'impegno dirigenziale ("tutto o niente"), riflettendo la consapevolezza che la trasformazione digitale richiede un coinvolgimento sostanziale per produrre risultati significativi.
                     
                     </div>
-                    """)      
+                    """,unsafe_allow_html=True)        
 
         create_section(
                         title='Processo di Trasformazione Digitale',
