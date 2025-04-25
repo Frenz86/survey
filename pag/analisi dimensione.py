@@ -4,14 +4,6 @@ import pandas as pd
 from .key import Key
 from .descrizione import * #tutti i text1,text2...etc etc
 
-st.markdown("""
-            <style>
-            .justified-text {
-                text-align: justify;
-            }
-            </style>
-            """, unsafe_allow_html=True)
-
 
 def create_section(title, function, df=None, explanation=None):
     """Create a section with a plot and optional explanation."""
@@ -30,7 +22,7 @@ def main():
     st.title('Analisi Dimensionale')
 
     st.markdown("""
-                <div class="justified-text">
+                <div style="text-align: justify;">
 
                 * **xx**: xx
                 </div>

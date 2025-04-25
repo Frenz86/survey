@@ -18,6 +18,16 @@ def create_section(title, function, df=None, explanation=None):
 def main():
     pio.templates.default = "plotly"    
     st.title('Analisi Correlazione')
+
+    st.markdown("""
+                <div style="text-align: justify;">
+
+                * **xx**: xx
+                </div>
+                """,unsafe_allow_html=True)
+
+
+
     DATASET_PATH = '../data/cleaned_data.xlsx'
     try:
         df = st.session_state.get('data', {}).get('survey')
