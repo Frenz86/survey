@@ -29,34 +29,45 @@ def load_dataset():
 
 
 def get_pages():
- 
-
-    PAGES = 'pag' # cartella con le pagine, non usare pages!!!
+    PAGES = 'pag'  # cartella con le pagine, non usare pages!!!
     pages = []
     icons = []
     modules = []
     
     BLACKLIST_FILES = ['__init__', 'test','key','func','corr','ANNINA','_template_page','descrizione']  # aggiungi qui i file da escludere    
-    # page_order = []
+    
+    # Ordine delle pagine
     page_order = ['introduzione','analisi descrittiva','analisi dimensione','analisi correlazione','analisi ecofin','conclusione','self analysis']
 
+    # Mappatura dei nomi dei file con i nomi da visualizzare
+    page_name_mapping = {
+                        'introduzione': 'Introduzione al Progetto',
+                        'analisi descrittiva': 'Analisi Descrittiva',
+                        'analisi dimensione': 'Analisi Dimensionale',
+                        'analisi correlazione': 'Studio delle Correlazioni',
+                        'analisi ecofin': 'Analisi Economico-Finanziaria',
+                        'conclusione': 'Conclusioni',
+                        'self analysis': 'Auto Analisi',
+                        # Aggiungi qui altri mapping secondo necessità
+    }
+    
+    # Mapping icone
+    icon_mapping = {
+        'introduzione': 'bi-person-raised-hand',
+        'analisi descrittiva': 'bi-bullseye',
+        'analisi dimensione': 'bi-fire',
+        'analisi correlazione': 'bi-feather',
+        'analisi ecofin': 'bi-currency-euro',
+        'conclusione': 'bi-lightbulb',
+        'self analysis': 'bi-graph-up',
+    }
+    
     files = [f[:-3] for f in os.listdir(PAGES) if f.endswith('.py') and f[:-3] not in BLACKLIST_FILES]
     files.sort(key=lambda x: page_order.index(x) if x in page_order else len(page_order))
     
-    # Mapping icon 
-    icon_mapping = {
-                    #https://icons.getbootstrap.com/
-                    'introduzione': 'bi-person-raised-hand',
-                    'analisi descrittiva': 'bi-bullseye',
-                    'analisi dimensione': 'bi-fire',
-                    'analisi correlazione': 'bi-feather',
-                    'analisi ecofin': 'bi-currency-euro',
-                    'conclusione': 'bi-lightbulb',
-                    'self analysis': 'bi-graph-up',
-                    }
-    
     for file in files:
-        page_name = file.capitalize()
+        # Usa il nome personalizzato dal mapping, se disponibile, altrimenti usa il nome del file capitalizzato
+        page_name = page_name_mapping.get(file, file.capitalize())
         pages.append(page_name)        
         icons.append(icon_mapping.get(file, 'bi-file'))        
         module = importlib.import_module(f'{PAGES}.{file}')
