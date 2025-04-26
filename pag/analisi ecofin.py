@@ -8,7 +8,7 @@ import numpy as np
 
 def main():
    pio.templates.default = "plotly"    
-   st.title('Analisi ECO-FIN')
+   st.title('Analisi Economico-Finanziaria')
 
    st.markdown("""
                 <div style="text-align: justify;">

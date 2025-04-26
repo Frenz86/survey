@@ -19,7 +19,7 @@ def create_section(title, function, df=None, explanation=None):
 def main():
     # Set default plotly template
     pio.templates.default = "plotly"    
-    st.title('Analisi Dimensionale')
+    st.title('Analisi Relazioni Chiave')
 
     st.markdown("""
                 <div style="text-align: justify;">

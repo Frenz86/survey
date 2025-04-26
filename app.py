@@ -49,18 +49,18 @@ def get_pages():
                         'conclusione': 'Conclusioni',
                         'self analysis': 'Self-Analysis',
                         # Aggiungi qui altri mapping secondo necessità
-    }
+                        }
     
     # Mapping icone
     icon_mapping = {
-        'introduzione': 'bi-person-raised-hand',
-        'analisi descrittiva': 'bi-bullseye',
-        'analisi dimensione': 'bi-fire',
-        'analisi correlazione': 'bi-feather',
-        'analisi ecofin': 'bi-currency-euro',
-        'conclusione': 'bi-lightbulb',
-        'self analysis': 'bi-graph-up',
-    }
+                    'introduzione': 'bi-person-raised-hand',
+                    'analisi descrittiva': 'bi-bullseye',
+                    'analisi dimensione': 'bi-fire',
+                    'analisi correlazione': 'bi-feather',
+                    'analisi ecofin': 'bi-currency-euro',
+                    'conclusione': 'bi-lightbulb',
+                    'self analysis': 'bi-graph-up',
+                    }
     
     files = [f[:-3] for f in os.listdir(PAGES) if f.endswith('.py') and f[:-3] not in BLACKLIST_FILES]
     files.sort(key=lambda x: page_order.index(x) if x in page_order else len(page_order))
