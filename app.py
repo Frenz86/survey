@@ -41,13 +41,13 @@ def get_pages():
 
     # Mappatura dei nomi dei file con i nomi da visualizzare
     page_name_mapping = {
-                        'introduzione': 'Introduzione al Progetto',
+                        'introduzione': 'Introduzione',
                         'analisi descrittiva': 'Analisi Descrittiva',
-                        'analisi dimensione': 'Analisi Dimensionale',
-                        'analisi correlazione': 'Studio delle Correlazioni',
+                        'analisi dimensione': 'Analisi Relazioni Chiave',
+                        'analisi correlazione': 'Driver di Trasformazione',
                         'analisi ecofin': 'Analisi Economico-Finanziaria',
                         'conclusione': 'Conclusioni',
-                        'self analysis': 'Auto Analisi',
+                        'self analysis': 'Self-Analysis',
                         # Aggiungi qui altri mapping secondo necessità
     }
     
