@@ -99,13 +99,63 @@ def create_difference_chart(categories, differences):
         st.error(f"Error creating difference chart: {str(e)}")
         return None
 
-def display_detailed_data(comparison_df):
+def calculate_weighted_average(comparison_df, weights=(1, 3, 3, 3, 1)):
     """
-    Display detailed comparison data
+    Calcola la media pesata dei punteggi utilizzando i pesi specificati.
+    
+    Args:
+        comparison_df (pandas.DataFrame): DataFrame contenente i dati di confronto
+        weights (tuple): Pesi da applicare alle colonne in ordine di indici
+        
+    Returns:
+        pandas.DataFrame: DataFrame originale con una colonna aggiuntiva per il punteggio finale pesato
     """
     try:
-        st.header("Dati Dettagliati")
-        st.dataframe(comparison_df, hide_index=True)
+        # Verifica che il numero di pesi corrisponda al numero di colonne numeriche
+        numeric_cols = comparison_df.select_dtypes(include=['number']).columns
+        
+        if len(weights) != len(numeric_cols):
+            raise ValueError(f"Il numero di pesi ({len(weights)}) non corrisponde al numero di colonne numeriche ({len(numeric_cols)})")
+        
+        # Crea una copia del dataframe per non modificare l'originale
+        result_df = comparison_df.copy()
+        
+        # Calcola la media pesata
+        weighted_sum = 0
+        weights_sum = sum(weights)
+        
+        for i, col in enumerate(numeric_cols):
+            weighted_sum += comparison_df[col] * weights[i]
+        
+        result_df['Punteggio Finale'] = weighted_sum / weights_sum
+        
+        return result_df
+    
+    except Exception as e:
+        print(f"Errore nel calcolo della media pesata: {str(e)}")
+        return comparison_df
+
+
+def display_detailed_data(labels,comparison_df, weights=(1, 3, 3, 3, 1)):
+    """
+    Display detailed comparison data with weighted average score
+    """
+    try:
+        # Calcola il punteggio finale con media pesata
+        result_df = calculate_weighted_average(comparison_df, weights)
+        
+        st.header("Dati di Confronto:")
+        st.dataframe(result_df, hide_index=True)
+        
+        # Opzionalmente, evidenzia i punteggi finali
+        st.subheader(f"{labels}:")
+        score = result_df[['Punteggio Finale']].iloc[0,0].round(2)
+        a, b = st.columns(2)
+
+        a.metric(f"Punteggio pesato", score)
+
+        
+        
     except Exception as e:
         st.error(f"Error displaying detailed data: {str(e)}")
 
@@ -137,160 +187,6 @@ def display_difference_analysis(company_data, df, categories):
     except Exception as e:
         st.error(f"Error in difference analysis: {str(e)}")
 
-def generate_recommendations(company_data, top_performer, categories):
-    """
-    Generate detailed, industry-specific recommendations based on comparison with top performer
-    """
-    recommendations = {}
-    
-    # Definizione corretta del dizionario delle raccomandazioni
-    category_recommendations = {
-        'grado_di_criticità': {
-            'excellent': """
-                • Eccellente gestione delle criticità
-                • Prossimi step:
-                  - Rafforzamento dei sistemi preventivi
-                  - Sviluppo di modelli predittivi
-                  - Automazione del risk management
-                • Mantenimento degli standard elevati""",
-            'good': """
-                • Buona gestione, spazio per miglioramento
-                • Azioni consigliate:
-                  - Potenziamento del monitoraggio
-                  - Sviluppo procedure di risposta
-                  - Formazione del personale
-                • Implementazione best practice""",
-            'poor': """
-                • Necessità di migliorare la gestione criticità
-                • Interventi prioritari:
-                  - Mappatura dei rischi principali
-                  - Sviluppo procedure di emergenza
-                  - Formazione intensiva del team
-                • Monitoraggio continuo della situazione"""
-        },
-        'grado_di_soddisfazione': {
-            'excellent': """
-                • Eccellente livello di soddisfazione
-                • Focus su:
-                  - Mantenimento degli standard elevati
-                  - Innovazione continua nei servizi
-                  - Anticipazione delle esigenze future
-                • Condivisione delle best practice""",
-            'good': """
-                • Buon livello di soddisfazione, spazio per miglioramento
-                • Azioni raccomandate:
-                  - Analisi dettagliata dei feedback
-                  - Ottimizzazione dei processi di customer service
-                  - Implementazione di sistemi di monitoraggio avanzati
-                • Sviluppo di nuove iniziative customer-centric""",
-            'poor': """
-                • Necessità di miglioramento nella soddisfazione
-                • Interventi prioritari:
-                  - Analisi approfondita delle criticità
-                  - Revisione dei processi di customer service
-                  - Implementazione di sistemi di feedback
-                • Piano di azione immediato per punti critici"""
-        },
-        'livello_di_maturita': {
-            'excellent': """
-                • Leadership nella maturità digitale
-                • Prossimi step:
-                  - Innovazione continua dei processi
-                  - Sviluppo di nuove competenze avanzate
-                  - Sperimentazione con tecnologie emergenti
-                • Consolidamento della posizione di leadership""",
-            'good': """
-                • Buon livello di maturità digitale
-                • Aree di miglioramento:
-                  - Potenziamento delle competenze esistenti
-                  - Ottimizzazione dei processi digitali
-                  - Incremento dell'automazione
-                • Sviluppo di una roadmap di evoluzione""",
-            'poor': """
-                • Necessità di accelerare la maturità digitale
-                • Piano d'azione:
-                  - Assessment completo delle competenze
-                  - Formazione intensiva del personale
-                  - Implementazione di processi digitali base
-                • Definizione di obiettivi di trasformazione chiari"""
-        },
-        'livello_di_trasformazione_digitale': {
-            'excellent': """
-                • Eccellenza nella trasformazione digitale
-                • Opportunità di sviluppo:
-                  - Implementazione di tecnologie avanzate
-                  - Creazione di nuovi modelli operativi
-                  - Leadership nell'innovazione di settore
-                • Condivisione delle esperienze di successo""",
-            'good': """
-                • Buon progresso nella trasformazione
-                • Azioni consigliate:
-                  - Accelerazione dei progetti digitali
-                  - Rafforzamento delle competenze chiave
-                  - Ampliamento delle iniziative esistenti
-                • Monitoraggio continuo dei risultati""",
-            'poor': """
-                • Necessità di accelerare la trasformazione
-                • Interventi prioritari:
-                  - Definizione di una strategia digitale chiara
-                  - Implementazione di progetti pilota
-                  - Formazione intensiva del personale
-                • Creazione di un team dedicato"""
-        },
-        'impatto_efficienza': {
-            'excellent': """
-                • Massima efficienza operativa
-                • Focus su:
-                  - Ottimizzazione continua dei processi
-                  - Innovazione nei metodi di lavoro
-                  - Sviluppo di nuovi standard
-                • Mantenimento dell'eccellenza""",
-            'good': """
-                • Buona efficienza, margini di miglioramento
-                • Azioni raccomandate:
-                  - Analisi delle aree di inefficienza
-                  - Implementazione di soluzioni mirate
-                  - Monitoraggio delle performance
-                • Definizione di nuovi obiettivi""",
-            'poor': """
-                • Necessità di migliorare l'efficienza
-                • Piano d'azione:
-                  - Audit completo dei processi
-                  - Identificazione delle priorità
-                  - Implementazione di soluzioni immediate
-                • Monitoraggio dei risultati"""
-        }}
-    
-    # Generazione delle raccomandazioni
-    for cat in categories:
-        try:
-            gap = top_performer[cat].iloc[0] - company_data[cat].iloc[0]
-            gap_percentage = (gap / 5) * 100  # Assuming max score is 5
-            
-            if gap_percentage <= 10:
-                status = 'excellent'
-                priority = 3
-                status_text = 'Eccellente'
-            elif gap_percentage <= 30:
-                status = 'good'
-                priority = 2
-                status_text = 'Buono'
-            else:
-                status = 'poor'
-                priority = 1
-                status_text = 'Da migliorare'
-            
-            recommendations[cat] = {
-                'status': status_text,
-                'gap': gap,
-                'message': category_recommendations.get(cat, {}).get(status, 'Analisi dettagliata non disponibile per questa categoria.'),
-                'priority': priority
-            }
-        except Exception as e:
-            st.error(f"Errore nell'elaborazione della categoria {cat}: {str(e)}")
-            continue
-            
-    return recommendations
 
 def display_recommendations(recommendations, categories):
     """
@@ -424,7 +320,7 @@ def main():
         st.plotly_chart(fig, use_container_width=True)
     
     # Display detailed data
-    display_detailed_data(comparison_df)
+    display_detailed_data(labels[0],comparison_df)
     
     # Display difference analysis if sector average is selected
     if "Media di tutte le aziende" in comparison_type:

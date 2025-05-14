@@ -253,7 +253,7 @@ Il seguente sistema di raccomandazioni è organizzato in base ai tre livelli di 
 
 1. **Impresa con un approccio digitale Frammentato** (punteggio 1-2)
 2. **Impresa in Fase di Transizione** (punteggio 3-4)
-3. **Impresa Digitalmente Matura** (punteggio 5)
+3. **Impresa Digitalmente Matura** (punteggio 4-5)
 
 Per ciascun livello, forniamo:
 
@@ -371,7 +371,7 @@ La vostra azienda ha avviato un percorso di trasformazione digitale e ha già im
 - **Commento**: Gli investimenti digitali stanno iniziando a generare effetti positivi sulla marginalità, ma il potenziale è ancora in gran parte inespresso.
 - **Azione consigliata**: Condurre un'analisi dettagliata dei processi che impattano maggiormente sulla marginalità e implementare soluzioni digitali mirate per ottimizzarli.
 
-## 3. Impresa Digitalmente Matura (Punteggio 5)
+## 3. Impresa Digitalmente Matura (Punteggio 4-5)
 
 ### Commento Diagnostico
 
