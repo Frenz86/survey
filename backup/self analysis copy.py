@@ -1,10 +1,60 @@
 import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
-from .descrizione import text40
 
 
-istruzioni = text40
+istruzioni = """
+
+## 1. Zero Criticità
+
+Questa categoria riguarda la gestione dei rischi e delle situazioni critiche nell'organizzazione:
+
+* **Eccellente**: L'organizzazione ha sviluppato un sistema avanzato di gestione delle criticità, con focus su approcci preventivi, modelli predittivi e automazione del risk management.
+* **Buono**: C'è una gestione adeguata ma con margini di miglioramento, puntando sul potenziamento del monitoraggio, sviluppo di procedure di risposta e formazione.
+* **Scarso**: Richiede interventi prioritari nella mappatura dei rischi, sviluppo di procedure d'emergenza e formazione intensiva del team.
+
+## 2. Soddisfazione
+
+Misura il livello di soddisfazione degli utenti o clienti:
+
+* **Eccellente**: Focus sul mantenimento di standard elevati, innovazione continua e anticipazione delle esigenze future.
+* **Buono**: Prevede analisi dettagliata dei feedback, ottimizzazione dei processi di customer service e implementazione di sistemi di monitoraggio avanzati.
+* **Scarso**: Necessita di analisi approfondita delle criticità, revisione dei processi di customer service e implementazione di sistemi di feedback strutturati.
+
+## 3. Maturità (Digitale)
+
+Valuta il livello di maturità digitale dell'organizzazione:
+
+* **Eccellente**: Posizione di leadership con focus su innovazione continua, sviluppo di competenze avanzate e sperimentazione con tecnologie emergenti.
+* **Buono**: Prevede potenziamento delle competenze esistenti, ottimizzazione dei processi digitali e incremento dell'automazione.
+* **Scarso**: Richiede un assessment completo delle competenze, formazione intensiva e implementazione di processi digitali di base.
+
+## 4. Trasformazione Digitale
+
+Valuta lo stato di avanzamento della trasformazione digitale:
+
+* **Eccellente**: Caratterizzata dall'implementazione di tecnologie avanzate, creazione di nuovi modelli operativi e leadership nell'innovazione di settore.
+* **Buono**: Richiede accelerazione dei progetti digitali, rafforzamento delle competenze chiave e ampliamento delle iniziative esistenti.
+* **Scarso**: Necessita di una strategia digitale chiara, implementazione di progetti pilota e formazione intensiva del personale.
+
+## 5. Impatto Efficienza
+
+Misura l'efficienza operativa e l'ottimizzazione dei processi:
+
+* **Eccellente**: Focus su ottimizzazione continua, innovazione nei metodi di lavoro e sviluppo di nuovi standard.
+* **Buono**: Prevede analisi delle aree di inefficienza, implementazione di soluzioni mirate e monitoraggio delle performance.
+* **Scarso**: Richiede un audit completo dei processi, identificazione delle priorità e implementazione di soluzioni immediate.
+
+## Caratteristiche comuni a tutte le categorie:
+
+1. **Struttura a tre livelli**: Ogni categoria è valutata su tre livelli (eccellente, buono, scarso)
+2. **Raccomandazioni pratiche**: Per ogni livello sono fornite azioni specifiche
+3. **Approccio incrementale**: Le raccomandazioni sono calibrate in base al livello attuale
+4. **Orientamento all'azione**: Tutte includono piani d'azione concreti e implementabili
+
+Questo framework permette una valutazione completa della maturità organizzativa su diversi assi, facilitando l'identificazione delle aree di forza e di quelle che richiedono intervento, per guidare un processo di miglioramento strutturato e consapevole.
+
+"""
 
 
 def load_data(file_path):
@@ -145,7 +195,7 @@ def generate_recommendations(company_data, top_performer, categories):
     
     # Definizione corretta del dizionario delle raccomandazioni
     category_recommendations = {
-        'grado_di_criticità': {
+        'zero_criticita': {
             'excellent': """
                 • Eccellente gestione delle criticità
                 • Prossimi step:
@@ -168,7 +218,7 @@ def generate_recommendations(company_data, top_performer, categories):
                   - Formazione intensiva del team
                 • Monitoraggio continuo della situazione"""
         },
-        'grado_di_soddisfazione': {
+        'soddisfazione': {
             'excellent': """
                 • Eccellente livello di soddisfazione
                 • Focus su:
@@ -191,7 +241,7 @@ def generate_recommendations(company_data, top_performer, categories):
                   - Implementazione di sistemi di feedback
                 • Piano di azione immediato per punti critici"""
         },
-        'livello_di_maturita': {
+        'maturita': {
             'excellent': """
                 • Leadership nella maturità digitale
                 • Prossimi step:
@@ -214,7 +264,7 @@ def generate_recommendations(company_data, top_performer, categories):
                   - Implementazione di processi digitali base
                 • Definizione di obiettivi di trasformazione chiari"""
         },
-        'livello_di_trasformazione_digitale': {
+        'trasformazione_digitale': {
             'excellent': """
                 • Eccellenza nella trasformazione digitale
                 • Opportunità di sviluppo:
@@ -259,7 +309,8 @@ def generate_recommendations(company_data, top_performer, categories):
                   - Identificazione delle priorità
                   - Implementazione di soluzioni immediate
                 • Monitoraggio dei risultati"""
-        }}
+        }
+    }
     
     # Generazione delle raccomandazioni
     for cat in categories:
@@ -298,9 +349,10 @@ def display_recommendations(recommendations, categories):
     """
     # st.write("Debug - Recommendations:", recommendations)
     # st.write("Debug - Categories for display:", categories)
+    st.header("Analisi e Raccomandazioni")
 
 
-    
+    st.markdown(istruzioni)
 
     # Sort recommendations by priority
     sorted_cats = sorted(categories, 
@@ -361,11 +413,12 @@ def main():
     df = load_data(DATASET_PATH)
     if df is None:
         return
+    
     #####
     
-    st.title("Sistema di Raccomandazioni per la Maturità Digitale")
-    st.markdown(""" La self analysis è uno strumento visuale che permette di valutare la performance di un'organizzazione, di un progetto o di un'attività attraverso un'analisi strutturata. Ecco come interpretare e utilizzare efficacemente qualsiasi report di self analysis.
-                """)
+    st.title("Self Analysis Comparativa")
+    st.markdown(""" La self analysis è uno strumento potente che permette di valutare la performance di un'organizzazione, di un progetto o di un'attività attraverso un'analisi strutturata. Ecco come interpretare e utilizzare efficacemente qualsiasi report di self analysis.
+""")
     categories = [col for col in df.columns if col != 'Azienda']
     
     # Sidebar selections
@@ -416,7 +469,7 @@ def main():
             comparison_df = pd.concat([comparison_df, anon_top_df])
             
             # Generate recommendations but don't display them yet
-            # recommendations = generate_recommendations(company_data, top_performer, categories)
+            recommendations = generate_recommendations(company_data, top_performer, categories)
     
     # Create and display radar chart
     fig = create_radar_chart(categories, values, labels, f"Confronto {selected_company}")
@@ -429,12 +482,10 @@ def main():
     # Display difference analysis if sector average is selected
     if "Media di tutte le aziende" in comparison_type:
         display_difference_analysis(company_data, df, categories)
-
-    st.markdown(istruzioni)
-
-    # # Display recommendations at the end if they were generated
-    # # if recommendations:
-    # display_recommendations(recommendations, categories)
+    
+    # Display recommendations at the end if they were generated
+    if recommendations:
+        display_recommendations(recommendations, categories)
 
 if __name__ == "__main__":
     main()

@@ -22,6 +22,15 @@ def main():
     st.markdown("""
                 <div style="text-align: justify;">
 
+                L'obiettivo conoscitivo di questa sezione è di illustrare la correlazione tra diversi fattori:
+
+                * **maturità digitale raggiunta dall'azienda e l'esperienza dell'intervistato**
+                * **budget investito e il grado di soddisfazione del vertice aziendale**
+                * **budget investito e le criticità riscontrate**
+                * **budget investito e l'efficienza riscontrata**
+
+                Di seguito tutte le correlazioni analizzate secondo le matrici di correlazioni lineari:
+
                 * **Sinergia intergenerazionale come fattore di successo digitale**: Il grafico rivela una relazione complessa tra esperienza professionale e maturità digitale, suggerendo che il successo nella trasformazione digitale non dipende tanto dall'anzianità professionale quanto dalla capacità organizzativa di creare sinergie produttive tra diverse generazioni. L'esperienza consolidata contribuisce con conoscenza settoriale e visione strategica, mentre le competenze più recenti portano familiarità tecnologica e apertura al cambiamento. La diffusa cautela nell'autodichiarare elevati livelli di maturità digitale potrebbe riflettere una consapevolezza più sofisticata delle reali potenzialità della digitalizzazione, oltre a una certa incertezza su cosa costituisca effettivamente "maturità digitale" in un panorama tecnologico in continua evoluzione.
                 * **Equilibrio tra investimento e allocazione efficace delle risorse**: Emerge una correlazione positiva tra budget investito in digitalizzazione e soddisfazione del vertice aziendale, ma questa relazione non è strettamente proporzionale. Anche investimenti moderati (5%-10%) generano livelli significativi di soddisfazione, suggerendo che l'efficacia nell'allocazione delle risorse può risultare più determinante dell'entità assoluta dell'investimento. La significativa percentuale di aziende che non specificano il budget investito riflette probabilmente una combinazione di fattori: difficoltà oggettive nel tracciare i costi della digitalizzazione distribuiti tra diversi centri di costo, possibili carenze nella governance finanziaria dedicata ai progetti digitali, e una comprensibile reticenza strategica nel condividere informazioni considerate sensibili per il posizionamento competitivo.
                 * **Persistenza delle sfide implementative oltre la disponibilità di risorse**: L'analisi evidenzia come le aziende con budget limitato (inferiore al 5%) affrontino difficoltà più pervasive nell'intero spettro del processo trasformativo. Tuttavia, è particolarmente significativo osservare che le problematiche di implementazione persistono anche in presenza di investimenti più consistenti, suggerendo che la trasformazione digitale comporta sfide intrinseche che trascendono la mera disponibilità finanziaria: complessità nell'integrazione tecnologica con sistemi esistenti, necessità di gestire il cambiamento organizzativo e culturale, difficoltà nel reperire competenze specialistiche, e sfide nella gestione della complessità progettuale.

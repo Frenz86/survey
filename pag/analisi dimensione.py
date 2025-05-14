@@ -24,6 +24,15 @@ def main():
     st.markdown("""
                 <div style="text-align: justify;">
 
+                ##### L'obiettivo conoscitivo di questa sezione è di cogliere le relazioni chiave tra i seguenti aspetti: 
+                *  **Maturità Digitale e Infrastrutture Digitali**
+                *  **Maturità Digitale e Soddisfazione**
+                *  **Maturità Digitale e Presenza Figure Competenti**
+                *  **Periodo di Inizio Transizione Digitale e Maturità Digitale Raggiunta**
+                *  **Grado di Coinvolgimento del Leader e Maturità Digitale Raggiunta**
+
+                Questa sezione esplora le interconnessioni fondamentali tra la maturità digitale aziendale e vari fattori organizzativi, offrendo un quadro analitico delle dinamiche che influenzano il successo della trasformazione digitale.
+
                 * **Correlazione tra maturità digitale e soddisfazione aziendale**: Emerge una chiara tendenza che collega il livello di avanzamento nei progetti digitali con la soddisfazione complessiva dell'organizzazione. Le aziende che hanno implementato iniziative digitali riportano livelli di gratificazione superiori rispetto a quelle che non hanno intrapreso o hanno interrotto percorsi di digitalizzazione. Significativa è anche l'ampia presenza di aziende che non forniscono risposta sulla propria maturità digitale, suggerendo una diffusa difficoltà nel valutare oggettivamente il proprio posizionamento nel percorso di trasformazione.
                 * **Ecosistema integrato come vero indicatore di maturità**: La vera maturità digitale si configura come un sistema olistico dove coesistono tre elementi fondamentali: l'integrazione efficace delle tecnologie in un'architettura unificata che supera i silos operativi, lo sviluppo mirato di competenze sia tecniche che trasversali, e l'allineamento strategico delle iniziative digitali con gli obiettivi di business. La maggior parte delle organizzazioni si trova ancora nelle fasi iniziali o intermedie di questo percorso, con un focus prevalentemente tattico su efficienza operativa e ottimizzazione dei costi, lasciando inesplorato il potenziale trasformativo più avanzato.
                 * **Formazione continua più determinante delle competenze individuali**: Un paradosso interessante emerge dal confronto tra aziende con progetti interrotti e quelle con progetti avviati. Le prime, nonostante dispongano di figure professionali con competenze eccellenti nelle aree strategiche, falliscono nel sostenere le iniziative digitali a causa di carenze nei sistemi di formazione continua. Al contrario, le aziende con progetti attivi mostrano un profilo di competenze più moderato ma uniformemente distribuito, distinguendosi per un sistema di aggiornamento professionale più robusto che permette loro di adattarsi costantemente al cambiamento.

@@ -129,7 +129,9 @@ def main():
 
 ###################################################  INTERVISTATO  #################################################
     if st.session_state.selected_subcategory == "Intervistato":
-        st.markdown("### Analisi descrittiva - Intervistato")
+        st.markdown("### Analisi descrittiva - Intervistato")     
+        st.markdown("##### L'obiettivo conoscitivo di questa sezione è cogliere le caratteristiche dell’intervistato in termini di durata del periodo lavorativo e della posizione occupata nell’organizzazione.")
+        
         st.markdown("""
                     <div style="text-align: justify;">
                     
@@ -158,7 +160,8 @@ def main():
         #             """,unsafe_allow_html=True)  
 
     elif st.session_state.selected_subcategory == "Maturità Digitale":
-        st.markdown("### Analisi descrittiva - Maturità Digitale") 
+        st.markdown("### Analisi descrittiva - Maturità Digitale")
+        st.markdown("##### L'obiettivo conoscitivo della sezione è di comprendere lo stato attuale di integrazione delle tecnologie digitali in azienda e l’individuazione della fase del processo di trasformazione digitale (pianificazione, analisi, implementazione) raggiunta dall'azienda. In ultimo viene indagata la percentuale del budget operativo allocato per la trasformazione digitale. ") 
         st.markdown("""
                     <div style="text-align: justify;">
 
@@ -194,6 +197,7 @@ def main():
 
     elif st.session_state.selected_subcategory == "Figure con Competenze Digitali":
         st.markdown("### Analisi descrittiva - Figure con Competenze Digitali")
+        st.markdown("##### L'obiettivo conoscitivo della sezione è di illustrare le attività aziendali mirate ad acquisire o sviluppare competenze digitali avanzate e la verifica delle competenze digitali nel capitale umano aziendale. ") 
         st.markdown("""
                     <div style="text-align: justify;">
 
@@ -249,6 +253,7 @@ def main():
 
     elif st.session_state.selected_subcategory == "Infrastrutture Digitali":
         st.markdown("### Analisi descrittiva - Infrastrutture digitali")
+        st.markdown("##### L'obiettivo conoscitivo della sezione è di far emergere la disponibilità interna di tecnologie hardware, software, cloud e sicurezza informatica. ") 
 
         st.markdown("""
                     <div style="text-align: justify;">
@@ -297,6 +302,7 @@ def main():
 
     elif st.session_state.selected_subcategory == "Relazioni e Valore economico":
         st.markdown("### Analisi descrittiva - Relazioni e valore economico")
+        st.markdown("##### L'obiettivo conoscitivo della sezione è l’analisi sul livello di interazione, piattaforme digitali e processi aziendali digitalizzati. ") 
         st.markdown("""
                     <div style="text-align: justify;">
 
@@ -337,6 +343,7 @@ def main():
 
     elif st.session_state.selected_subcategory == "Transizione Digitale":
         st.markdown("### Analisi descrittiva - Transizione Digitale")
+        st.markdown("##### L’obiettivo conoscitivo della sezione è l’analisi del periodo in cui è stata avviata una riflessione strutturata sulla digitalizzazione aziendale, la fonte dal quale sono provenuti gli stimoli, le strategie aziendali poste in essere per il coinvolgimento dei dipendenti, il grado di coinvolgimento della leadership ed infine gli ambiti in cui sono state applicate le tecnologie digitali aziendali. ") 
         st.markdown("""
                     <div style="text-align: justify;">
                     
@@ -395,6 +402,7 @@ def main():
 
     elif st.session_state.selected_subcategory == "Soddisfazione e miglioramenti":
         st.markdown("### Analisi descrittiva - Soddisfazione e miglioramenti")
+        st.markdown("##### L'obiettivo conoscitivo della sezione è di far emergere la soddisfazione generale derivata dal processo intrapreso, gli effetti economici e operativi e le ragioni principali che giustificano il livello di soddisfazione espresso. ") 
         st.markdown("""
                     <div style="text-align: justify;">
 
