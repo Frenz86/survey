@@ -177,11 +177,17 @@ def display_difference_analysis(company_data, df, categories):
             'Categoria': categories,
             'Differenza dalla media': differences
         })
+        # Format with style
+        styled_df = diff_from_mean.style.format({
+            'Differenza dalla media': '{:.2f}'
+        })
+
         st.dataframe(
             diff_from_mean.style.background_gradient(
                 cmap='RdYlGn',
                 subset=['Differenza dalla media']
-            ),
+            ).format({
+            'Differenza dalla media': '{:.2f}'}),
             hide_index=True
         )
     except Exception as e:
