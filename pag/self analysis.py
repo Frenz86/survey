@@ -331,6 +331,7 @@ def main():
     # # Display recommendations at the end if they were generated
     # # if recommendations:
     # display_recommendations(recommendations, categories)
+    
 
 if __name__ == "__main__":
     main()
