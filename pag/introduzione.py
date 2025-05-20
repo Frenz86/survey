@@ -13,13 +13,13 @@ def main():
 
 # Lo Stato della Trasformazione Digitale nelle Imprese del Territorio
 
-## Sintesi dei risultati dell'Osservatorio sulla Maturità Digitale 2024
+## Sintesi dei risultati dell'Osservatorio sulla Maturità Digitale 2025
 
 ## Introduzione
 
-L'**Osservatorio sulla Maturità Digitale 2024** nasce con l'obiettivo di comprendere lo stato di avanzamento dei processi di trasformazione digitale nelle imprese dell'area forlivese e di contribuire alla costruzione di un ecosistema digitale territoriale più consapevole, connesso e resiliente.
+L'**Osservatorio sulla Maturità Digitale 2025** nasce con l'obiettivo di comprendere lo stato di avanzamento dei processi di trasformazione digitale nelle imprese dell'area forlivese e di contribuire alla costruzione di un ecosistema digitale territoriale più consapevole, connesso e resiliente.
 
-La realizzazione di questo lavoro è stata resa possibile grazie al **contributo della Fondazione Cassa dei Risparmi di Forlì**, che ha dimostrato grande attenzione e sensibilità verso il tema, sostenendo non solo la ricerca, ma anche la sua diffusione all'interno della comunità imprenditoriale e istituzionale locale. La Fondazione si conferma così un attore cruciale nello sviluppo del territorio, promotore di innovazione e crescita sostenibile.
+La realizzazione di questo lavoro è stata resa possibile grazie al sostegno della **Fondazione Cassa dei Risparmi di Forlì**.
 
 ## Obiettivi e Framework della Ricerca
 
