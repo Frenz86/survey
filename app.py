@@ -61,6 +61,7 @@ def get_pages():
                     'analisi ecofin': 'bi-currency-euro',
                     'conclusione': 'bi-lightbulb',
                     'self analysis': 'bi-graph-up',
+                    'privacy': 'bi-file-text-fill',
                     }
     
     files = [f[:-3] for f in os.listdir(PAGES) if f.endswith('.py') and f[:-3] not in BLACKLIST_FILES]
