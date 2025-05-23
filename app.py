@@ -37,7 +37,7 @@ def get_pages():
     BLACKLIST_FILES = ['__init__', 'test','key','func','corr','ANNINA','_template_page','descrizione']  # aggiungi qui i file da escludere    
     
     # Ordine delle pagine
-    page_order = ['introduzione','analisi descrittiva','analisi dimensione','analisi correlazione','analisi ecofin','conclusione','self analysis']
+    page_order = ['introduzione','analisi descrittiva','analisi dimensione','analisi correlazione','analisi ecofin','conclusione','self analysis','privacy']
 
     # Mappatura dei nomi dei file con i nomi da visualizzare
     page_name_mapping = {
@@ -48,6 +48,7 @@ def get_pages():
                         'analisi ecofin': 'Analisi Economico-Finanziaria',
                         'conclusione': 'Conclusioni',
                         'self analysis': 'Self-Analysis',
+                        'privacy': 'Privacy e Policy',
                         # Aggiungi qui altri mapping secondo necessità
                         }
     
