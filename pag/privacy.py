@@ -14,47 +14,42 @@ def main():
 # INFORMATIVA SUL TRATTAMENTO DEI DATI PERSONALI
 *Art. 13 e 14 del Regolamento UE 2016/679 (GDPR)*
 
-## 1. TITOLARE DEL TRATTAMENTO
 
-Il titolare del trattamento dei dati personali è l'Università di Bologna, con sede legale in Via Zamboni, 33 - 40126 Bologna (BO), Codice Fiscale 80007010376 e Partita IVA 01131710376. Per ogni comunicazione relativa al trattamento dei dati personali è possibile contattare l'Ateneo all'indirizzo email privacy@unibo.it o tramite PEC all'indirizzo amministrazione.centrale@pec.unibo.it.
-
-L'Università di Bologna ha nominato un Responsabile della Protezione dei Dati (DPO) contattabile all'indirizzo dpo@unibo.it. Per questioni specifiche relative a questo progetto di ricerca, il referente è il Prof. Riccardo Silvi, raggiungibile all'indirizzo riccardo.silvi@unibo.it.
-
-## 2. FINALITÀ E BASE GIURIDICA DEL TRATTAMENTO
+## 1. FINALITÀ E BASE GIURIDICA DEL TRATTAMENTO
 
 Questo sito web è stato sviluppato per presentare i risultati di un'indagine sulla trasformazione digitale condotta dall'Università di Bologna. I dati dell'indagine visualizzati sono completamente aggregati e anonimizzati, il che significa che non è possibile identificare singole persone fisiche o giuridiche attraverso le informazioni mostrate. Il trattamento di questi dati aggregati trova la sua base giuridica nell'articolo 6, comma 1, lettera e) del GDPR, in quanto costituisce esecuzione di un compito di interesse pubblico nel campo della ricerca universitaria.
 
 Per quanto riguarda i dati tecnici di navigazione, questi vengono raccolti automaticamente per garantire il corretto funzionamento del sito web, la sicurezza informatica e per produrre statistiche aggregate di utilizzo. La base giuridica per questo trattamento è l'articolo 6, comma 1, lettera f) del GDPR, ovvero il legittimo interesse del titolare. Questi dati includono l'indirizzo IP, la data e ora di accesso, le pagine visitate e informazioni sul browser utilizzato.
 
-## 3. TIPOLOGIE DI DATI TRATTATI
+## 2. TIPOLOGIE DI DATI TRATTATI
 
 È importante chiarire che questo sito web non raccoglie direttamente alcun dato personale identificativo dai suoi visitatori. Non vengono richiesti né memorizzati dati anagrafici come nome, cognome o data di nascita, né dati di contatto quali email, numero di telefono o indirizzo di residenza. Inoltre, non vengono utilizzati cookie di profilazione o sistemi di tracciamento del comportamento di navigazione.
 
 I dati che vengono automaticamente raccolti durante la navigazione sono esclusivamente di natura tecnica e necessari per il funzionamento del servizio. L'indirizzo IP viene automaticamente pseudonimizzato dopo sette giorni dalla raccolta per garantire un ulteriore livello di protezione della privacy. Vengono inoltre registrati i timestamp di accesso, le pagine web visitate, il tipo di browser e sistema operativo utilizzato, sempre in forma aggregata e anonima per finalità statistiche.
 
-## 4. MODALITÀ DI TRATTAMENTO E SICUREZZA
+## 3. MODALITÀ DI TRATTAMENTO E SICUREZZA
 
 Il trattamento dei dati avviene esclusivamente mediante strumenti informatici e telematici, utilizzando modalità strettamente necessarie al raggiungimento delle finalità indicate e comunque garantendo sempre la sicurezza e la riservatezza delle informazioni. Tutte le comunicazioni tra il browser dell'utente e il server sono protette mediante cifratura HTTPS, mentre l'accesso ai sistemi è limitato esclusivamente al personale autorizzato dall'Università di Bologna.
 
 Vengono effettuati backup regolari e sicuri di tutti i dati, e tutti gli accessi ai sistemi sono costantemente monitorati per prevenire accessi non autorizzati. Le misure di sicurezza implementate rispettano gli standard più elevati in materia di protezione dei dati e vengono costantemente aggiornate in base all'evoluzione delle minacce informatiche.
 
-## 5. COMUNICAZIONE E DIFFUSIONE DEI DATI
+## 4. COMUNICAZIONE E DIFFUSIONE DEI DATI
 
 I dati raccolti possono essere comunicati a soggetti terzi solo nei casi strettamente necessari per il funzionamento del servizio o per adempimenti di legge. In particolare, il sito è ospitato sulla piattaforma Streamlit Cloud, gestita da Streamlit Inc. con sede negli Stati Uniti, che può accedere ai dati tecnici di navigazione per garantire il servizio di hosting. Questo provider è dotato di adeguate garanzie per i trasferimenti di dati extra-UE.
 
 Il personale tecnico dell'Università di Bologna autorizzato al trattamento può accedere ai dati per finalità di manutenzione e gestione del sistema. Inoltre, i dati possono essere comunicati alle autorità competenti nei casi espressamente previsti dalla legge, come richieste dell'autorità giudiziaria o per adempimenti fiscali.
 
-## 6. TRASFERIMENTI INTERNAZIONALI
+## 5. TRASFERIMENTI INTERNAZIONALI
 
 Considerando che il sito è ospitato su Streamlit Cloud negli Stati Uniti, alcuni dati tecnici possono essere trasferiti al di fuori dell'Unione Europea. Questi trasferimenti avvengono nel rispetto della normativa europea e sono basati su decisioni di adeguatezza della Commissione Europea, clausole contrattuali standard approvate dalla Commissione, oppure su altre misure tecniche e organizzative appropriate che garantiscono un livello di protezione sostanzialmente equivalente a quello assicurato dal GDPR.
 
-## 7. TEMPI DI CONSERVAZIONE
+## 6. TEMPI DI CONSERVAZIONE
 
 I dati tecnici di navigazione vengono conservati per un periodo massimo di dodici mesi dalla loro raccolta, termine ritenuto necessario per garantire la sicurezza del sistema e produrre statistiche anonime di utilizzo. I log di sicurezza vengono invece conservati per un massimo di sei mesi per consentire l'individuazione di eventuali tentativi di accesso non autorizzato.
 
 I dati aggregati e anonimi relativi alla ricerca sulla trasformazione digitale, non contenendo alcun elemento identificativo, vengono conservati indefinitamente per finalità scientifiche, storiche e statistiche, in conformità alle disposizioni del GDPR che prevedono eccezioni per questo tipo di utilizzi.
 
-## 8. DIRITTI DELL'INTERESSATO
+## 7. DIRITTI DELL'INTERESSATO
 
 In conformità agli articoli da 15 a 22 del GDPR, ogni visitatore del sito ha il diritto di richiedere l'accesso ai propri dati personali per ottenere informazioni dettagliate sui trattamenti effettuati. È inoltre possibile richiedere la rettifica di eventuali dati inesatti o incompleti, oppure la cancellazione dei dati quando non sussistono più le finalità per le quali erano stati raccolti.
 
@@ -78,7 +73,7 @@ Possono essere utilizzati anche cookie di preferenze per migliorare l'esperienza
 
 ## 12. INFORMAZIONI DI CONTATTO
 
-Per qualsiasi informazione relativa a questa informativa privacy o per chiarimenti sul trattamento dei dati personali, è possibile contattare il referente del progetto all'indirizzo riccardo.silvi@unibo.it. Per questioni più generali relative alla privacy, l'Ufficio Privacy dell'Università di Bologna è disponibile all'indirizzo privacy@unibo.it, mentre il Responsabile della Protezione dei Dati può essere contattato all'indirizzo dpo@unibo.it.
+Per qualsiasi informazione relativa a questa informativa privacy o per chiarimenti sul trattamento dei dati personali, è possibile contattare il referente del progetto Prof. Riccardo Silvi all'indirizzo riccardo.silvi@unibo.it. Per questioni più generali relative alla privacy, l'Ufficio Privacy dell'Università di Bologna è disponibile all'indirizzo privacy@unibo.it, mentre il Responsabile della Protezione dei Dati può essere contattato all'indirizzo dpo@unibo.it.
 
 ---
 
