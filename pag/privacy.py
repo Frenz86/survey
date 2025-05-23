@@ -55,7 +55,6 @@ In conformità agli articoli da 15 a 22 del GDPR, ogni visitatore del sito ha il
 
 Gli interessati possono anche richiedere la limitazione del trattamento in determinate circostanze previste dalla legge, oppure opporsi al trattamento per motivi legittimi legati alla propria situazione particolare. Dove applicabile, è riconosciuto il diritto alla portabilità dei dati, ovvero il diritto di ricevere i propri dati in un formato strutturato e leggibile da dispositivo automatico.
 
-Per esercitare questi diritti è possibile contattare l'Università di Bologna agli indirizzi email privacy@unibo.it, tramite PEC all'indirizzo amministrazione.centrale@pec.unibo.it, oppure mediante posta ordinaria presso l'Ufficio Privacy dell'Università di Bologna, Via Zamboni 33, 40126 Bologna.
 
 ## 9. DIRITTO DI RECLAMO
 
@@ -73,7 +72,7 @@ Possono essere utilizzati anche cookie di preferenze per migliorare l'esperienza
 
 ## 12. INFORMAZIONI DI CONTATTO
 
-Per qualsiasi informazione relativa a questa informativa privacy o per chiarimenti sul trattamento dei dati personali, è possibile contattare il referente del progetto Prof. Riccardo Silvi all'indirizzo riccardo.silvi@unibo.it. Per questioni più generali relative alla privacy, l'Ufficio Privacy dell'Università di Bologna è disponibile all'indirizzo privacy@unibo.it, mentre il Responsabile della Protezione dei Dati può essere contattato all'indirizzo dpo@unibo.it.
+Per qualsiasi informazione relativa a questa informativa privacy o per chiarimenti sul trattamento dei dati personali, è possibile contattare il referente del progetto Prof. Riccardo Silvi all'indirizzo riccardo.silvi@unibo.it. 
 
 ---
 
