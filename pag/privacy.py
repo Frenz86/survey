@@ -73,6 +73,7 @@ Possono essere utilizzati anche cookie di preferenze per migliorare l'esperienza
 ## 12. INFORMAZIONI DI CONTATTO
 
 Per qualsiasi informazione relativa a questa informativa privacy o per chiarimenti sul trattamento dei dati personali, è possibile contattare il referente del progetto.
+
 ---
 
 **Data di ultima modifica**: 23 maggio 2025  
